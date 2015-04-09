@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.util.Arrays;
 
@@ -15,13 +14,12 @@ public class Image {
     @Id
     private String _ID;
 
-    @Field("OWNERID")
     private String ownerId;
 
-    @Field("IMAGEID")
     private String imageId; // Generate a uuid for each image and store the file on the system
 
     private Double latitude;
+    private String location;
 
     private Double longitude;
 

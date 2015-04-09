@@ -14,13 +14,10 @@ public class Comment {
     @Id
     private String _ID;
 
-    @Field("USERID")
     private String userId;
 
-    @Field("COMMENT")
     private String comment;
 
-    @Field("TIMESTAMP")
     private Date timeStamp;
 
     public Comment() {
