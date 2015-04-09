@@ -8,7 +8,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
 import java.util.Date;
 
 @Document
-@JsonIgnoreProperties({"_ID"})
+//@JsonIgnoreProperties({"_ID"})
 public class Comment {
 
     @Id
