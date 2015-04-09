@@ -19,7 +19,7 @@ public class Album {
 
     private String ownerId;
 
-    private String grantedUserIds;
+    private String[] grantedUserIds;
 
     @DBRef
     private Image[] images;
@@ -28,14 +28,14 @@ public class Album {
 
     }
 
-    public Album(String name, String ownerId, String grantedUserIds, Image[] images) {
+    public Album(String name, String ownerId, String[] grantedUserIds, Image[] images) {
         this.name = name;
         this.ownerId = ownerId;
         this.grantedUserIds = grantedUserIds;
         this.images = images;
     }
 
-    public Album(String _ID, String name, String ownerId, String grantedUserIds, Image[] images) {
+    public Album(String _ID, String name, String ownerId, String[] grantedUserIds, Image[] images) {
         this._ID = _ID;
         this.name = name;
         this.ownerId = ownerId;
@@ -67,11 +67,11 @@ public class Album {
         this.ownerId = ownerId;
     }
 
-    public String getGrantedUserIds() {
+    public String[] getGrantedUserIds() {
         return grantedUserIds;
     }
 
-    public void setGrantedUserIds(String grantedUserIds) {
+    public void setGrantedUserIds(String[] grantedUserIds) {
         this.grantedUserIds = grantedUserIds;
     }
 
@@ -89,7 +89,7 @@ public class Album {
                 "_ID='" + _ID + '\'' +
                 ", name='" + name + '\'' +
                 ", ownerId='" + ownerId + '\'' +
-                ", grantedUserIds='" + grantedUserIds + '\'' +
+                ", grantedUserIds='" + Arrays.toString(grantedUserIds) + '\'' +
                 ", images=" + Arrays.toString(images) +
                 '}';
     }
