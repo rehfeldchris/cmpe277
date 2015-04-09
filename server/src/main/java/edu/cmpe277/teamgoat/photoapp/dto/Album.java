@@ -2,6 +2,9 @@ package edu.cmpe277.teamgoat.photoapp.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.CompoundIndex;
+import org.springframework.data.mongodb.core.index.CompoundIndexes;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
@@ -10,6 +13,9 @@ import java.util.Arrays;
 
 @Document
 //@JsonIgnoreProperties({"_ID"})
+@CompoundIndexes({
+        @CompoundIndex(name = "unique_album_idx", def = "{'name': 1, 'ownerId': 1}")
+})
 public class Album {
 
     @Id
@@ -17,8 +23,10 @@ public class Album {
 
     private String name;
 
+    @Indexed
     private String ownerId;
 
+    @Indexed
     private String[] grantedUserIds;
 
     @DBRef
