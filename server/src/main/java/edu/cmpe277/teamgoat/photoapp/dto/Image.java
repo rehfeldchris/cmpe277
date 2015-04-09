@@ -21,8 +21,9 @@ public class Image {
     @Field("IMAGEID")
     private String imageId; // Generate a uuid for each image and store the file on the system
 
-    @Field("LOCATION")
-    private String location;
+    private Double latitude;
+
+    private Double longitude;
 
     @Field("DESCRIPTION")
     private String description;
@@ -34,10 +35,11 @@ public class Image {
 
     }
 
-    public Image(String ownerId, String imageId, String location, String description, Comment[] comments) {
+    public Image(String ownerId, String imageId, Double latitude, Double longitude, String description, Comment[] comments) {
         this.ownerId = ownerId;
         this.imageId = imageId;
-        this.location = location;
+        this.latitude = latitude;
+        this.longitude = longitude;
         this.description = description;
         this.comments = comments;
     }
@@ -50,7 +52,6 @@ public class Image {
         this.description = description;
         this.comments = comments;
     }
-
 
     public String get_ID() {
         return _ID;
@@ -76,12 +77,20 @@ public class Image {
         this.imageId = imageId;
     }
 
-    public String getLocation() {
-        return location;
+    public Double getLatitude() {
+        return latitude;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
+    }
+
+    public Double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
     }
 
     public String getDescription() {
