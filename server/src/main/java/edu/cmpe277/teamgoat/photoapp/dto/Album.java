@@ -15,13 +15,10 @@ public class Album {
     @Id
     private String _ID;
 
-    @Field("NAME")
     private String name;
 
-    @Field("OWERNID")
     private String ownerId;
 
-    @Field("GRANTEDUSERIDS")
     private String grantedUserIds;
 
     @DBRef
