@@ -23,7 +23,6 @@ public class Image {
 
     private Double longitude;
 
-    @Field("DESCRIPTION")
     private String description;
 
     @DBRef
