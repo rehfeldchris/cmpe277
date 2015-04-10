@@ -12,5 +12,6 @@ public interface AlbumMongoRepository extends MongoRepository<Album, String> {
 
     List<Album> findByOwnerId(String ownerId);
     List<Album> findByOwnerIdIgnoreCase(String ownerId);
-    
+    List<Album> findByOwnerIdAndName(String ownerId, String name);
+
 }
