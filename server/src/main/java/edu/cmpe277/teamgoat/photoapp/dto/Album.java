@@ -1,6 +1,8 @@
 package edu.cmpe277.teamgoat.photoapp.dto;
 
+import edu.cmpe277.teamgoat.photoapp.dto.CascadingMongoEventListener;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.CompoundIndex;
 import org.springframework.data.mongodb.core.index.CompoundIndexes;
@@ -9,7 +11,7 @@ import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 
 @Document
 //@JsonIgnoreProperties({"_ID"})
@@ -26,24 +28,25 @@ public class Album {
     @Indexed
     private String ownerId;
 
-    @Indexed
-    private String[] grantedUserIds;
+	@Indexed
+    private ArrayList<String> grantedUserIds;
 
     @DBRef
-    private Image[] images;
+    @CascadeSave
+    private ArrayList<Image> images;
 
     public Album() {
 
     }
 
-    public Album(String name, String ownerId, String[] grantedUserIds, Image[] images) {
+    public Album(String name, String ownerId, ArrayList<String> grantedUserIds, ArrayList<Image> images) {
         this.name = name;
         this.ownerId = ownerId;
         this.grantedUserIds = grantedUserIds;
         this.images = images;
     }
 
-    public Album(String _ID, String name, String ownerId, String[] grantedUserIds, Image[] images) {
+    public Album(String _ID, String name, String ownerId, ArrayList<String> grantedUserIds, ArrayList<Image> images) {
         this._ID = _ID;
         this.name = name;
         this.ownerId = ownerId;
@@ -75,30 +78,30 @@ public class Album {
         this.ownerId = ownerId;
     }
 
-    public String[] getGrantedUserIds() {
+    public ArrayList<String> getGrantedUserIds() {
         return grantedUserIds;
     }
 
-    public void setGrantedUserIds(String[] grantedUserIds) {
-        this.grantedUserIds = grantedUserIds;
+    public void setGrantedUserIds(String grantUser) {
+        this.grantedUserIds.add(grantUser);
     }
 
-    public Image[] getImages() {
+    public ArrayList<Image> getImages() {
         return images;
     }
 
-    public void setImages(Image[] images) {
-        this.images = images;
+    public void setImages(Image image) {
+        this.images.add(image);
     }
 
-    @Override
-    public String toString() {
-        return "Album{" +
-                "_ID='" + _ID + '\'' +
-                ", name='" + name + '\'' +
-                ", ownerId='" + ownerId + '\'' +
-                ", grantedUserIds='" + Arrays.toString(grantedUserIds) + '\'' +
-                ", images=" + Arrays.toString(images) +
-                '}';
-    }
+//    @Override
+//    public String toString() {
+//        return "Album{" +
+//                "_ID='" + _ID + '\'' +
+//                ", name='" + name + '\'' +
+//                ", ownerId='" + ownerId + '\'' +
+//                ", grantedUserIds='" + Arrays.toString(grantedUserIds) + '\'' +
+//                ", images=" + Arrays.toString(images) +
+//                '}';
+//    }
 }

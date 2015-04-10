@@ -1,12 +1,13 @@
 package edu.cmpe277.teamgoat.photoapp.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.GeoSpatialIndexed;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 
 @Document
 //@JsonIgnoreProperties({"_ID"})
@@ -25,13 +26,14 @@ public class Image {
     private String description;
 
     @DBRef
-    private Comment[] comments;
+    @CascadeSave
+    private ArrayList<Comment> comments;
 
     public Image() {
 
     }
 
-    public Image(String ownerId, String imageId, double[] location, String description, Comment[] comments) {
+    public Image(String ownerId, String imageId, double[] location, String description, ArrayList<Comment> comments) {
         this.ownerId = ownerId;
         this.imageId = imageId;
         this.location = location;
@@ -39,7 +41,7 @@ public class Image {
         this.comments = comments;
     }
 
-    public Image(String _ID, String ownerId, String imageId, double[] location, String description, Comment[] comments) {
+    public Image(String _ID, String ownerId, String imageId, double[] location, String description, ArrayList<Comment> comments) {
         this._ID = _ID;
         this.ownerId = ownerId;
         this.imageId = imageId;
@@ -88,23 +90,23 @@ public class Image {
         this.description = description;
     }
 
-    public Comment[] getComments() {
+    public ArrayList<Comment> getComments() {
         return comments;
     }
 
-    public void setComments(Comment[] comments) {
-        this.comments = comments;
+    public void setComments(Comment comment) {
+        this.comments.add(comment);
     }
 
-    @Override
-    public String toString() {
-        return "Image{" +
-                "_ID='" + _ID + '\'' +
-                ", ownerId='" + ownerId + '\'' +
-                ", imageId='" + imageId + '\'' +
-                ", location='" + Arrays.toString(location) + '\'' +
-                ", description='" + description + '\'' +
-                ", comments=" + Arrays.toString(comments) +
-                '}';
-    }
+//    @Override
+//    public String toString() {
+//        return "Image{" +
+//                "_ID='" + _ID + '\'' +
+//                ", ownerId='" + ownerId + '\'' +
+//                ", imageId='" + imageId + '\'' +
+//                ", location='" + Arrays.toString(location) + '\'' +
+//                ", description='" + description + '\'' +
+//                ", comments=" + Arrays.toString(comments) +
+//                '}';
+//    }
 }
