@@ -18,6 +18,9 @@
 - [ ] A framework to make api calls to get data from server
 - [ ] ??????
 
+## Other
+- [x] Create high-level architecture diagram `Sai`
+
 ## Documentation
 - [x] Proposal `1 Pt | April 8th`
 - [ ] Project Plan `1 Pt | April 30th`
