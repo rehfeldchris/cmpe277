@@ -6,7 +6,9 @@
 - [ ] Web REST Layer `Carita`
 - [ ] Mock test data (we can create Facebook test accounts in the developers page)
 - [ ] Testing of the each api endpoint (preferable a test suite but manual testing should be ok)
-- [ ] Search REST Operations (optional?)
+- [ ] Search REST Operations
+- [ ] File upload service (for images, see [spring tutorial])(https://spring.io/guides/gs/uploading-files/)
+- [ ] Server-side facebook api to get list of users `Sai?`
 - [ ] ?????
 - [ ] Final build deployment location `Sai?`
 
@@ -15,6 +17,9 @@
 - [ ] View Layout files `Thong`
 - [ ] A framework to make api calls to get data from server
 - [ ] ??????
+
+## Other
+- [x] Create high-level architecture diagram `Sai`
 
 ## Documentation
 - [x] Proposal `1 Pt | April 8th`

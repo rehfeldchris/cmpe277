@@ -1,9 +1,10 @@
 package edu.cmpe277.teamgoat.photoapp;
 
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+
 import com.facebook.appevents.AppEventsLogger;
 
 public class MainActivity extends ActionBarActivity {
@@ -19,7 +20,7 @@ public class MainActivity extends ActionBarActivity {
         super.onResume();
 
         // Logs 'install' and 'app activate' App Events.
-        AppEventsLogger.activateApp(this);
+//        AppEventsLogger.activateApp(this);
     }
 
     @Override
@@ -27,7 +28,7 @@ public class MainActivity extends ActionBarActivity {
         super.onPause();
 
         // Logs 'app deactivate' App Event.
-        AppEventsLogger.deactivateApp(this);
+//        AppEventsLogger.deactivateApp(this);
     }
 
     @Override
