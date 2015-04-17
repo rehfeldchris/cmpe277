@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@drawable/background_border"
+        android:gravity="center"
+        android:layout_margin="2dp"
+        >
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+            <ImageView
+                android:id="@+id/imgView_user_avatar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/imageView_avatar_description"
+                android:src="@drawable/ic_launcher"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="0dp"
+                android:layout_centerHorizontal="true"
+                />
+
+            <TextView
+                android:id="@+id/txt_firstname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/txt_firstname"
+                android:layout_below="@id/imgView_user_avatar"
+                />
+
+            <TextView
+                android:id="@+id/txt_lastname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/txt_lastname"
+                android:layout_toRightOf="@id/txt_firstname"
+                android:layout_below="@id/imgView_user_avatar"
+                />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            >
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                >
+                <TableRow
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/background_border"
+                        android:layout_gravity="center"
+                        >
+                        <TextView
+                            android:id="@+id/txtView_photo_total"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/txt_photo_total"
+                            />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/background_border"
+                        android:layout_gravity="center"
+                        >
+                        <TextView
+                            android:id="@+id/txtView_album_total"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/txt_album_total"
+                            />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/background_border"
+                        android:layout_gravity="center"
+                        >
+                        <TextView
+                            android:id="@+id/txtView_friend_total"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/txt_connection_total"
+                            />
+                    </LinearLayout>
+                </TableRow>
+            </TableLayout>
+
+            <Button
+                android:id="@+id/btn_profile_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/btn_profile_edit"
+                />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+
+</LinearLayout>

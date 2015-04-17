@@ -4,5 +4,14 @@
     <string name="app_name">PhotoApp</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="btn_fb_login">Login with Facebook</string>
+    <string name="imageView_avatar_description">Avatar</string>
+    <string name="txt_firstname">First name</string>
+    <string name="txt_lastname">Last Name</string>
+    <string name="txt_photo_total"># Photos</string>
+    <string name="txt_album_total"># Albums</string>
+    <string name="txt_connection_total"># Connections</string>
+    <string name="btn_profile_edit">Edit your profile</string>
+    <string name="txt_album_title">Album Title</string>
 
 </resources>
