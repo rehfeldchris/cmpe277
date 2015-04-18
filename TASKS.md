@@ -7,7 +7,7 @@
 - [ ] Mock test data (we can create Facebook test accounts in the developers page)
 - [ ] Testing of the each api endpoint (preferable a test suite but manual testing should be ok)
 - [ ] Search REST Operations
-- [ ] File upload service (for images, see [spring tutorial])(https://spring.io/guides/gs/uploading-files/)
+- [ ] File upload service (for images, see link: [spring tutorial](https://spring.io/guides/gs/uploading-files/))
 - [ ] Server-side facebook api to get list of users `Sai?`
 - [ ] ?????
 - [ ] Final build deployment location `Sai?`
