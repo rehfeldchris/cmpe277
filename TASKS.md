@@ -23,7 +23,7 @@
 
 ## Documentation
 - [x] Proposal `1 Pt | April 8th`
-- [ ] Project Plan `1 Pt | April 30th`
+- [x] Project Plan `1 Pt | April 15th`
 - [ ] Project Presentation Slides `5 Pts | April 30th`
 - [ ] Project Demo `0? pt | April 30th or May 7th`
 - [ ] Final App Build `13 Pts | May 14`
