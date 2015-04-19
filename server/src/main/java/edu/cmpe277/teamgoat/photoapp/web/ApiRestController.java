@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -35,9 +36,11 @@ public class ApiRestController {
 	@Autowired
 	private PhotoService photoService;
 	@Value("${imageFileSaveDir}")
-	private static String imageFileSaveDir;
+	private String imageFileSaveDir;
 	@Value("${tempDir}")
-	private static String tempDir;
+	private String tempDir;
+	@Autowired
+	private HttpServletRequest request;
 
 	private static SimpleDateFormat imageFilenameDateFormat = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss-SSS");
 	private static Random random = new Random();
@@ -77,13 +80,13 @@ public class ApiRestController {
 
 	@RequestMapping(value = "/albums/{album_id}/images", method = RequestMethod.POST)
 	public Object addImage(
-			@PathVariable("userId") String facebookUserId,
 			@PathVariable("album_id") String album_id,
 			@RequestParam("title") String title,
 			@RequestParam("description") String description,
 			@RequestParam(value = "lat", required = false) Double lat,
 			@RequestParam(value = "lon", required = false) Double lon,
 			@RequestParam("file") MultipartFile file,
+			@RequestHeader ("X-Facebook-Token") String facebookToken,
 			HttpServletResponse response
 	) throws IOException {
 
@@ -111,10 +114,11 @@ public class ApiRestController {
 		}
 
 		String savedFileName = saveImageToFileSystem(file);
-		Image image = photoService.createImage(file, lat, lon, title, description, facebookUserId, savedFileName);
-		album.getImages().add(image);
+		Image image = photoService.createImage(file, lat, lon, title, description, userIdentityDiscoveryService.getUserId(facebookToken), savedFileName);
+		album.addImage(image);
 		return image;
 	}
+
 		
 	@RequestMapping(value = "/albums/{album_id}/images/{image_id}/comments", method = RequestMethod.POST)
 	public Comment postComments(@PathVariable("userId") String facebookUserId, @PathVariable("album_id") String album_id, @PathVariable("image_id") String image_id, @RequestBody Comment comment) {
@@ -152,5 +156,15 @@ public class ApiRestController {
 		return fileName;
 	}
 
+	private Map<String, String> getHeaders() {
+		Map<String, String> map = new HashMap<>();
+		Enumeration headerNames = request.getHeaderNames();
+		while (headerNames.hasMoreElements()) {
+			String key = (String) headerNames.nextElement();
+			String value = request.getHeader(key);
+			map.put(key, value);
+		}
+		return map;
+	}
 
 }

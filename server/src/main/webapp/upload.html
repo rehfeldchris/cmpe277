@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="js/jquery.js"></script>
+</head>
+<body>
+<p>This is just for testing file uploads.</p>
+<form method="post" enctype="multipart/form-data" data-action="/api/v1/{userId}/albums/{albumId}/images">
+    <p>user id <input name="userId" required value="chris"></p>
+    <p>album id <input name="albumId" required value="album1"></p>
+    <p>title <input name="title" required value="title1"></p>
+    <p>description <input name="description" required value="description1"></p>
+    <p>file <input name="file" type="file" required></p>
+    <p><input type="submit"></p>
+</form>
+<script>
+    $("form").submit(function submitHandler(e) {
+        e.preventDefault();
+
+        var $this = $(this);
+        var userId = $this.find("input[name='userId']").val();
+        var albumId = $this.find("input[name='albumId']").val();
+        var newAction = $this.data("action")
+                .replace(/\{userId}/, encodeURIComponent(userId))
+                .replace(/\{albumId}/, encodeURIComponent(albumId))
+        ;
+
+        $.ajax({
+            url: newAction,
+            type: 'POST',
+            data: new FormData(this),
+            headers: {"X-Facebook-Token": userId},
+            processData: false,
+            contentType: false
+        }).then(function success() {
+            console.log(arguments);
+        }, function error() {
+            console.log(arguments);
+        });
+
+    });
+</script>
+</body>
+</html>
