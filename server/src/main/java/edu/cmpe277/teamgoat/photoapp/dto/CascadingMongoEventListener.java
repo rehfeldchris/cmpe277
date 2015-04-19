@@ -26,7 +26,7 @@ public class CascadingMongoEventListener extends AbstractMongoEventListener {
           public void doWith(Field field) throws IllegalArgumentException, IllegalAccessException {
               ReflectionUtils.makeAccessible(field);
 
-              if (field.isAnnotationPresent(DBRef.class) &#038;&#038; field.isAnnotationPresent(CascadeSave.class)) {
+              if (field.isAnnotationPresent(DBRef.class) == field.isAnnotationPresent(CascadeSave.class)) {
                   final Object fieldValue = field.get(source);
 
                   DbRefFieldCallback callback = new DbRefFieldCallback();
