@@ -27,6 +27,14 @@ public class Image {
 
     private String description;
 
+    private int width;
+
+    private int height;
+
+    private int sizeBytes;
+
+    private String mimeType;
+
     @DBRef
     @CascadeSave
     private List<Comment> comments;
@@ -35,12 +43,16 @@ public class Image {
 
     }
 
-    public Image(String ownerId, String imageId, double[] location, String description, List<Comment> comments) {
+    public Image(String ownerId, String imageId, double[] location, String description, List<Comment> comments, int width, int height, int sizeBytes, String mimeType) {
         this.ownerId = ownerId;
         this.imageId = imageId;
         this.location = location;
         this.description = description;
         this.comments = comments;
+        this.width = width;
+        this.height = height;
+        this.sizeBytes = sizeBytes;
+        this.mimeType = mimeType;
     }
 
     public Image(String _ID, String ownerId, String imageId, double[] location, String description, List<Comment> comments) {
