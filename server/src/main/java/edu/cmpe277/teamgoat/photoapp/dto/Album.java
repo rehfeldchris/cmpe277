@@ -1,17 +1,13 @@
 package edu.cmpe277.teamgoat.photoapp.dto;
 
-import edu.cmpe277.teamgoat.photoapp.dto.CascadingMongoEventListener;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.CompoundIndex;
 import org.springframework.data.mongodb.core.index.CompoundIndexes;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.Field;
 
-import java.util.ArrayList;
+import java.util.*;
 
 @Document
 //@JsonIgnoreProperties({"_ID"})
@@ -25,30 +21,34 @@ public class Album {
 
     private String name;
 
+    private String description;
+
     @Indexed
     private String ownerId;
 
 	@Indexed
-    private ArrayList<String> grantedUserIds;
+    private List<String> grantedUserIds;
 
     @DBRef
     @CascadeSave
-    private ArrayList<Image> images;
+    private List<Image> images;
 
     public Album() {
 
     }
 
-    public Album(String name, String ownerId, ArrayList<String> grantedUserIds, ArrayList<Image> images) {
+    public Album(String name, String ownerId, String description, List<String> grantedUserIds, List<Image> images) {
         this.name = name;
+        this.description = description;
         this.ownerId = ownerId;
         this.grantedUserIds = grantedUserIds;
         this.images = images;
     }
 
-    public Album(String _ID, String name, String ownerId, ArrayList<String> grantedUserIds, ArrayList<Image> images) {
+    public Album(String _ID, String name, String ownerId, String description, List<String> grantedUserIds, List<Image> images) {
         this._ID = _ID;
         this.name = name;
+        this.description = description;
         this.ownerId = ownerId;
         this.grantedUserIds = grantedUserIds;
         this.images = images;
@@ -78,20 +78,42 @@ public class Album {
         this.ownerId = ownerId;
     }
 
-    public ArrayList<String> getGrantedUserIds() {
-        return grantedUserIds;
+    public List<String> getGrantedUserIds() {
+        return Collections.unmodifiableList(grantedUserIds);
     }
 
-    public void setGrantedUserIds(String grantUser) {
-        this.grantedUserIds.add(grantUser);
+    public void setGrantedUserIds(List<String> grantedUserIds) {
+        this.grantedUserIds = new ArrayList<>(grantedUserIds);
+        ensureGrantedUserIdsUnique();
     }
 
-    public ArrayList<Image> getImages() {
-        return images;
+    public void addGrantedUserId(String userId) {
+        grantedUserIds.add(userId);
+        ensureGrantedUserIdsUnique();
     }
 
-    public void setImages(Image image) {
+    private void ensureGrantedUserIdsUnique() {
+        Set<String> set = new HashSet<>(grantedUserIds);
+        grantedUserIds = new ArrayList<>(Arrays.asList(set.toArray(new String[]{})));
+    }
+
+    private void ensureImagesUnique() {
+        Set<Image> set = new HashSet<>(images);
+        images = new ArrayList<>(Arrays.asList(set.toArray(new Image[]{})));
+    }
+
+    public List<Image> getImages() {
+        return Collections.unmodifiableList(images);
+    }
+
+    public void setImages(List<Image> images) {
+        this.images = new ArrayList<>(images);
+        ensureImagesUnique();
+    }
+
+    public void addImage(Image image) {
         this.images.add(image);
+        ensureImagesUnique();
     }
 
 //    @Override
@@ -104,4 +126,21 @@ public class Album {
 //                ", images=" + Arrays.toString(images) +
 //                '}';
 //    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Album album = (Album) o;
+
+        return !(_ID != null ? !_ID.equals(album._ID) : album._ID != null);
+
+    }
+
+    @Override
+    public int hashCode() {
+        return _ID != null ? _ID.hashCode() : 0;
+    }
 }

@@ -8,6 +8,8 @@ import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 @Document
 //@JsonIgnoreProperties({"_ID"})
@@ -27,13 +29,13 @@ public class Image {
 
     @DBRef
     @CascadeSave
-    private ArrayList<Comment> comments;
+    private List<Comment> comments;
 
     public Image() {
 
     }
 
-    public Image(String ownerId, String imageId, double[] location, String description, ArrayList<Comment> comments) {
+    public Image(String ownerId, String imageId, double[] location, String description, List<Comment> comments) {
         this.ownerId = ownerId;
         this.imageId = imageId;
         this.location = location;
@@ -41,7 +43,7 @@ public class Image {
         this.comments = comments;
     }
 
-    public Image(String _ID, String ownerId, String imageId, double[] location, String description, ArrayList<Comment> comments) {
+    public Image(String _ID, String ownerId, String imageId, double[] location, String description, List<Comment> comments) {
         this._ID = _ID;
         this.ownerId = ownerId;
         this.imageId = imageId;
@@ -90,11 +92,11 @@ public class Image {
         this.description = description;
     }
 
-    public ArrayList<Comment> getComments() {
-        return comments;
+    public List<Comment> getComments() {
+        return Collections.unmodifiableList(comments);
     }
 
-    public void setComments(Comment comment) {
+    public void addComment(Comment comment) {
         this.comments.add(comment);
     }
 
@@ -109,4 +111,21 @@ public class Image {
 //                ", comments=" + Arrays.toString(comments) +
 //                '}';
 //    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Image image = (Image) o;
+
+        return !(_ID != null ? !_ID.equals(image._ID) : image._ID != null);
+
+    }
+
+    @Override
+    public int hashCode() {
+        return _ID != null ? _ID.hashCode() : 0;
+    }
 }

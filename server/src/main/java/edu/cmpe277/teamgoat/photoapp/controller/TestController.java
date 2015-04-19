@@ -16,7 +16,7 @@ public class TestController {
 
     @RequestMapping("/test")
     public Map<String, Object> greeting() throws Exception {
-        albumService.createAlbum("goats", "owner");
+        albumService.createAlbum("goats", "owner", "descrip");
         return new HashMap<>();
     }
 }
