@@ -54,7 +54,7 @@ public class AlbumService {
     }
 
     private Album findAlbumOrThrow(String albumId) throws BadApiRequestException {
-        Album album = repo.findByAlbumId(albumId);
+        Album album = repo.findBy_ID(albumId);
         if (album == null) {
             throw new BadApiRequestException(String.format(
                 "album id '%s' not found",

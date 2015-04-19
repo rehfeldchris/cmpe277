@@ -51,7 +51,7 @@ public class ApiRestController {
     
 	@RequestMapping(value = "/albums/{album_id}", method = RequestMethod.GET)
 	public Album getAlbumInfo(@PathVariable("userId") String facebookUserId, @PathVariable("album_id") String album_id) {
-		return albumRepo.findByAlbumId(album_id);
+		return albumRepo.findBy_ID(album_id);
 	}
 
 //	@RequestMapping(value = "/albums/{album_id}", method = RequestMethod.POST)
@@ -62,7 +62,7 @@ public class ApiRestController {
 	@RequestMapping(value = "/albums/{album_id}/images", method = RequestMethod.POST)
 	public Image addImage(@PathVariable("userId") String facebookUserId, @PathVariable("album_id") String album_id, @RequestBody Image image) {
 		if(image != null) {
-			Album album = albumRepo.findByAlbumId(album_id);
+			Album album = albumRepo.findBy_ID(album_id);
 			album.getImages().add(image);
 	    	return image;
 		}

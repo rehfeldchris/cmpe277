@@ -12,7 +12,7 @@ import java.util.List;
 
 public interface AlbumMongoRepository extends MongoRepository<Album, String> {
 
-	Album findByAlbumId(String albumId);
+	Album findBy_ID(String albumId);
     List<Album> findByOwnerId(String ownerId);
     List<Album> findByOwnerIdIgnoreCase(String ownerId);
     List<Album> findByOwnerIdAndName(String ownerId, String name);
