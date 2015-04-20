@@ -72,13 +72,13 @@ public class ApiRestController {
     public Object createAlbum(
 			@RequestHeader("X-Facebook-Token") String facebookToken,
 			@RequestParam("title") String title,
-			@RequestParam("description") String description
-
+			@RequestParam("description") String description,
+			@RequestParam("grantedUserIds") List<String> grantedUserIds
 	) {
 		String userId = userIdentityDiscoveryService.getUserId(facebookToken);
 		LOG.info(String.format("attempt create album userid=%s", userId));
 		try {
-			Album album = albumService.createAlbum(title, userId, description);
+			Album album = albumService.createAlbum(title, userId, description, grantedUserIds);
 			LOG.info(String.format("created album userid=%s album id=%s", userId, album.get_ID()));
 			return album;
 		} catch (BadApiRequestException ex) {
@@ -87,6 +87,27 @@ public class ApiRestController {
 			return new ApiErrorResponse(ex.getMessage(), "");
 		}
     }
+
+	@RequestMapping(value="/albums/{albumId}", method = RequestMethod.PUT)
+	public Object updateAlbum(
+			@RequestHeader("X-Facebook-Token") String facebookToken,
+			@PathVariable("albumId") String albumId,
+			@RequestParam("title") String title,
+			@RequestParam("description") String description,
+			@RequestParam("grantedUserIds") List<String> grantedUserIds
+	) {
+		String userId = userIdentityDiscoveryService.getUserId(facebookToken);
+		LOG.info(String.format("attempt update album userid=%s album id=%s", userId, albumId));
+		try {
+			Album album = albumService.updateAlbum(userId, albumId, title, description, grantedUserIds);
+			LOG.info(String.format("update album userid=%s album id=%s", userId, albumId));
+			return album;
+		} catch (BadApiRequestException ex) {
+			LOG.error(String.format("failed to update album userid=%s album id=%s", userId, albumId), ex);
+			response.setStatus(400);
+			return new ApiErrorResponse(ex.getMessage(), "");
+		}
+	}
 
 	@RequestMapping(value="/albums/{albumId}", method = RequestMethod.DELETE)
 	public Object deleteAlbum(

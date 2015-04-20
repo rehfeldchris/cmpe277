@@ -7,6 +7,7 @@ import edu.cmpe277.teamgoat.photoapp.repos.AlbumMongoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
@@ -17,13 +18,28 @@ public class AlbumService {
     @Autowired
     AlbumMongoRepository repo;
 
-    public Album createAlbum(String albumName, String ownerUserId, String description) throws BadApiRequestException {
+    public Album createAlbum(String albumName, String ownerUserId, String description, List<String> grantedUserIds) throws BadApiRequestException {
         Objects.requireNonNull(albumName);
         Objects.requireNonNull(description);
         Objects.requireNonNull(ownerUserId);
+        Objects.requireNonNull(grantedUserIds);
         assertAlbumDoesntAlreadyExistForThisUser(albumName, ownerUserId);
 
-        Album album = new Album(albumName, ownerUserId, description, Collections.<String>emptyList(), Collections.<Image>emptyList());
+        Album album = new Album(albumName, ownerUserId, description, new ArrayList<>(grantedUserIds), Collections.<Image>emptyList());
+        repo.save(album);
+        return album;
+    }
+
+    public Album updateAlbum(String userId, String albumId, String albumName, String description, List<String> grantedUserIds) throws BadApiRequestException {
+        Objects.requireNonNull(albumName);
+        Objects.requireNonNull(description);
+        Objects.requireNonNull(grantedUserIds);
+        Album album = findAlbumOrThrow(albumId);
+        assertAlbumCreatedByuser(album, userId);
+        album.setName(albumName);
+        album.setGrantedUserIds(grantedUserIds);
+        album.setDescription(description);
+
         repo.save(album);
         return album;
     }
@@ -70,7 +86,7 @@ public class AlbumService {
             throw new BadApiRequestException(String.format(
                 "album id '%s' not viewable by user id '%s',",
                 album.get_ID(),
-                userId
+                    userId
             ));
         }
         return album;

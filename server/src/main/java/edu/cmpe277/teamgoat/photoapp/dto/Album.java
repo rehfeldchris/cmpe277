@@ -78,6 +78,14 @@ public class Album {
         this.ownerId = ownerId;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public List<String> getGrantedUserIds() {
         return Collections.unmodifiableList(grantedUserIds);
     }
