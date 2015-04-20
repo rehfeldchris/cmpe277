@@ -53,12 +53,24 @@ public class AlbumService {
         album.setGrantedUserIds(userIds);
     }
 
-    private Album findAlbumOrThrow(String albumId) throws BadApiRequestException {
+    public Album findAlbumOrThrow(String albumId) throws BadApiRequestException {
         Album album = repo.findBy_ID(albumId);
         if (album == null) {
             throw new BadApiRequestException(String.format(
                 "album id '%s' not found",
                 albumId
+            ));
+        }
+        return album;
+    }
+
+    public Album findAlbumAndAssertViewableByUser(String albumId, String userId) throws BadApiRequestException {
+        Album album = findAlbumOrThrow(albumId);
+        if (!album.getGrantedUserIds().contains(userId)) {
+            throw new BadApiRequestException(String.format(
+                "album id '%s' not viewable by user id '%s',",
+                album.get_ID(),
+                userId
             ));
         }
         return album;

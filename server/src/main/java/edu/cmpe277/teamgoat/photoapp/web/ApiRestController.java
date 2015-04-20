@@ -1,11 +1,17 @@
 package edu.cmpe277.teamgoat.photoapp.web;
 
-import edu.cmpe277.teamgoat.photoapp.repos.*;
-import edu.cmpe277.teamgoat.photoapp.dto.*;
-import edu.cmpe277.teamgoat.photoapp.errors.*;
+import edu.cmpe277.teamgoat.photoapp.dto.Album;
+import edu.cmpe277.teamgoat.photoapp.dto.Comment;
+import edu.cmpe277.teamgoat.photoapp.dto.Image;
+import edu.cmpe277.teamgoat.photoapp.dto.ImageInfo;
+import edu.cmpe277.teamgoat.photoapp.errors.BadApiRequestException;
+import edu.cmpe277.teamgoat.photoapp.repos.AlbumMongoRepository;
+import edu.cmpe277.teamgoat.photoapp.repos.CommentMongoRepository;
+import edu.cmpe277.teamgoat.photoapp.repos.ImageMongoRepository;
+import edu.cmpe277.teamgoat.photoapp.services.AlbumService;
 import edu.cmpe277.teamgoat.photoapp.services.PhotoService;
-
 import edu.cmpe277.teamgoat.photoapp.services.UserIdentityDiscoveryService;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.websocket.server.PathParam;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -35,42 +42,86 @@ public class ApiRestController {
     private ImageMongoRepository imageRepo;
 	@Autowired
 	private PhotoService photoService;
+	@Autowired
+	private AlbumService albumService;
 	@Value("${imageFileSaveDir}")
 	private String imageFileSaveDir;
 	@Value("${tempDir}")
 	private String tempDir;
 	@Autowired
 	private HttpServletRequest request;
+	@Autowired
+	private HttpServletResponse response;
 
 	private static SimpleDateFormat imageFilenameDateFormat = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss-SSS");
 	private static Random random = new Random();
 	private static List<String> allowedImageMimeTypes = new ArrayList<>(Arrays.asList(new String[] {"image/jpeg", "image/gif", "image/png"}));
+	private static final Logger LOG = Logger.getLogger(ApiRestController.class);
 
 
 	@RequestMapping(value = "/albums", method = RequestMethod.GET)
-	public List<Album> getListOfAlbums(
-			@PathVariable("userId") String facebookUserId)
-			throws MissingUserInformation {
-		if (facebookUserId == null) {
-			throw new MissingUserInformation();
-		}
-		return albumRepo.findAll();
+	public List<Album> getListOfViewableAlbums(
+			@RequestHeader("X-Facebook-Token") String facebookToken
+	) {
+		String userId = userIdentityDiscoveryService.getUserId(facebookToken);
+		LOG.info(String.format("listing all albums userid=%s", userId));
+		return albumRepo.findByGrantedUserIds(userId);
 	}
 
     @RequestMapping(value="/albums", method = RequestMethod.POST)
-    public Album createAlbum(@PathVariable("userId") String facebookUserId, @RequestBody Album album) throws MissingAlbumInformation {
-		if (album != null) {
-    		albumRepo.save(album);
-    	}
-    	else{
-    		throw new MissingAlbumInformation();
-    	}
-    	return album;
+    public Object createAlbum(
+			@RequestHeader("X-Facebook-Token") String facebookToken,
+			@RequestParam("title") String title,
+			@RequestParam("description") String description
+
+	) {
+		String userId = userIdentityDiscoveryService.getUserId(facebookToken);
+		LOG.info(String.format("attempt create album userid=%s", userId));
+		try {
+			Album album = albumService.createAlbum(title, userId, description);
+			LOG.info(String.format("created album userid=%s album id=%s", userId, album.get_ID()));
+			return album;
+		} catch (BadApiRequestException ex) {
+			LOG.error(String.format("failed to create album userid=%s", userId), ex);
+			response.setStatus(400);
+			return new ApiErrorResponse(ex.getMessage(), "");
+		}
     }
+
+	@RequestMapping(value="/albums/{albumId}", method = RequestMethod.DELETE)
+	public Object deleteAlbum(
+			@RequestHeader("X-Facebook-Token") String facebookToken,
+			@PathVariable("albumId") String albumId
+	) {
+		String userId = userIdentityDiscoveryService.getUserId(facebookToken);
+		LOG.info(String.format("attempt delete album userid=%s album id = %s", userId, albumId));
+		try {
+			albumService.deleteAlbum(albumId, userId);
+			LOG.info(String.format("delete album userid=%s album id = %s", userId, albumId));
+			return null;
+		} catch (BadApiRequestException ex) {
+			LOG.error(String.format("failed to delete album userid=%s album id = %s", userId, albumId), ex);
+			response.setStatus(400);
+			return new ApiErrorResponse(ex.getMessage(), "");
+		}
+	}
     
-	@RequestMapping(value = "/albums/{album_id}", method = RequestMethod.GET)
-	public Album getAlbumInfo(@PathVariable("userId") String facebookUserId, @PathVariable("album_id") String album_id) {
-		return albumRepo.findBy_ID(album_id);
+	@RequestMapping(value = "/albums/{albumId}", method = RequestMethod.GET)
+	public Object getAlbumInfo(
+			@RequestHeader("X-Facebook-Token") String facebookToken,
+			@PathVariable("albumId") String albumId
+	) {
+		String userId = userIdentityDiscoveryService.getUserId(facebookToken);
+		LOG.info(String.format("attempt view album userid=%s album id = %s", userId, albumId));
+		try {
+			Album album = albumService.findAlbumAndAssertViewableByUser(albumId, userId);
+			LOG.info(String.format("view album userid=%s album id = %s", userId, albumId));
+			return album;
+		} catch (BadApiRequestException ex) {
+			LOG.info(String.format("failed to view album userid=%s album id = %s", userId, albumId));
+			response.setStatus(400);
+			return new ApiErrorResponse(ex.getMessage(), "");
+		}
 	}
 
 //	@RequestMapping(value = "/albums/{album_id}", method = RequestMethod.POST)
@@ -121,7 +172,7 @@ public class ApiRestController {
 
 		
 	@RequestMapping(value = "/albums/{album_id}/images/{image_id}/comments", method = RequestMethod.POST)
-	public Comment postComments(@PathVariable("userId") String facebookUserId, @PathVariable("album_id") String album_id, @PathVariable("image_id") String image_id, @RequestBody Comment comment) {
+	public Comment postComments(@PathVariable("userId") String facebookUserId, @PathVariable("album_id ") String album_id, @PathVariable("image_id") String image_id, @RequestBody Comment comment) {
 		if (comment != null) {
 			Image image = imageRepo.findByImageId(image_id);
 			image.getComments().add(comment);
@@ -166,5 +217,7 @@ public class ApiRestController {
 		}
 		return map;
 	}
+
+
 
 }
