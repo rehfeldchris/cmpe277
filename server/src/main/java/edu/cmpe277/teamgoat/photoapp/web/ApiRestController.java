@@ -188,6 +188,7 @@ public class ApiRestController {
 		String savedFileName = saveImageToFileSystem(file);
 		Image image = photoService.createImage(file, lat, lon, title, description, userIdentityDiscoveryService.getUserId(facebookToken), savedFileName);
 		album.addImage(image);
+		imageRepo.save(image);
 		return image;
 	}
 

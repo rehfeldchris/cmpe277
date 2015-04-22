@@ -35,7 +35,7 @@ public class AlbumService {
         Objects.requireNonNull(description);
         Objects.requireNonNull(grantedUserIds);
         Album album = findAlbumOrThrow(albumId);
-        assertAlbumCreatedByuser(album, userId);
+        assertAlbumCreatedByUser(album, userId);
         album.setName(albumName);
         album.setGrantedUserIds(grantedUserIds);
         album.setDescription(description);
@@ -49,17 +49,14 @@ public class AlbumService {
         Objects.requireNonNull(requesterUserId);
         Objects.requireNonNull(images);
         Album album = findAlbumOrThrow(albumId);
-        assertAlbumCreatedByuser(album, requesterUserId);
-
-
-
+        assertAlbumCreatedByUser(album, requesterUserId);
     }
 
     public boolean deleteAlbum(String albumId, String requesterUserId) throws BadApiRequestException {
         Objects.requireNonNull(albumId);
         Objects.requireNonNull(requesterUserId);
         Album album = findAlbumOrThrow(albumId);
-        assertAlbumCreatedByuser(album, requesterUserId);
+        assertAlbumCreatedByUser(album, requesterUserId);
         repo.delete(album);
         return true;
     }
@@ -86,13 +83,13 @@ public class AlbumService {
             throw new BadApiRequestException(String.format(
                 "album id '%s' not viewable by user id '%s',",
                 album.get_ID(),
-                    userId
+                userId
             ));
         }
         return album;
     }
 
-    private void assertAlbumCreatedByuser(Album album, String userId) throws BadApiRequestException {
+    private void assertAlbumCreatedByUser(Album album, String userId) throws BadApiRequestException {
         if (!album.getOwnerId().equals(userId)) {
             throw new BadApiRequestException(String.format(
                 "album id '%s' with name '%s' not owned by user id '%s', so cant be modified or deleted",
@@ -112,4 +109,5 @@ public class AlbumService {
             ));
         }
     }
+
 }

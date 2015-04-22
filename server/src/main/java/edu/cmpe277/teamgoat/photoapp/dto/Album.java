@@ -93,11 +93,13 @@ public class Album {
     public void setGrantedUserIds(List<String> grantedUserIds) {
         this.grantedUserIds = new ArrayList<>(grantedUserIds);
         ensureGrantedUserIdsUnique();
+        ensureOwnerIsGrantedAccessToOwnAlbum();
     }
 
     public void addGrantedUserId(String userId) {
         grantedUserIds.add(userId);
         ensureGrantedUserIdsUnique();
+        ensureOwnerIsGrantedAccessToOwnAlbum();
     }
 
     private void ensureGrantedUserIdsUnique() {
@@ -108,6 +110,12 @@ public class Album {
     private void ensureImagesUnique() {
         Set<Image> set = new HashSet<>(images);
         images = new ArrayList<>(Arrays.asList(set.toArray(new Image[]{})));
+    }
+
+    private void ensureOwnerIsGrantedAccessToOwnAlbum() {
+        if (!grantedUserIds.contains(ownerId)) {
+            grantedUserIds.add(ownerId);
+        }
     }
 
     public List<Image> getImages() {
