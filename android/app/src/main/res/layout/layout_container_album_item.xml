@@ -10,7 +10,6 @@
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_alignParentStart="true"
-        android:layout_alignBottom="@id/txt_album_title"
         android:contentDescription="@string/txt_album_title"
         android:src="@drawable/ic_launcher"
         />
