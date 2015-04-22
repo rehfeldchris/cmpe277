@@ -2,6 +2,7 @@
 <resources>
 
     <string name="app_name">PhotoApp</string>
+    <string name="app_id">1599780603601030</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="btn_fb_login">Login with Facebook</string>
