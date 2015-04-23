@@ -18,19 +18,19 @@ public class AlbumService {
     @Autowired
     AlbumMongoRepository repo;
 
-    public Album createAlbum(String albumName, String ownerUserId, String description, List<String> grantedUserIds) throws BadApiRequestException {
+    public Album createAlbum(String albumName, String ownerUserId, String description, List<String> grantedUserIds, boolean isPubliclyAccessible) throws BadApiRequestException {
         Objects.requireNonNull(albumName);
         Objects.requireNonNull(description);
         Objects.requireNonNull(ownerUserId);
         Objects.requireNonNull(grantedUserIds);
         assertAlbumDoesntAlreadyExistForThisUser(albumName, ownerUserId);
 
-        Album album = new Album(albumName, ownerUserId, description, new ArrayList<>(grantedUserIds), Collections.<Image>emptyList());
+        Album album = new Album(albumName, ownerUserId, description, new ArrayList<>(grantedUserIds), Collections.<Image>emptyList(), isPubliclyAccessible);
         repo.save(album);
         return album;
     }
 
-    public Album updateAlbum(String userId, String albumId, String albumName, String description, List<String> grantedUserIds) throws BadApiRequestException {
+    public Album updateAlbum(String userId, String albumId, String albumName, String description, List<String> grantedUserIds, boolean isPubliclyAccessible) throws BadApiRequestException {
         Objects.requireNonNull(albumName);
         Objects.requireNonNull(description);
         Objects.requireNonNull(grantedUserIds);
@@ -39,6 +39,7 @@ public class AlbumService {
         album.setName(albumName);
         album.setGrantedUserIds(grantedUserIds);
         album.setDescription(description);
+        album.setIsPubliclyAccessible(isPubliclyAccessible);
 
         repo.save(album);
         return album;
@@ -82,7 +83,7 @@ public class AlbumService {
         if (!album.getGrantedUserIds().contains(userId)) {
             throw new BadApiRequestException(String.format(
                 "album id '%s' not viewable by user id '%s',",
-                album.get_ID(),
+                    album.get_ID(),
                 userId
             ));
         }

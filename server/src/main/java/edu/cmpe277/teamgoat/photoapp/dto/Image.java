@@ -46,6 +46,56 @@ public class Image {
     public Image(String ownerId, String imageId, double[] location, String description, List<Comment> comments, int width, int height, int sizeBytes, String mimeType) {
         this.ownerId = ownerId;
         this.imageId = imageId;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         this.location = location;
         this.description = description;
         this.comments = comments;

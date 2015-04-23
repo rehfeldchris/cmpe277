@@ -29,6 +29,8 @@ public class Album {
 	@Indexed
     private List<String> grantedUserIds;
 
+    private boolean isPubliclyAccessible = false;
+
     @DBRef
     @CascadeSave
     private List<Image> images;
@@ -37,21 +39,27 @@ public class Album {
 
     }
 
-    public Album(String name, String ownerId, String description, List<String> grantedUserIds, List<Image> images) {
+    public Album(String name, String ownerId, String description, List<String> grantedUserIds, List<Image> images, boolean isPubliclyAccessible) {
         this.name = name;
         this.description = description;
         this.ownerId = ownerId;
         this.grantedUserIds = grantedUserIds;
         this.images = images;
+        this.isPubliclyAccessible = isPubliclyAccessible;
+        ensureGrantedUserIdsUnique();
+        ensureOwnerIsGrantedAccessToOwnAlbum();
     }
 
-    public Album(String _ID, String name, String ownerId, String description, List<String> grantedUserIds, List<Image> images) {
+    public Album(String _ID, String name, String ownerId, String description, List<String> grantedUserIds, List<Image> images, boolean isPubliclyAccessible) {
         this._ID = _ID;
         this.name = name;
         this.description = description;
         this.ownerId = ownerId;
         this.grantedUserIds = grantedUserIds;
         this.images = images;
+        this.isPubliclyAccessible = isPubliclyAccessible;
+        ensureGrantedUserIdsUnique();
+        ensureOwnerIsGrantedAccessToOwnAlbum();
     }
 
     public String get_ID() {
@@ -84,6 +92,14 @@ public class Album {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public boolean isPubliclyAccessible() {
+        return isPubliclyAccessible;
+    }
+
+    public void setIsPubliclyAccessible(boolean isPubliclyAccessible) {
+        this.isPubliclyAccessible = isPubliclyAccessible;
     }
 
     public List<String> getGrantedUserIds() {

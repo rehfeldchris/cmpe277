@@ -65,7 +65,7 @@ public class ApiRestController {
 	) {
 		String userId = userIdentityDiscoveryService.getUserId(facebookToken);
 		LOG.info(String.format("listing all albums userid=%s", userId));
-		return albumRepo.findByGrantedUserIds(userId);
+		return albumRepo.findViewable(userId);
 	}
 
     @RequestMapping(value="/albums", method = RequestMethod.POST)
@@ -73,12 +73,13 @@ public class ApiRestController {
 			@RequestHeader("X-Facebook-Token") String facebookToken,
 			@RequestParam("title") String title,
 			@RequestParam("description") String description,
-			@RequestParam("grantedUserIds") List<String> grantedUserIds
+			@RequestParam("grantedUserIds") List<String> grantedUserIds,
+			@RequestParam("isPubliclyAccessible") boolean isPubliclyAccessible
 	) {
 		String userId = userIdentityDiscoveryService.getUserId(facebookToken);
 		LOG.info(String.format("attempt create album userid=%s", userId));
 		try {
-			Album album = albumService.createAlbum(title, userId, description, grantedUserIds);
+			Album album = albumService.createAlbum(title, userId, description, grantedUserIds, isPubliclyAccessible);
 			LOG.info(String.format("created album userid=%s album id=%s", userId, album.get_ID()));
 			return album;
 		} catch (BadApiRequestException ex) {
@@ -94,12 +95,13 @@ public class ApiRestController {
 			@PathVariable("albumId") String albumId,
 			@RequestParam("title") String title,
 			@RequestParam("description") String description,
-			@RequestParam("grantedUserIds") List<String> grantedUserIds
+			@RequestParam("grantedUserIds") List<String> grantedUserIds,
+			@RequestParam("isPubliclyAccessible") boolean isPubliclyAccessible
 	) {
 		String userId = userIdentityDiscoveryService.getUserId(facebookToken);
 		LOG.info(String.format("attempt update album userid=%s album id=%s", userId, albumId));
 		try {
-			Album album = albumService.updateAlbum(userId, albumId, title, description, grantedUserIds);
+			Album album = albumService.updateAlbum(userId, albumId, title, description, grantedUserIds, isPubliclyAccessible);
 			LOG.info(String.format("update album userid=%s album id=%s", userId, albumId));
 			return album;
 		} catch (BadApiRequestException ex) {
@@ -189,6 +191,7 @@ public class ApiRestController {
 		Image image = photoService.createImage(file, lat, lon, title, description, userIdentityDiscoveryService.getUserId(facebookToken), savedFileName);
 		album.addImage(image);
 		imageRepo.save(image);
+		albumRepo.save(album);
 		return image;
 	}
 
