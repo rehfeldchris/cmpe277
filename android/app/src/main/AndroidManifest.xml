@@ -29,7 +29,7 @@
             android:name="com.facebook.FacebookContentProvider"
             android:exported="true" />
         <activity
-            android:name=".Profile"
+            android:name=".LayoutTest"
             android:label="User Profile"
             >
         </activity>

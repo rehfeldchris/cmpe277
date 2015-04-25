@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/layout_container_album_item"
+    android:id="@+id/layout_fragment_container_album_item"
     >
 
     <ImageView
@@ -21,7 +21,6 @@
         android:text="@string/txt_album_title"
         android:textSize="36sp"
         android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
         android:layout_marginStart="55dp" />
 
     <TextView
