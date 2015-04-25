@@ -22,4 +22,6 @@ public interface AlbumMongoRepository extends MongoRepository<Album, String> {
     @Query("{$or: [{grantedUserIds: ?0}, {isPubliclyAccessible: true}]}")
     List<Album> findViewable(String userId);
 
+    @Query("{$and: [{$or: [{grantedUserIds: ?0}, {isPubliclyAccessible: true}]},{$near: {$geometry: {type: \"Point\", coordinates: [?1, ?2]}, $maxDistance: ?3, $minDistance: 0}}]}")
+    List<Album> findViewableImagesNearLocation(String userId, double lat, double lon, double maxDistance);
 }
