@@ -19,7 +19,7 @@ import com.facebook.login.widget.LoginButton;
 public class MainActivity extends Activity {
 //    private LoginButton loginButton;
     CallbackManager callbackManager;
-    private AccessToken accessToken;
+    private String accessToken;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +42,7 @@ public class MainActivity extends Activity {
             @Override
             public void onSuccess(LoginResult loginResult) {
                 // App code
-                accessToken = loginResult.getAccessToken();
+                accessToken = loginResult.getAccessToken().getToken();
             }
 
             @Override

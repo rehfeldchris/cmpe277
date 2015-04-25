@@ -68,6 +68,27 @@ public class ApiRestController {
 		return albumRepo.findViewable(userId);
 	}
 
+	@RequestMapping(value = "/images-near-point", method = RequestMethod.GET)
+	public List<Album> findViewableImagesNearPoint(
+			@RequestHeader("X-Facebook-Token") String facebookToken,
+			@RequestParam("lat") double lat,
+			@RequestParam("lon") double lon,
+			@RequestParam("maxDistanceMeters") double maxDistanceMeters
+	) {
+		String userId = userIdentityDiscoveryService.getUserId(facebookToken);
+		LOG.info(String.format("listing all images near userid=%s lat=%.4f lon=%.4f maxdis=%.4f", userId, lat, lon, maxDistanceMeters));
+		return imageRepo.findImagesNearLocation(lat, lon, maxDistanceMeters);
+	}
+
+	@RequestMapping(value = "/friends", method = RequestMethod.GET)
+	public Object getFriendList(
+			@RequestHeader("X-Facebook-Token") String facebookToken
+	) {
+		String userId = userIdentityDiscoveryService.getUserId(facebookToken);
+
+		return "";
+	}
+
     @RequestMapping(value="/albums", method = RequestMethod.POST)
     public Object createAlbum(
 			@RequestHeader("X-Facebook-Token") String facebookToken,

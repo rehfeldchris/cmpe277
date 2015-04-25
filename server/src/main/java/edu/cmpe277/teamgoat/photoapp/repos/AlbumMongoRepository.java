@@ -22,4 +22,5 @@ public interface AlbumMongoRepository extends MongoRepository<Album, String> {
     @Query("{$or: [{grantedUserIds: ?0}, {isPubliclyAccessible: true}]}")
     List<Album> findViewable(String userId);
 
+
 }
