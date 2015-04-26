@@ -3,7 +3,6 @@ package edu.cmpe277.teamgoat.photoapp;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -14,8 +13,6 @@ import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
 
 
-import com.facebook.appevents.AppEventsLogger;
-import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 
@@ -30,6 +27,15 @@ public class MainActivity extends Activity {
         FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_login);
 
+        /*
+        * Test Layout: for testing for the layout only, comment out this part when
+        * testing other app's functions.
+        * */
+
+            Intent i = new Intent(this, LayoutTest.class);
+            startActivity(i);
+
+        /* ****** end of testing layout ****** */
         callbackManager = CallbackManager.Factory.create();
         LoginButton loginButton = (LoginButton) findViewById(R.id.login_button);
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {

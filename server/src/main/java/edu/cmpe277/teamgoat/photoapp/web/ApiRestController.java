@@ -77,7 +77,7 @@ public class ApiRestController {
 	) {
 		String userId = userIdentityDiscoveryService.getUserId(facebookToken);
 		LOG.info(String.format("listing all images near userid=%s lat=%.4f lon=%.4f maxdis=%.4f", userId, lat, lon, maxDistanceMeters));
-		return albumRepo.findViewableImagesNearLocation(userId, lat, lon, maxDistanceMeters);
+		return imageRepo.findImagesNearLocation(lat, lon, maxDistanceMeters);
 	}
 
 	@RequestMapping(value = "/friends", method = RequestMethod.GET)
