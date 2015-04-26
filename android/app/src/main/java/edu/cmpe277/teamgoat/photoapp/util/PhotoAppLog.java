@@ -16,6 +16,10 @@ public class PhotoAppLog {
         this.log = log;
     }
 
+    public void debug(String msg) {
+        log(Level.FINER, msg);
+    }
+
     public void info(String msg) {
         log(Level.INFO, msg);
     }
