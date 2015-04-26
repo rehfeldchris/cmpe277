@@ -1,8 +1,5 @@
 package edu.cmpe277.teamgoat.photoapp.util;
 
-import java.util.Arrays;
-import java.util.List;
-
 /**
  * Created by srkarra on 4/25/2015.
  */
@@ -14,6 +11,6 @@ public class IDs {
 
     /** Required permission for Facebook */
     public static final String[] FACEBOOK_LOGIN_PERMISSIONS         = {
-        "user_about_me", "user_friends", "read_custom_friendlists", "email"
+        "user_about_me", "user_friends", "email"
     };
 }
