@@ -40,7 +40,7 @@ public class MainActivity extends Activity {
         Intent launchIntent = getIntent();
         if (launchIntent != null ) {
             Bundle launchBundle = launchIntent.getExtras();
-            forceShowLoginScreen = launchBundle.getBoolean(IDs.INTENT_LAUNCH_LOGIN_VIEW_FORCE_VIEW_PARAMETER_KEY, false);
+            forceShowLoginScreen = launchBundle != null && launchBundle.getBoolean(IDs.INTENT_LAUNCH_LOGIN_VIEW_FORCE_VIEW_PARAMETER_KEY, false);
         }
 
         photoApp = (PhotoApp) getApplication();
@@ -94,8 +94,9 @@ public class MainActivity extends Activity {
         } else {
             // THIS IS A TEST CALL
             // WE NEED TO UPDATE THIS TO THE CORRECT LAYOUT/VIEW
-            Intent i = new Intent(this, LayoutTest.class);
-            startActivity(i);
+            // NOTE: This function call causes a bug: missing layout files
+//            Intent i = new Intent(this, LayoutTest.class);
+//            startActivity(i);
         }
 
 
