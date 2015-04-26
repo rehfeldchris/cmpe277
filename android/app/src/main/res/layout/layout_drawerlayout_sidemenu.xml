@@ -9,7 +9,11 @@
         android:layout_height="wrap_content"
         android:id="@+id/content_frame"
         >
-
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Test Text"
+            />
     </FrameLayout>
 
     <ListView
@@ -17,10 +21,16 @@
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:choiceMode="singleChoice"
-        android:divider="@android:color/transparent"
+        android:divider="@android:color/white"
         android:dividerHeight="0dp"
         android:background="#111"
         >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="test menu"
+            />
 
     </ListView>
 </DrawerLayout>
