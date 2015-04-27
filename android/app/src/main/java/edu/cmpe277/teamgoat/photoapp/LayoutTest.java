@@ -6,11 +6,15 @@ import android.os.Bundle;
 /**
  * Created by squall on 4/16/15.
  */
-public class Profile extends Activity
+public class LayoutTest extends Activity
 {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.layout_container_album_item);
+//        setContentView(R.layout.layout_fragment_container_album_item);
+//        setContentView(R.layout.layout_gridlayout_view_picture);
+        setContentView(R.layout.layout_drawerlayout_sidemenu);
+
     }
+
 }
