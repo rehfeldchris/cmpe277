@@ -5,21 +5,30 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
-
-
+import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 
+import edu.cmpe277.teamgoat.photoapp.util.IDs;
+import edu.cmpe277.teamgoat.photoapp.util.PhotoAppLog;
+
 public class MainActivity extends Activity {
-//    private LoginButton loginButton;
+
+    // Facebook instance variables
     CallbackManager callbackManager;
-    private String accessToken;
+    LoginManager loginManager;
+    private AccessToken accessToken;
+    private String accessTokenString;
+
+    private PhotoApp photoApp;
+    private PhotoAppLog logger;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,34 +36,70 @@ public class MainActivity extends Activity {
         FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_login);
 
-        /*
-        * Test Layout: for testing for the layout only, comment out this part when
-        * testing other app's functions.
-        * */
+        boolean forceShowLoginScreen = false;
+        Intent launchIntent = getIntent();
+        if (launchIntent != null ) {
+            Bundle launchBundle = launchIntent.getExtras();
+            forceShowLoginScreen = launchBundle != null && launchBundle.getBoolean(IDs.INTENT_LAUNCH_LOGIN_VIEW_FORCE_VIEW_PARAMETER_KEY, false);
+        }
 
-            Intent i = new Intent(this, LayoutTest.class);
-            startActivity(i);
+        photoApp = (PhotoApp) getApplication();
+        logger = photoApp.getMasterLogger();
 
-        /* ****** end of testing layout ****** */
-        callbackManager = CallbackManager.Factory.create();
-        LoginButton loginButton = (LoginButton) findViewById(R.id.login_button);
-        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-            @Override
-            public void onSuccess(LoginResult loginResult) {
-                // App code
-                accessToken = loginResult.getAccessToken().getToken();
-            }
+        // Get the current access token, if it's null or expired, we will show the login view, else direct to the main app
+        // NOTE: To show the logout screen, launch this activity with the force intent key set using key INTENT_LAUNCH_LOGIN_VIEW_FORCE_VIEW_PARAMETER_KEY
+        AccessToken currentAccessToken = AccessToken.getCurrentAccessToken();
+        if (forceShowLoginScreen || currentAccessToken == null || currentAccessToken.isExpired()) {
+            callbackManager = CallbackManager.Factory.create();
+            loginManager = LoginManager.getInstance();
 
-            @Override
-            public void onCancel() {
-                // App code
-            }
+            LoginButton loginButton = (LoginButton) findViewById(R.id.login_button);
+            loginButton.setReadPermissions(IDs.FACEBOOK_LOGIN_PERMISSIONS);
+            loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+                @Override
+                public void onSuccess(LoginResult loginResult) {
+                    // App code
+                    accessToken = loginResult.getAccessToken();
+                    accessTokenString = accessToken.getToken();
+                    Toast.makeText(getApplicationContext(), R.string.facebook_login_successful, Toast.LENGTH_SHORT).show();
 
-            @Override
-            public void onError(FacebookException exception) {
-                // App code
-            }
-        });
+                    // Debug
+                    logger.info(String.format("\n=================\n" +
+                                    "Application Id: '%s'\n" +
+                                    "UserId: '%s'\n" +
+                                    "Access Token: '%s'\n" +
+                                    "Token: '%s'\n" +
+                                    "Expiration: '%s'\n" +
+                                    "Last Refresh: '%s'\n=================\n",
+                            accessToken.getApplicationId(),
+                            accessToken.getUserId(),
+                            accessTokenString,
+                            accessToken.getToken(),
+                            accessToken.getExpires(),
+                            accessToken.getLastRefresh()));
+                }
+
+                @Override
+                public void onCancel() {
+                    Toast.makeText(getApplicationContext(), R.string.facebook_login_cancelled, Toast.LENGTH_SHORT).show();
+                    logger.info("User cancelled Facebook Authentication.");
+                }
+
+                @Override
+                public void onError(FacebookException exception) {
+                    Toast.makeText(getApplicationContext(), R.string.facebook_login_failed, Toast.LENGTH_SHORT).show();
+                    logger.error("Facebook authentication failed, Msg: " + exception.getMessage(), exception);
+                }
+            });
+        } else {
+            // THIS IS A TEST CALL
+            // WE NEED TO UPDATE THIS TO THE CORRECT LAYOUT/VIEW
+            // NOTE: This function call causes a bug: missing layout files
+//            Intent i = new Intent(this, LayoutTest.class);
+//            startActivity(i);
+        }
+
+
     }
 
     @Override

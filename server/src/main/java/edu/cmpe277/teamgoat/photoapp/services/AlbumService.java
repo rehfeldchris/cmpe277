@@ -83,7 +83,7 @@ public class AlbumService {
         if (!album.getGrantedUserIds().contains(userId)) {
             throw new BadApiRequestException(String.format(
                 "album id '%s' not viewable by user id '%s',",
-                    album.get_ID(),
+                album.get_ID(),
                 userId
             ));
         }

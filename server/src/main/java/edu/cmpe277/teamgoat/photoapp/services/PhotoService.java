@@ -1,7 +1,12 @@
 package edu.cmpe277.teamgoat.photoapp.services;
 
+import edu.cmpe277.teamgoat.photoapp.dto.Comment;
 import edu.cmpe277.teamgoat.photoapp.dto.Image;
 import edu.cmpe277.teamgoat.photoapp.dto.ImageInfo;
+import edu.cmpe277.teamgoat.photoapp.repos.AlbumMongoRepository;
+import edu.cmpe277.teamgoat.photoapp.repos.CommentMongoRepository;
+import edu.cmpe277.teamgoat.photoapp.repos.ImageMongoRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -9,15 +14,23 @@ import javax.imageio.ImageIO;
 import javax.imageio.ImageReader;
 import javax.imageio.stream.ImageInputStream;
 import java.io.IOException;
-import java.util.Collections;
-import java.util.Iterator;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class PhotoService {
 
 
+    @Autowired
+    private AlbumMongoRepository albumMongoRepository;
 
-    public Image createImage(MultipartFile file, Double lat, Double lon, String title, String description, String ownerUserId, String fileNameToSaveAs) throws IOException {
+    @Autowired
+    private ImageMongoRepository imageMongoRepository;
+
+    @Autowired
+    private CommentMongoRepository commentMongoRepository;
+
+    public Image createImage(MultipartFile file, Double lat, Double lon, String title, String description, String ownerUserId, String fileNameToSaveAs, String albumId) throws IOException {
         ImageInfo imageInfo = getImageInfo(file);
         double[] coords = lat != null && lon != null ? (new double[]{lat, lon}) : null;
         return new Image(
@@ -29,7 +42,8 @@ public class PhotoService {
             imageInfo.getWidth(),
             imageInfo.getHeight(),
             imageInfo.getSizeBytes(),
-            imageInfo.getMimeType()
+            imageInfo.getMimeType(),
+            albumId
         );
     }
 
@@ -55,7 +69,20 @@ public class PhotoService {
     }
 
 
+    public List<Image> findViewableImagesNearPoint(String userId, double lat, double lon, double maxDistance) {
+        // This uses mongo to find images near the point.
+        // But, these images may or may not be viewable by the user, so we filter the images that aren't in an album viewable by the user.
+        Set<Image> imagesInVieableAlbums =  albumMongoRepository.findViewable(userId).stream().flatMap(album -> album.getImages().stream()).collect(Collectors.toSet());
+        return imageMongoRepository.findImagesNearLocation(lat, lon, maxDistance).stream().filter(imagesInVieableAlbums::contains).collect(Collectors.toList());
+    }
 
 
-
+    public Comment addComment(String userId, String imageId, String commentText) {
+        Comment comment = new Comment(userId, commentText, imageId, new Date());
+        Image image = imageMongoRepository.findBy_ID(imageId);
+        commentMongoRepository.save(comment);
+        image.addComment(comment);
+        imageMongoRepository.save(image);
+        return comment;
+    }
 }
