@@ -4,13 +4,15 @@ import edu.cmpe277.teamgoat.photoapp.dto.Album;
 import edu.cmpe277.teamgoat.photoapp.dto.Comment;
 import edu.cmpe277.teamgoat.photoapp.dto.Image;
 import edu.cmpe277.teamgoat.photoapp.dto.ImageInfo;
+import edu.cmpe277.teamgoat.photoapp.dto.User;
 import edu.cmpe277.teamgoat.photoapp.errors.BadApiRequestException;
 import edu.cmpe277.teamgoat.photoapp.repos.AlbumMongoRepository;
 import edu.cmpe277.teamgoat.photoapp.repos.CommentMongoRepository;
 import edu.cmpe277.teamgoat.photoapp.repos.ImageMongoRepository;
 import edu.cmpe277.teamgoat.photoapp.services.AlbumService;
 import edu.cmpe277.teamgoat.photoapp.services.PhotoService;
-import edu.cmpe277.teamgoat.photoapp.services.UserIdentityDiscoveryService;
+import edu.cmpe277.teamgoat.photoapp.services.UserProfileService;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -20,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.websocket.server.PathParam;
+
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -33,7 +36,7 @@ import java.util.*;
 public class ApiRestController {
 
 	@Autowired
-	private UserIdentityDiscoveryService userIdentityDiscoveryService;
+	private UserProfileService userProfileService;
     @Autowired
     private AlbumMongoRepository albumRepo;
     @Autowired
@@ -63,7 +66,7 @@ public class ApiRestController {
 	public List<Album> getListOfViewableAlbums(
 			@RequestHeader("X-Facebook-Token") String facebookToken
 	) {
-		String userId = userIdentityDiscoveryService.getUserId(facebookToken);
+		String userId = userProfileService.getCurrentUser(facebookToken).getFacebookUserId();
 		LOG.info(String.format("listing all albums userid=%s", userId));
 		return albumRepo.findViewable(userId);
 	}
@@ -75,7 +78,7 @@ public class ApiRestController {
 			@RequestParam("lon") double lon,
 			@RequestParam("maxDistanceMeters") double maxDistanceMeters
 	) {
-		String userId = userIdentityDiscoveryService.getUserId(facebookToken);
+		String userId = userProfileService.getCurrentUser(facebookToken).getFacebookUserId();
 		LOG.info(String.format("listing all images near userid=%s lat=%.4f lon=%.4f maxdis=%.4f", userId, lat, lon, maxDistanceMeters));
 		return photoService.findViewableImagesNearPoint(userId, lat, lon, maxDistanceMeters);
 	}
@@ -84,9 +87,7 @@ public class ApiRestController {
 	public Object getFriendList(
 			@RequestHeader("X-Facebook-Token") String facebookToken
 	) {
-		String userId = userIdentityDiscoveryService.getUserId(facebookToken);
-
-		return "";
+		return userProfileService.getUserFriends(facebookToken);
 	}
 
     @RequestMapping(value="/albums", method = RequestMethod.POST)
@@ -97,7 +98,7 @@ public class ApiRestController {
 			@RequestParam("grantedUserIds") List<String> grantedUserIds,
 			@RequestParam("isPubliclyAccessible") boolean isPubliclyAccessible
 	) {
-		String userId = userIdentityDiscoveryService.getUserId(facebookToken);
+		String userId = userProfileService.getCurrentUser(facebookToken).getFacebookUserId();
 		LOG.info(String.format("attempt create album userid=%s", userId));
 		try {
 			Album album = albumService.createAlbum(title, userId, description, grantedUserIds, isPubliclyAccessible);
@@ -119,7 +120,7 @@ public class ApiRestController {
 			@RequestParam("grantedUserIds") List<String> grantedUserIds,
 			@RequestParam("isPubliclyAccessible") boolean isPubliclyAccessible
 	) {
-		String userId = userIdentityDiscoveryService.getUserId(facebookToken);
+		String userId = userProfileService.getCurrentUser(facebookToken).getFacebookUserId();
 		LOG.info(String.format("attempt update album userid=%s album id=%s", userId, albumId));
 		try {
 			Album album = albumService.updateAlbum(userId, albumId, title, description, grantedUserIds, isPubliclyAccessible);
@@ -137,7 +138,7 @@ public class ApiRestController {
 			@RequestHeader("X-Facebook-Token") String facebookToken,
 			@PathVariable("albumId") String albumId
 	) {
-		String userId = userIdentityDiscoveryService.getUserId(facebookToken);
+		String userId = userProfileService.getCurrentUser(facebookToken).getFacebookUserId();
 		LOG.info(String.format("attempt delete album userid=%s album id = %s", userId, albumId));
 		try {
 			albumService.deleteAlbum(albumId, userId);
@@ -155,7 +156,7 @@ public class ApiRestController {
 			@RequestHeader("X-Facebook-Token") String facebookToken,
 			@PathVariable("albumId") String albumId
 	) {
-		String userId = userIdentityDiscoveryService.getUserId(facebookToken);
+		String userId = userProfileService.getCurrentUser(facebookToken).getFacebookUserId();
 		LOG.info(String.format("attempt view album userid=%s album id = %s", userId, albumId));
 		try {
 			Album album = albumService.findAlbumAndAssertViewableByUser(albumId, userId);
@@ -209,7 +210,7 @@ public class ApiRestController {
 		}
 
 		String savedFileName = saveImageToFileSystem(file);
-		Image image = photoService.createImage(file, lat, lon, title, description, userIdentityDiscoveryService.getUserId(facebookToken), savedFileName, album_id);
+		Image image = photoService.createImage(file, lat, lon, title, description, userProfileService.getCurrentUser(facebookToken).getFacebookUserId(), savedFileName, album_id);
 		album.addImage(image);
 		imageRepo.save(image);
 		albumRepo.save(album);
@@ -222,7 +223,7 @@ public class ApiRestController {
             @PathVariable("imageId") String imageId,
             @RequestParam("comment") String comment
     ) {
-        String userId = userIdentityDiscoveryService.getUserId(facebookToken);
+        String userId = userProfileService.getCurrentUser(facebookToken).getFacebookUserId();
         if (imageRepo.findBy_ID(imageId) == null) {
             response.setStatus(404);
             return null;

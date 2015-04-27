@@ -60,6 +60,11 @@
 			<artifactId>spring-social-facebook</artifactId>
 			<version>2.0.0.RELEASE</version>
 		</dependency>
+		<dependency>
+			<groupId>com.restfb</groupId>
+			<artifactId>restfb</artifactId>
+			<version>1.10.1</version>
+		</dependency>
 	</dependencies>
 	
 	<build>
