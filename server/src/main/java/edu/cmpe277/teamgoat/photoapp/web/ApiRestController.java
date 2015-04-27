@@ -29,7 +29,7 @@ import java.util.*;
 
 
 @RestController
-@RequestMapping("/api/v1/{userId}")
+@RequestMapping("/api/v1")
 public class ApiRestController {
 
 	@Autowired

@@ -1,0 +1,3 @@
+https://www.getpostman.com/collections/a267857c2000a571ae6e
+
+import that url via "import into postman" on the top left of their gui.
