@@ -209,22 +209,25 @@ public class ApiRestController {
 		}
 
 		String savedFileName = saveImageToFileSystem(file);
-		Image image = photoService.createImage(file, lat, lon, title, description, userIdentityDiscoveryService.getUserId(facebookToken), savedFileName);
+		Image image = photoService.createImage(file, lat, lon, title, description, userIdentityDiscoveryService.getUserId(facebookToken), savedFileName, album_id);
 		album.addImage(image);
 		imageRepo.save(image);
 		albumRepo.save(album);
 		return image;
 	}
 
-		
-	@RequestMapping(value = "/albums/{album_id}/images/{image_id}/comments", method = RequestMethod.POST)
-	public Comment postComments(@PathVariable("userId") String facebookUserId, @PathVariable("album_id ") String album_id, @PathVariable("image_id") String image_id, @RequestBody Comment comment) {
-		if (comment != null) {
-			Image image = imageRepo.findByImageId(image_id);
-			image.getComments().add(comment);
-			return comment;
-		}
-		return null;
+	@RequestMapping(value = "/images/{imageId}/comments", method = RequestMethod.POST)
+	public Object postComments(
+            @RequestHeader("X-Facebook-Token") String facebookToken,
+            @PathVariable("imageId") String imageId,
+            @RequestParam("comment") String comment
+    ) {
+        String userId = userIdentityDiscoveryService.getUserId(facebookToken);
+        if (imageRepo.findBy_ID(imageId) == null) {
+            response.setStatus(404);
+            return null;
+        }
+        return photoService.addComment(userId, imageId, comment);
 	}
 
 	private synchronized String generateUniqueFilename() {

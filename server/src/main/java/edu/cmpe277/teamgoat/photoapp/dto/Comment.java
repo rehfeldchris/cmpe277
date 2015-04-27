@@ -18,16 +18,18 @@ public class Comment {
 
     private String comment;
 
+    private String imageId;
+
     private Date timeStamp;
 
     public Comment() {
 
     }
 
-    public Comment(String _ID, String userId, String comment, Date timeStamp) {
-        this._ID = _ID;
+    public Comment(String userId, String comment, String imageId, Date timeStamp) {
         this.userId = userId;
         this.comment = comment;
+        this.imageId = imageId;
         this.timeStamp = timeStamp;
     }
 
@@ -35,31 +37,19 @@ public class Comment {
         return _ID;
     }
 
-    public void set_ID(String _ID) {
-        this._ID = _ID;
-    }
-
     public String getUserId() {
         return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
     }
 
     public String getComment() {
         return comment;
     }
 
-    public void setComment(String comment) {
-        this.comment = comment;
-    }
-
     public Date getTimeStamp() {
         return timeStamp;
     }
 
-    public void setTimeStamp(Date timeStamp) {
-        this.timeStamp = timeStamp;
+    public String getImageId() {
+        return imageId;
     }
 }

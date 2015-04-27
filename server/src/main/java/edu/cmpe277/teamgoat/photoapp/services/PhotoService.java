@@ -1,8 +1,10 @@
 package edu.cmpe277.teamgoat.photoapp.services;
 
+import edu.cmpe277.teamgoat.photoapp.dto.Comment;
 import edu.cmpe277.teamgoat.photoapp.dto.Image;
 import edu.cmpe277.teamgoat.photoapp.dto.ImageInfo;
 import edu.cmpe277.teamgoat.photoapp.repos.AlbumMongoRepository;
+import edu.cmpe277.teamgoat.photoapp.repos.CommentMongoRepository;
 import edu.cmpe277.teamgoat.photoapp.repos.ImageMongoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,10 +14,7 @@ import javax.imageio.ImageIO;
 import javax.imageio.ImageReader;
 import javax.imageio.stream.ImageInputStream;
 import java.io.IOException;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -28,7 +27,10 @@ public class PhotoService {
     @Autowired
     private ImageMongoRepository imageMongoRepository;
 
-    public Image createImage(MultipartFile file, Double lat, Double lon, String title, String description, String ownerUserId, String fileNameToSaveAs) throws IOException {
+    @Autowired
+    private CommentMongoRepository commentMongoRepository;
+
+    public Image createImage(MultipartFile file, Double lat, Double lon, String title, String description, String ownerUserId, String fileNameToSaveAs, String albumId) throws IOException {
         ImageInfo imageInfo = getImageInfo(file);
         double[] coords = lat != null && lon != null ? (new double[]{lat, lon}) : null;
         return new Image(
@@ -40,7 +42,8 @@ public class PhotoService {
             imageInfo.getWidth(),
             imageInfo.getHeight(),
             imageInfo.getSizeBytes(),
-            imageInfo.getMimeType()
+            imageInfo.getMimeType(),
+            albumId
         );
     }
 
@@ -74,4 +77,12 @@ public class PhotoService {
     }
 
 
+    public Comment addComment(String userId, String imageId, String commentText) {
+        Comment comment = new Comment(userId, commentText, imageId, new Date());
+        Image image = imageMongoRepository.findBy_ID(imageId);
+        commentMongoRepository.save(comment);
+        image.addComment(comment);
+        imageMongoRepository.save(image);
+        return comment;
+    }
 }
