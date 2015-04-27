@@ -3,6 +3,7 @@ package edu.cmpe277.teamgoat.photoapp.dto;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.GeoSpatialIndexType;
 import org.springframework.data.mongodb.core.index.GeoSpatialIndexed;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -22,7 +23,7 @@ public class Image {
 
     private String imageId; // Generate a uuid for each image and store the file on the system
 
-    @GeoSpatialIndexed
+    @GeoSpatialIndexed(type= GeoSpatialIndexType.GEO_2DSPHERE)
     private double[] location;  // lat and long
 
     private String description;
@@ -35,15 +36,16 @@ public class Image {
 
     private String mimeType;
 
+    private String albumId;
+
     @DBRef
-    @CascadeSave
     private List<Comment> comments;
 
     public Image() {
 
     }
 
-    public Image(String ownerId, String imageId, double[] location, String description, List<Comment> comments, int width, int height, int sizeBytes, String mimeType) {
+    public Image(String ownerId, String imageId, double[] location, String description, List<Comment> comments, int width, int height, int sizeBytes, String mimeType, String albumId) {
         this.ownerId = ownerId;
         this.imageId = imageId;
         this.location = location;
@@ -53,15 +55,7 @@ public class Image {
         this.height = height;
         this.sizeBytes = sizeBytes;
         this.mimeType = mimeType;
-    }
-
-    public Image(String _ID, String ownerId, String imageId, double[] location, String description, List<Comment> comments) {
-        this._ID = _ID;
-        this.ownerId = ownerId;
-        this.imageId = imageId;
-        this.location = location;
-        this.description = description;
-        this.comments = comments;
+        this.albumId = albumId;
     }
 
     public String get_ID() {
@@ -112,18 +106,9 @@ public class Image {
         this.comments.add(comment);
     }
 
-//    @Override
-//    public String toString() {
-//        return "Image{" +
-//                "_ID='" + _ID + '\'' +
-//                ", ownerId='" + ownerId + '\'' +
-//                ", imageId='" + imageId + '\'' +
-//                ", location='" + Arrays.toString(location) + '\'' +
-//                ", description='" + description + '\'' +
-//                ", comments=" + Arrays.toString(comments) +
-//                '}';
-//    }
-
+    public String getAlbumId() {
+        return albumId;
+    }
 
     @Override
     public boolean equals(Object o) {
