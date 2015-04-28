@@ -77,6 +77,7 @@ public class MainActivity extends Activity {
                             accessToken.getToken(),
                             accessToken.getExpires(),
                             accessToken.getLastRefresh()));
+                    launchMainPhotoAppActivity();
                 }
 
                 @Override
@@ -92,14 +93,16 @@ public class MainActivity extends Activity {
                 }
             });
         } else {
-            // THIS IS A TEST CALL
-            // WE NEED TO UPDATE THIS TO THE CORRECT LAYOUT/VIEW
-            // NOTE: This function call causes a bug: missing layout files
+            launchMainPhotoAppActivity();
+        }
+    }
+
+    private void launchMainPhotoAppActivity() {
+        // THIS IS A TEST CALL
+        // WE NEED TO UPDATE THIS TO THE CORRECT LAYOUT/VIEW
+        // NOTE: This function call causes a bug: missing layout files
 //            Intent i = new Intent(this, LayoutTest.class);
 //            startActivity(i);
-        }
-
-
     }
 
     @Override
