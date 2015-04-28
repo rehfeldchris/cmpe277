@@ -8,7 +8,9 @@ import java.util.List;
 import com.restfb.Connection;
 import com.restfb.DefaultFacebookClient;
 import com.restfb.FacebookClient;
+import org.springframework.stereotype.Service;
 
+@Service
 public class UserProfileService {
 //	http://restfb.com/
 //    public void getAllFriends(String facebookToken) {
