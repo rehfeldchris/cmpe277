@@ -59,7 +59,7 @@ public class UserProfileService {
 		}
 
 		// This user has old stale data, refresh it.
-		User newUserData = getUserFreshFromFacebook(facebookUserId);
+		User newUserData = getUserFreshFromFacebook(facebookAccessToken);
 		user.setName(newUserData.getName());
 		user.setWhenDataFetchedFromFacebook(new Date());
 		user.setProfilePhotoUrl(newUserData.getProfilePhotoUrl());
