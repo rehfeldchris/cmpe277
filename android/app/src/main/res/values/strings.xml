@@ -18,5 +18,21 @@
     <string name="facebook_login_successful">Facebook login successful.</string>
     <string name="facebook_login_cancelled">Facebook login cancelled.</string>
     <string name="facebook_login_failed">Facebook login failed, please try again later.</string>
+    <string-array name="menu_item">
+        <item>Profile</item>
+        <item>Album</item>
+        <item>Friend</item>
+        <item>Sharing</item>
+    </string-array>
+
+    <string-array name="friend_test">
+        <item>Chris</item>
+        <item>Carita</item>
+        <item>Sai</item>
+        <item>Thong</item>
+    </string-array>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
