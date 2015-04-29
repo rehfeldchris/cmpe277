@@ -67,6 +67,7 @@ public class MainActivity extends Activity {
                     // App code
                     accessToken = loginResult.getAccessToken();
                     accessTokenString = accessToken.getToken();
+                    LolGlobalVariables.facebookAccessToken = accessTokenString;
                     Toast.makeText(getApplicationContext(), R.string.facebook_login_successful, Toast.LENGTH_SHORT).show();
 
                     // Debug

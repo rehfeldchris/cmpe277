@@ -14,6 +14,7 @@
     <string name="txt_connection_total"># Connections</string>
     <string name="btn_profile_edit">Edit your profile</string>
     <string name="txt_album_title">Album Title</string>
+    <string name="txt_create_album">Create Album</string>
 
     <string name="facebook_login_successful">Facebook login successful.</string>
     <string name="facebook_login_cancelled">Facebook login cancelled.</string>
