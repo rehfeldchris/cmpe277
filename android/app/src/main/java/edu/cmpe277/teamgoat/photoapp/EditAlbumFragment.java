@@ -30,7 +30,7 @@ public class EditAlbumFragment extends Fragment {
     }
 
     private void createAlbum() {
-        LolGlobalVariables.facebookAccessToken;
+        //LolGlobalVariables.facebookAccessToken;
     }
 
     // example
