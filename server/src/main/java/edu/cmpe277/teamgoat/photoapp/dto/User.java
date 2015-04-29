@@ -56,4 +56,8 @@ public class User {
     public void setWhenDataFetchedFromFacebook(Date whenDataFetchedFromFacebook) {
         this.whenDataFetchedFromFacebook = whenDataFetchedFromFacebook;
     }
+
+    public long getMillisSinceLastFacebookFetch() {
+        return new Date().getTime() - whenDataFetchedFromFacebook.getTime();
+    }
 }

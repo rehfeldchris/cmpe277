@@ -1,18 +1,13 @@
 package edu.cmpe277.teamgoat.photoapp.web;
 
 import edu.cmpe277.teamgoat.photoapp.dto.Album;
-import edu.cmpe277.teamgoat.photoapp.dto.Comment;
 import edu.cmpe277.teamgoat.photoapp.dto.Image;
 import edu.cmpe277.teamgoat.photoapp.dto.ImageInfo;
-import edu.cmpe277.teamgoat.photoapp.dto.User;
 import edu.cmpe277.teamgoat.photoapp.errors.BadApiRequestException;
 import edu.cmpe277.teamgoat.photoapp.repos.AlbumMongoRepository;
 import edu.cmpe277.teamgoat.photoapp.repos.CommentMongoRepository;
 import edu.cmpe277.teamgoat.photoapp.repos.ImageMongoRepository;
-import edu.cmpe277.teamgoat.photoapp.services.AlbumService;
-import edu.cmpe277.teamgoat.photoapp.services.PhotoService;
-import edu.cmpe277.teamgoat.photoapp.services.UserProfileService;
-
+import edu.cmpe277.teamgoat.photoapp.services.*;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -21,8 +16,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.websocket.server.PathParam;
-
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
