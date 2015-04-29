@@ -1,0 +1,572 @@
+{
+	"version": 1,
+	"collections": [
+		{
+			"id": "08d0c8a5-5752-286f-d1b8-782fb7e47d08",
+			"name": "photoapp",
+			"description": "",
+			"order": [
+				"e3186950-5eda-7aa5-eafe-8ee12b54bd67",
+				"9503efcf-cdf0-5f19-eb66-23fde579b9e4",
+				"982de571-a66b-0319-5887-f4dc76e22479",
+				"2114db16-308d-a6dc-e7e3-e371e059fad0",
+				"d1a11b65-9d12-7145-b4dc-fdb199cff6bd",
+				"771935e2-13e0-d913-7da1-3ce63164a1b9",
+				"e2b364f2-ca5a-aa71-5a39-8962ecee080f",
+				"1c071768-8666-aa44-e631-7de5f5ba948e",
+				"ec9e08c2-1075-12af-e5b9-50a1ea6151dc",
+				"97b33e3b-0916-fc93-bba9-1e1a3ecd125e"
+			],
+			"folders": [],
+			"timestamp": 1429741880983,
+			"synced": false,
+			"remote_id": 0,
+			"owner": "40975",
+			"sharedWithTeam": false,
+			"subscribed": false,
+			"remoteLink": "",
+			"public": false,
+			"write": true,
+			"requests": [
+				{
+					"id": "1c071768-8666-aa44-e631-7de5f5ba948e",
+					"headers": "Accept: application/json\nX-Facebook-Token: {{X-Facebook-Token}}\n",
+					"url": "http://localhost/api/v1/images-near-point?lat=0&lon=0&maxDistanceMeters=1000",
+					"preRequestScript": "",
+					"pathVariables": {},
+					"method": "GET",
+					"data": [
+						{
+							"key": "title",
+							"value": "image title",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "description",
+							"value": "image description",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "file",
+							"value": "",
+							"type": "file",
+							"enabled": true
+						},
+						{
+							"key": "lat",
+							"value": "0",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "lon",
+							"value": "0",
+							"type": "text",
+							"enabled": true
+						}
+					],
+					"dataMode": "params",
+					"version": 2,
+					"tests": "",
+					"currentHelper": "normal",
+					"helperAttributes": {},
+					"time": 1430112685068,
+					"name": "find images near",
+					"description": "",
+					"collectionId": "08d0c8a5-5752-286f-d1b8-782fb7e47d08",
+					"responses": [],
+					"synced": false,
+					"owner": "40975"
+				},
+				{
+					"id": "2114db16-308d-a6dc-e7e3-e371e059fad0",
+					"headers": "Accept: application/json\nX-Facebook-Token: {{X-Facebook-Token}}\n",
+					"url": "http://localhost/api/v1/albums/{{albumId}}/images",
+					"preRequestScript": "",
+					"pathVariables": {},
+					"method": "POST",
+					"data": [
+						{
+							"key": "title",
+							"value": "image title",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "description",
+							"value": "image description",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "file",
+							"value": "",
+							"type": "file",
+							"enabled": true
+						}
+					],
+					"dataMode": "params",
+					"version": 2,
+					"tests": "",
+					"currentHelper": "normal",
+					"helperAttributes": {},
+					"time": 1430112668682,
+					"name": "upload image",
+					"description": "",
+					"collectionId": "08d0c8a5-5752-286f-d1b8-782fb7e47d08",
+					"responses": [],
+					"synced": false,
+					"owner": "40975"
+				},
+				{
+					"id": "771935e2-13e0-d913-7da1-3ce63164a1b9",
+					"headers": "Accept: application/json\nX-Facebook-Token: {{X-Facebook-Token}}\n",
+					"url": "http://localhost/api/v1/albums/{{albumId}}",
+					"preRequestScript": "",
+					"pathVariables": {},
+					"method": "DELETE",
+					"data": [],
+					"dataMode": "urlencoded",
+					"version": 2,
+					"tests": "",
+					"currentHelper": "normal",
+					"helperAttributes": {},
+					"time": 1430112676337,
+					"name": "delete specific album",
+					"description": "",
+					"collectionId": "08d0c8a5-5752-286f-d1b8-782fb7e47d08",
+					"responses": [],
+					"synced": false,
+					"owner": "40975"
+				},
+				{
+					"id": "9503efcf-cdf0-5f19-eb66-23fde579b9e4",
+					"headers": "Accept: application/json\nX-Facebook-Token: {{X-Facebook-Token}}\n",
+					"url": "http://localhost/api/v1/albums",
+					"preRequestScript": "",
+					"pathVariables": {},
+					"method": "POST",
+					"data": [
+						{
+							"key": "title",
+							"value": "album title",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "description",
+							"value": "album description",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "grantedUserIds",
+							"value": "",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "isPubliclyAccessible",
+							"value": "true",
+							"type": "text",
+							"enabled": true
+						}
+					],
+					"dataMode": "urlencoded",
+					"version": 2,
+					"tests": "",
+					"currentHelper": "normal",
+					"helperAttributes": {},
+					"time": 1430112658585,
+					"name": "create album",
+					"description": "",
+					"collectionId": "08d0c8a5-5752-286f-d1b8-782fb7e47d08",
+					"responses": [],
+					"synced": false,
+					"owner": "40975"
+				},
+				{
+					"id": "97b33e3b-0916-fc93-bba9-1e1a3ecd125e",
+					"headers": "Accept: application/json\nX-Facebook-Token: {{X-Facebook-Token}}\n",
+					"url": "http://localhost/api/v1/friends",
+					"preRequestScript": "",
+					"pathVariables": {},
+					"method": "GET",
+					"data": [
+						{
+							"key": "title",
+							"value": "image title",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "description",
+							"value": "image description",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "file",
+							"value": "",
+							"type": "file",
+							"enabled": true
+						},
+						{
+							"key": "lat",
+							"value": "0",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "lon",
+							"value": "0",
+							"type": "text",
+							"enabled": true
+						}
+					],
+					"dataMode": "params",
+					"version": 2,
+					"tests": "",
+					"currentHelper": "normal",
+					"helperAttributes": {},
+					"time": 1430245420957,
+					"name": "list all friends",
+					"description": "",
+					"collectionId": "08d0c8a5-5752-286f-d1b8-782fb7e47d08",
+					"responses": []
+				},
+				{
+					"id": "982de571-a66b-0319-5887-f4dc76e22479",
+					"headers": "Accept: application/json\nX-Facebook-Token: {{X-Facebook-Token}}\n",
+					"url": "http://localhost/api/v1/albums/{{albumId}}",
+					"preRequestScript": "",
+					"pathVariables": {},
+					"method": "GET",
+					"data": [],
+					"dataMode": "params",
+					"version": 2,
+					"tests": "",
+					"currentHelper": "normal",
+					"helperAttributes": {},
+					"time": 1430112663752,
+					"name": "get specific album",
+					"description": "",
+					"collectionId": "08d0c8a5-5752-286f-d1b8-782fb7e47d08",
+					"responses": [],
+					"synced": false,
+					"owner": "40975"
+				},
+				{
+					"id": "d1a11b65-9d12-7145-b4dc-fdb199cff6bd",
+					"headers": "Accept: application/json\nX-Facebook-Token: {{X-Facebook-Token}}\n",
+					"url": "http://localhost/api/v1/albums/{{albumId}}/images",
+					"preRequestScript": "",
+					"pathVariables": {},
+					"method": "POST",
+					"data": [
+						{
+							"key": "title",
+							"value": "image title",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "description",
+							"value": "image description",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "file",
+							"value": "",
+							"type": "file",
+							"enabled": true
+						},
+						{
+							"key": "lat",
+							"value": "0",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "lon",
+							"value": "0",
+							"type": "text",
+							"enabled": true
+						}
+					],
+					"dataMode": "params",
+					"version": 2,
+					"tests": "",
+					"currentHelper": "normal",
+					"helperAttributes": {},
+					"time": 1430112672892,
+					"name": "upload image with coords",
+					"description": "",
+					"collectionId": "08d0c8a5-5752-286f-d1b8-782fb7e47d08",
+					"responses": [],
+					"synced": false,
+					"owner": "40975"
+				},
+				{
+					"id": "e2b364f2-ca5a-aa71-5a39-8962ecee080f",
+					"headers": "Accept: application/json\nX-Facebook-Token: {{X-Facebook-Token}}\nContent-Type: application/json\n",
+					"url": "http://localhost/api/v1/albums/{{albumId}}",
+					"preRequestScript": "",
+					"pathVariables": {},
+					"method": "PUT",
+					"data": "{\n    \"title\": \"updated album title\",\n    \"description\": \"updated album description\",\n    \"grantedUserIds\": [],\n    \"isPubliclyAccessible\": false\n}",
+					"dataMode": "raw",
+					"version": 2,
+					"tests": "",
+					"currentHelper": "normal",
+					"helperAttributes": {},
+					"time": 1430112681377,
+					"name": "update album",
+					"description": "",
+					"collectionId": "08d0c8a5-5752-286f-d1b8-782fb7e47d08",
+					"responses": [],
+					"synced": false,
+					"rawModeData": "{\n    \"title\": \"updated album title\",\n    \"description\": \"updated album description\",\n    \"grantedUserIds\": [],\n    \"isPubliclyAccessible\": false\n}",
+					"owner": "40975"
+				},
+				{
+					"id": "e3186950-5eda-7aa5-eafe-8ee12b54bd67",
+					"headers": "Accept: application/json\nX-Facebook-Token: {{X-Facebook-Token}}\n",
+					"url": "http://localhost/api/v1/albums",
+					"preRequestScript": "",
+					"pathVariables": {},
+					"method": "GET",
+					"data": [],
+					"dataMode": "params",
+					"version": 2,
+					"tests": "",
+					"currentHelper": "normal",
+					"helperAttributes": {},
+					"time": 1430112636754,
+					"name": "list all albums",
+					"description": "",
+					"collectionId": "08d0c8a5-5752-286f-d1b8-782fb7e47d08",
+					"responses": [],
+					"synced": false,
+					"owner": "40975"
+				},
+				{
+					"id": "ec9e08c2-1075-12af-e5b9-50a1ea6151dc",
+					"headers": "Accept: application/json\nX-Facebook-Token: {{X-Facebook-Token}}\n",
+					"url": "http://localhost/api/v1/images/{{imageId}}/comments",
+					"preRequestScript": "",
+					"pathVariables": {},
+					"method": "POST",
+					"data": [
+						{
+							"key": "comment",
+							"value": "this is a comment",
+							"type": "text",
+							"enabled": true
+						}
+					],
+					"dataMode": "urlencoded",
+					"version": 2,
+					"tests": "",
+					"currentHelper": "normal",
+					"helperAttributes": {},
+					"time": 1430112688697,
+					"name": "comment on photo",
+					"description": "",
+					"collectionId": "08d0c8a5-5752-286f-d1b8-782fb7e47d08",
+					"responses": [],
+					"synced": false,
+					"owner": "40975"
+				}
+			]
+		},
+		{
+			"id": "d64bd620-fcb4-0840-5106-76d97d884122",
+			"name": "myvote",
+			"description": "",
+			"order": [
+				"6b2539d1-1b48-78d8-0451-220d30c62272",
+				"baf14fe5-25d4-4f13-3692-747d4ab9d18a"
+			],
+			"folders": [],
+			"timestamp": 1429803620570,
+			"synced": false,
+			"owner": 0,
+			"sharedWithTeam": false,
+			"subscribed": false,
+			"remoteLink": "",
+			"public": false,
+			"write": true,
+			"hasRequests": true,
+			"requests": [
+				{
+					"id": "6b2539d1-1b48-78d8-0451-220d30c62272",
+					"headers": "Accept: application/json\nX-Facebook-Token: {{X-Facebook-Token}}\nContent-Type: application/json\n",
+					"url": "http://localhost:8080/api/v1/moderators",
+					"preRequestScript": "",
+					"pathVariables": {},
+					"method": "POST",
+					"data": "{\r\n \"name\": \"John Smith\",\r\n \"email\": \"rehfeldchris@Gmail.com\",\r\n \"password\": \"secret\"\r\n}",
+					"dataMode": "raw",
+					"version": 2,
+					"tests": "",
+					"currentHelper": "normal",
+					"helperAttributes": {},
+					"time": 1429803801853,
+					"name": "create mod",
+					"description": "",
+					"collectionId": "d64bd620-fcb4-0840-5106-76d97d884122",
+					"responses": [],
+					"synced": false,
+					"rawModeData": "{\r\n \"name\": \"John Smith\",\r\n \"email\": \"rehfeldchris@Gmail.com\",\r\n \"password\": \"secret\"\r\n}"
+				},
+				{
+					"id": "baf14fe5-25d4-4f13-3692-747d4ab9d18a",
+					"headers": "Accept: application/json\nX-Facebook-Token: {{X-Facebook-Token}}\nContent-Type: application/json\nAuthorization: Basic dXNlcjpwYXNzd29yZA==\n",
+					"url": "http://localhost:8080/api/v1/moderators/0/polls",
+					"preRequestScript": "",
+					"pathVariables": {},
+					"method": "POST",
+					"data": "{\r\n \"question\": \"What type of smartphone do you have?\",\r\n \"started_at\": \"2015-02-23T13:00:00.000Z\",\r\n \"expired_at\" : \"2015-02-24T13:00:00.000Z\",\r\n \"choice\": [ \"Android\", \"iPhone\" ]\r\n}",
+					"dataMode": "raw",
+					"version": 2,
+					"tests": "",
+					"currentHelper": "basicAuth",
+					"helperAttributes": {
+						"username": "user",
+						"password": "password"
+					},
+					"time": 1429804026976,
+					"name": "create poll",
+					"description": "",
+					"collectionId": "d64bd620-fcb4-0840-5106-76d97d884122",
+					"responses": [],
+					"synced": false,
+					"rawModeData": "{\r\n \"question\": \"What type of smartphone do you have?\",\r\n \"started_at\": \"2015-02-23T13:00:00.000Z\",\r\n \"expired_at\" : \"2015-02-24T13:00:00.000Z\",\r\n \"choice\": [ \"Android\", \"iPhone\" ]\r\n}"
+				}
+			]
+		},
+		{
+			"id": "eaf1de6b-149c-c039-3429-d4805d59acb4",
+			"name": "aws",
+			"description": "",
+			"order": [
+				"43c685b7-9147-fb4b-a431-383071ccbd1d",
+				"8ddad1ff-1c98-1316-3f52-a67c82b348b7"
+			],
+			"folders": [],
+			"timestamp": 1429822585676,
+			"synced": false,
+			"owner": 0,
+			"sharedWithTeam": false,
+			"subscribed": false,
+			"remoteLink": "",
+			"public": false,
+			"write": true,
+			"hasRequests": true,
+			"requests": [
+				{
+					"id": "43c685b7-9147-fb4b-a431-383071ccbd1d",
+					"headers": "Accept: application/json\nX-Facebook-Token: {{X-Facebook-Token}}\nContent-Type: application/json\n",
+					"url": "http://ec2-54-153-7-21.us-west-1.compute.amazonaws.com:8080/api/v1/moderators",
+					"pathVariables": {},
+					"preRequestScript": "",
+					"method": "POST",
+					"collectionId": "eaf1de6b-149c-c039-3429-d4805d59acb4",
+					"data": "{\r\n \"name\": \"John Smith\",\r\n \"email\": \"rehfeldchris@Gmail.com\",\r\n \"password\": \"secret\"\r\n}",
+					"dataMode": "raw",
+					"name": "create mod",
+					"description": "",
+					"descriptionFormat": "html",
+					"time": 1429822591257,
+					"version": 2,
+					"responses": [],
+					"tests": "",
+					"currentHelper": "normal",
+					"helperAttributes": {},
+					"collectionOwner": 0,
+					"synced": false,
+					"rawModeData": "{\r\n \"name\": \"John Smith\",\r\n \"email\": \"rehfeldchris@Gmail.com\",\r\n \"password\": \"secret\"\r\n}"
+				},
+				{
+					"id": "8ddad1ff-1c98-1316-3f52-a67c82b348b7",
+					"headers": "Accept: application/json\nX-Facebook-Token: {{X-Facebook-Token}}\nContent-Type: application/json\nAuthorization: Basic dXNlcjpwYXNzd29yZA==\n",
+					"url": "http://ec2-54-153-7-21.us-west-1.compute.amazonaws.com:8080/api/v1/moderators/0/polls",
+					"preRequestScript": "",
+					"pathVariables": {},
+					"method": "POST",
+					"data": "{\r\n \"question\": \"What type of smartphone do you have?\",\r\n \"started_at\": \"2015-02-23T13:00:00.000Z\",\r\n \"expired_at\" : \"2015-02-24T13:00:00.000Z\",\r\n \"choice\": [ \"Android\", \"iPhone\" ]\r\n}",
+					"dataMode": "raw",
+					"version": 2,
+					"tests": "",
+					"currentHelper": "normal",
+					"helperAttributes": {},
+					"time": 1429822693607,
+					"name": "create poll",
+					"description": "",
+					"collectionId": "eaf1de6b-149c-c039-3429-d4805d59acb4",
+					"responses": [],
+					"synced": false,
+					"rawModeData": "{\r\n \"question\": \"What type of smartphone do you have?\",\r\n \"started_at\": \"2015-02-23T13:00:00.000Z\",\r\n \"expired_at\" : \"2015-02-24T13:00:00.000Z\",\r\n \"choice\": [ \"Android\", \"iPhone\" ]\r\n}"
+				}
+			]
+		}
+	],
+	"environments": [
+		{
+			"id": "db493ffe-2f78-472b-6389-4e72fc5e39f8",
+			"name": "photoapp",
+			"values": [
+				{
+					"key": "X-Facebook-Token",
+					"value": "CAAWuZCfKYoIYBADObC6zVoplffpu1omFtr3ZCmtSPX5z7IwUfZBauhyqantgNDlSNg1KXVEDK3HMZB6PpSZBdzUvliV8ZANNiRyHmuucwWgYbgE6sZBJdqMd2SXb5svkayZA9ER7HGeunWtk3r3pR7LoEtYYaIcRybrK2WEe7gLOrGeJMpLyEYGeHJdzZBTeA45kZD",
+					"type": "text",
+					"name": "X-Facebook-Token",
+					"enabled": true
+				},
+				{
+					"key": "userid1",
+					"value": "todo",
+					"type": "text",
+					"name": "userid1",
+					"enabled": true
+				},
+				{
+					"key": "albumId",
+					"value": "553c15a436ebc3a07e3dae28",
+					"type": "text",
+					"name": "albumId",
+					"enabled": true
+				}
+			],
+			"timestamp": 1430331763654
+		}
+	],
+	"headerPresets": [
+		{
+			"id": "58f7dce1-8727-f986-00c2-a4020511006d",
+			"name": "facebook token and accept",
+			"headers": [
+				{
+					"key": "Accept",
+					"value": "application/json",
+					"type": "text",
+					"name": "Accept",
+					"enabled": true
+				},
+				{
+					"key": "X-Facebook-Token",
+					"value": "{{X-Facebook-Token}}",
+					"type": "text",
+					"name": "X-Facebook-Token",
+					"enabled": true
+				}
+			],
+			"timestamp": 1429743109622
+		}
+	],
+	"globals": []
+}
