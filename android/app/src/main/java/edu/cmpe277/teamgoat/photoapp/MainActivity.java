@@ -34,6 +34,11 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        // App Test
+        Intent i = new Intent(this, AlbumViewerActivity.class);
+        startActivity(i);
+        // End Test
+
         FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_login);
 

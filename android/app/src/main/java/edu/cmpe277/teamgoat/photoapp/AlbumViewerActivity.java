@@ -3,22 +3,21 @@ package edu.cmpe277.teamgoat.photoapp;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
 
 
-public class ViewAlbum extends ActionBarActivity {
+public class AlbumViewerActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_album);
-        if (savedInstanceState == null) {
+        setContentView(R.layout.layout_gridview_view_image);
+
+        Fragment frag = getSupportFragmentManager().findFragmentById(R.id.layout_fragment_gridview_view_image_container);
+        if (frag == null) {
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.container, new PlaceholderFragment())
+                    .add(R.id.layout_fragment_gridview_view_image_container, new ImagesGridviewFragment())
                     .commit();
         }
     }
@@ -46,21 +45,5 @@ public class ViewAlbum extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    /**
-     * A placeholder fragment containing a simple view.
-     */
-    public static class PlaceholderFragment extends Fragment {
 
-        public PlaceholderFragment()
-        {
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.layout_gridlayout_view_album, container, false);
-
-            return rootView;
-        }
-    }
 }

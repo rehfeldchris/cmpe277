@@ -1,6 +1,5 @@
 package edu.cmpe277.teamgoat.photoapp;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.app.ListFragment;
 import android.view.View;
@@ -11,8 +10,6 @@ import android.widget.TextView;
 
 
 import java.util.ArrayList;
-
-import edu.cmpe277.teamgoat.photoapp.dummy.DummyContent;
 
 /**
  * A fragment representing a list of Items.
@@ -38,7 +35,7 @@ public class AlbumListFragment extends ListFragment {
 
 
         // TODO: Change Adapter to display your content
-        String [] friends = getActivity().getResources().getStringArray(R.array.friend_test);
+        String [] friends = getActivity().getResources().getStringArray(R.array.friend_list_test);
         ArrayList<String> albums = new ArrayList<String>();
         for (int i = 0; i < friends.length; i++) albums.add(friends[i]);
 

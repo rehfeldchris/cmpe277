@@ -29,7 +29,7 @@
         <item>Sharing</item>
     </string-array>
 
-    <string-array name="friend_test">
+    <string-array name="friend_list_test">
         <item>Chris</item>
         <item>Carita</item>
         <item>Sai</item>
@@ -39,5 +39,6 @@
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_view_album">ViewAlbum</string>
+    <string name="title_activity_single_image_view">SingleImageViewActivity</string>
 
 </resources>

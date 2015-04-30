@@ -24,7 +24,7 @@ public class LayoutTest extends Activity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        setContentView(R.layout.layout_fragment_container_album_item);
-//        setContentView(R.layout.layout_gridlayout_view_album);
+//        setContentView(R.layout.layout_gridlayout_view_image);
 
         setContentView(R.layout.layout_drawerlayout);
 
