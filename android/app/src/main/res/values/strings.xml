@@ -16,29 +16,28 @@
     <string name="txt_album_title">Album Title</string>
     <string name="txt_album_description">Album Description</string>
     <string name="txt_create_album">Create Album</string>
-
     <string name="api_host">http://localhost:80/</string>
-
     <string name="facebook_login_successful">Facebook login successful.</string>
     <string name="facebook_login_cancelled">Facebook login cancelled.</string>
     <string name="facebook_login_failed">Facebook login failed, please try again later.</string>
+
     <string-array name="menu_item">
         <item>Profile</item>
         <item>Album</item>
         <item>Friend</item>
         <item>Sharing</item>
     </string-array>
-
-    <string-array name="friend_list_test">
+    <string-array name="friend_test">
         <item>Chris</item>
         <item>Carita</item>
         <item>Sai</item>
         <item>Thong</item>
     </string-array>
 
-<!-- TODO: Remove or change this placeholder text -->
+    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_view_album">ViewAlbum</string>
+    <string name="title_activity_photo_albums">PhotoAlbums</string>
     <string name="title_activity_single_image_view">SingleImageViewActivity</string>
 
 </resources>

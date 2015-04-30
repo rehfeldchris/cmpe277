@@ -110,6 +110,7 @@ public class MainActivity extends Activity {
         // NOTE: This function call causes a bug: missing layout files
 //            Intent i = new Intent(this, LayoutTest.class);
 //            startActivity(i);
+        startActivity(new Intent(this, PhotoAlbums.class));
     }
 
     @Override
@@ -133,6 +134,12 @@ public class MainActivity extends Activity {
         // Logs 'app deactivate' App Event.
 //        AppEventsLogger.deactivateApp(this);
     }
+
+//    @Override
+//    public void onDestroy() {
+//        System.gc();
+//        super.onDestroy();
+//    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
