@@ -34,11 +34,6 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        /*** TESTING ***/
-        Intent i = new Intent(this,LayoutTest.class);
-        startActivity(i);
-        /***/
-
         FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_login);
 

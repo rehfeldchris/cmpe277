@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="edu.cmpe277.teamgoat.photoapp" >
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:name=".PhotoApp"
@@ -19,24 +20,34 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <!--Required for Facebook login-->
-        <activity android:name="com.facebook.FacebookActivity"
-            android:configChanges=
-                "keyboard|keyboardHidden|screenLayout|screenSize|orientation"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"
-            android:label="@string/app_name" />
-        <!--Required for sharing links, images, or videos via Facebook/Android app-->
-        <provider android:authorities="com.facebook.app.FacebookContentProvider1599780603601030"
+        <!-- Required for Facebook login -->
+        <activity
+            android:name="com.facebook.FacebookActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <!-- Required for sharing links, images, or videos via Facebook/Android app -->
+        <provider
             android:name="com.facebook.FacebookContentProvider"
+            android:authorities="com.facebook.app.FacebookContentProvider1599780603601030"
             android:exported="true" />
+
         <activity
             android:name=".LayoutTest"
-            android:label="User Profile"
-            >
+            android:label="User Profile" >
         </activity>
-        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/app_id"/>
-        <meta-data android:name="com.facebook.sdk.ApplicationName"
+
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/app_id" />
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationName"
             android:value="@string/app_name" />
+
+        <activity
+            android:name=".ViewAlbum"
+            android:label="@string/title_activity_view_album" >
+        </activity>
     </application>
 
 </manifest>
