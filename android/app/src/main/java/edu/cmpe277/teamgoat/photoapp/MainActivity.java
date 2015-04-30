@@ -34,8 +34,8 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Intent i = new Intent(this, LayoutTest.class);
-        startActivity(i);
+//        Intent i = new Intent(this, LayoutTest.class);
+//        startActivity(i);
 
 
         FacebookSdk.sdkInitialize(getApplicationContext());
@@ -111,8 +111,8 @@ public class MainActivity extends Activity {
 //        startActivity(i);
 
         // App Test - Thong
-//        Intent i = new Intent(this, AlbumViewerActivity.class);
-//        startActivity(i);
+        Intent i = new Intent(this, AlbumViewerActivity.class);
+        startActivity(i);
         // End Test
 
 
