@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/layout_fragment_create_album"
+    >
+
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        android:layout_gravity="center_horizontal"
+        >
+
+        <EditText
+            android:id="@+id/album_title_input"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="@string/txt_album_title"
+            android:inputType="text"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="12dp"
+            />
+
+        <CheckBox android:id="@+id/checkbox_album_public_private"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Make album public and viewable by all?"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="12dp"
+            />
+
+        <Button
+            android:id="@+id/create_album_button"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="@string/txt_create_album"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="12dp"
+            />
+
+
+
+    </LinearLayout>
+
+
+</RelativeLayout>
