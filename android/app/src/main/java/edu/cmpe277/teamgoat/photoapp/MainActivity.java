@@ -34,6 +34,10 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        Intent i = new Intent(this, LayoutTest.class);
+        startActivity(i);
+
+
         FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_login);
 
@@ -103,15 +107,16 @@ public class MainActivity extends Activity {
         // THIS IS A TEST CALL
         // WE NEED TO UPDATE THIS TO THE CORRECT LAYOUT/VIEW
         // NOTE: This function call causes a bug: missing layout files
-//            Intent i = new Intent(this, LayoutTest.class);
-//            startActivity(i);
+//        Intent i = new Intent(this, LayoutTest.class);
+//        startActivity(i);
+
         // App Test - Thong
-        Intent i = new Intent(this, AlbumViewerActivity.class);
-        startActivity(i);
+//        Intent i = new Intent(this, AlbumViewerActivity.class);
+//        startActivity(i);
         // End Test
 
 
-        startActivity(new Intent(this, PhotoAlbums.class));
+//        startActivity(new Intent(this, PhotoAlbums.class));
     }
 
     @Override

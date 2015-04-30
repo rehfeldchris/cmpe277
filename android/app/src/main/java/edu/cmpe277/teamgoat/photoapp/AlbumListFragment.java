@@ -1,5 +1,6 @@
 package edu.cmpe277.teamgoat.photoapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.app.ListFragment;
 import android.view.View;
@@ -35,11 +36,11 @@ public class AlbumListFragment extends ListFragment {
 
 
         // TODO: Change Adapter to display your content
-        String [] friends = getActivity().getResources().getStringArray(R.array.friend_list_test);
-        ArrayList<String> albums = new ArrayList<String>();
-        for (int i = 0; i < friends.length; i++) albums.add(friends[i]);
+        String [] albums = getActivity().getResources().getStringArray(R.array.albums_test);
+        ArrayList<String> albums_array = new ArrayList<String>();
+        for (int i = 0; i < albums.length; i++) albums_array.add(albums[i]);
 
-        AlbumListAdapter adapter = new AlbumListAdapter(albums);
+        AlbumListAdapter adapter = new AlbumListAdapter(albums_array);
         setListAdapter(adapter);
     }
 
@@ -65,7 +66,8 @@ public class AlbumListFragment extends ListFragment {
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
-
+        Intent i = new Intent(getActivity(), AlbumViewerActivity.class);
+        startActivity(i);
     }
 
     /**

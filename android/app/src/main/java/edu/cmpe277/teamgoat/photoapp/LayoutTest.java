@@ -28,12 +28,13 @@ public class LayoutTest extends Activity
 
         setContentView(R.layout.layout_drawerlayout);
 
-        mDrawerLayout = (DrawerLayout)findViewById(R.id.layout_drawer_menu);
+        mDrawerLayout = (DrawerLayout)findViewById(R.id.layout_drawer);
         mDrawerList = (ListView)findViewById(R.id.left_drawer);
         mItems = getResources().getStringArray(R.array.menu_item);
 
 //        mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
-        mDrawerList.setAdapter(new ArrayAdapter<String>(this, R.layout.layout_drawerlayout_menu_item, mItems));
+        mDrawerList.setAdapter(new ArrayAdapter<String>(this,
+                R.layout.layout_drawerlayout_menu_item, mItems));
         mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
 
 
@@ -59,17 +60,26 @@ public class LayoutTest extends Activity
         FragmentManager fm = getFragmentManager();
         Fragment frag;
 
-        frag = fm.findFragmentById(R.id.content_frame);
-        if (frag == null)
-        {
-            if (position == 0)
-                frag = new ProfileFragment();
-            else if (position == 1)
-                frag = new AlbumListFragment();
-            else if (position == 2)
-                frag = new FriendListFragment();
-        }
-        fm.beginTransaction().add(R.id.content_frame, frag).commit();
+        frag = fm.findFragmentById(R.id.layout_drawer_fragment_container_main);
+
+        // set a flag to check if fragment exist, if it does, replacing fragment instead of adding
+        boolean isExisted = false;
+
+        if (frag != null)
+            isExisted = true;
+
+        if (position == 0)
+            frag = new ProfileFragment();
+        else if (position == 1)
+            frag = new AlbumListFragment();
+        else if (position == 2)
+            frag = new FriendListFragment();
+
+        if (!isExisted && position < 3)
+            fm.beginTransaction().add(R.id.layout_drawer_fragment_container_main, frag).commit();
+        else
+            fm.beginTransaction().replace(R.id.layout_drawer_fragment_container_main, frag).commit();
+
     }
 
 }
