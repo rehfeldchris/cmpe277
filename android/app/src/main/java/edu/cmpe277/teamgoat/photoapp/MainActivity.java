@@ -34,11 +34,6 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // App Test
-        Intent i = new Intent(this, AlbumViewerActivity.class);
-        startActivity(i);
-        // End Test
-
         FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_login);
 
@@ -110,6 +105,12 @@ public class MainActivity extends Activity {
         // NOTE: This function call causes a bug: missing layout files
 //            Intent i = new Intent(this, LayoutTest.class);
 //            startActivity(i);
+        // App Test - Thong
+        Intent i = new Intent(this, AlbumViewerActivity.class);
+        startActivity(i);
+        // End Test
+
+
         startActivity(new Intent(this, PhotoAlbums.class));
     }
 
