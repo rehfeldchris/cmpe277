@@ -3,7 +3,6 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/layout_fragment_create_album"
     >
 
 
@@ -19,6 +18,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="@string/txt_album_title"
+            android:inputType="text"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="12dp"
+            />
+
+        <EditText
+            android:id="@+id/album_description_input"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="@string/txt_album_description"
             android:inputType="text"
             android:layout_gravity="center_horizontal"
             android:layout_margin="12dp"
