@@ -94,7 +94,8 @@ public class AlbumListFragment extends ListFragment {
         }
 
         @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
+        public View getView(int position, View convertView, ViewGroup parent)
+        {
 
             if (convertView == null)
                 convertView = getActivity().getLayoutInflater().inflate(
