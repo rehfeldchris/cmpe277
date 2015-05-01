@@ -1,13 +1,18 @@
 package edu.cmpe277.teamgoat.photoapp;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.GridView;
 import android.widget.Toast;
+
+import com.facebook.share.model.AppInviteContent;
+import com.facebook.share.widget.AppInviteDialog;
 
 
 public class PhotoAlbums extends ActionBarActivity {
@@ -20,13 +25,12 @@ public class PhotoAlbums extends ActionBarActivity {
         GridView view = (GridView) findViewById(R.id.albums_grid);
         view.setAdapter(new AlbumImageAdapter(this));
 
-//        Button addAlbum = new Button(this);
-//        addAlbum.setText("Add New Album");
-//        view.addView(addAlbum);
         view.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v,
                                     int position, long id) {
                 //go to album
+                Intent i = new Intent(PhotoAlbums.this, AlbumViewerActivity.class);
+                startActivity(i);
             }
         });
     }
@@ -47,8 +51,19 @@ public class PhotoAlbums extends ActionBarActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        if (id == R.id.action_invite_friends) {
+            String appLinkUrl, previewImageUrl;
+
+            appLinkUrl = "@string/app_url";
+            previewImageUrl = "@string/preview_image_url";
+
+            if (AppInviteDialog.canShow()) {
+                AppInviteContent content = new AppInviteContent.Builder()
+                        .setApplinkUrl(appLinkUrl)
+                        .setPreviewImageUrl(previewImageUrl)
+                        .build();
+                AppInviteDialog.show(PhotoAlbums.this, content);
+            }
         }
 
         return super.onOptionsItemSelected(item);

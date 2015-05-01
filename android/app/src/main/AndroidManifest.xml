@@ -48,6 +48,11 @@
             android:label="Album" >
         </activity>
 
+        <activity
+            android:name=".PhotoAlbums"
+            android:label="PhotoAlbums" >
+        </activity>
+
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/app_id" />
