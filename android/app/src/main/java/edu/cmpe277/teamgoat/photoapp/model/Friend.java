@@ -5,19 +5,14 @@ package edu.cmpe277.teamgoat.photoapp.model;
  */
 public class Friend
 {
-    String _id;
+    String id;
     String name;
-    String avatar_link;
 
-    public String get_id() {
-        return _id;
+    public String getId() {
+        return id;
     }
 
     public String getName() {
         return name;
-    }
-
-    public String getAvatar_link() {
-        return avatar_link;
     }
 }

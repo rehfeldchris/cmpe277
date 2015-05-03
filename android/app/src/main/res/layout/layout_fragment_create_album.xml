@@ -39,6 +39,13 @@
             android:text="Make album public and viewable by all?"
             android:layout_gravity="center_horizontal"
             android:layout_margin="12dp"
+            android:checked="true"
+            />
+
+        <ListView
+            android:id="@+id/listview_granted_album_viewers"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             />
 
         <Button
@@ -49,8 +56,6 @@
             android:layout_gravity="center_horizontal"
             android:layout_margin="12dp"
             />
-
-
 
     </LinearLayout>
 

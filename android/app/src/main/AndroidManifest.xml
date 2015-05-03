@@ -64,6 +64,12 @@
             android:name=".SingleImageViewActivity"
             android:label="@string/title_activity_single_image_view" >
         </activity>
+
+        <activity
+            android:name=".TestFragmentActivity"
+            android:label="test album create" >
+
+        </activity>
     </application>
 
 </manifest>

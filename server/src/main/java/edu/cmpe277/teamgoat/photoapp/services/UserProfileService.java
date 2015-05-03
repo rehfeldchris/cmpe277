@@ -1,16 +1,15 @@
 package edu.cmpe277.teamgoat.photoapp.services;
 
-import edu.cmpe277.teamgoat.photoapp.dto.User;
-
-import java.util.Date;
-import java.util.List;
-
 import com.restfb.Connection;
 import com.restfb.DefaultFacebookClient;
 import com.restfb.FacebookClient;
+import edu.cmpe277.teamgoat.photoapp.dto.User;
 import edu.cmpe277.teamgoat.photoapp.repos.UserMongoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Date;
+import java.util.List;
 
 @Service
 public class UserProfileService {
@@ -88,9 +87,9 @@ public class UserProfileService {
 	 * @param facebookToken The app user's accessToken
 	 * @return A List of Users that are friends with the app user
 	 */
-	public List<User> getUserFriends(String facebookToken) {
+	public List<com.restfb.types.User> getUserFriends(String facebookToken) {
 		FacebookClient facebookClient = new DefaultFacebookClient(facebookToken);
-		Connection<User> myFriends = facebookClient.fetchConnection("me/friends", User.class);
+		Connection<com.restfb.types.User> myFriends = facebookClient.fetchConnection("me/friends", com.restfb.types.User.class);
 		return myFriends.getData();
 	}
 
