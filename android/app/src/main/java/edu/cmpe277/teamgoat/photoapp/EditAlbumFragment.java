@@ -1,6 +1,7 @@
 package edu.cmpe277.teamgoat.photoapp;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -43,6 +44,10 @@ public class EditAlbumFragment extends Fragment {
     private ListView friendListView;
     private List<Friend> friends;
 
+    public EditAlbumFragment() {
+
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -72,6 +77,9 @@ public class EditAlbumFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 createAlbum();
+                Intent activity = new Intent(getActivity(), PhotoAlbums.class);
+                activity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(activity);
             }
         });
 

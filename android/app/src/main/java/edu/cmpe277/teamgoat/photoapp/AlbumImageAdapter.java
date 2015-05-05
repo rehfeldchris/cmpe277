@@ -23,6 +23,7 @@ public class AlbumImageAdapter extends BaseAdapter {
         mContext = c;
         inflater = LayoutInflater.from(mContext);
 
+        addAlbumButton();
         getAlbums();
     }
 
@@ -71,6 +72,10 @@ public class AlbumImageAdapter extends BaseAdapter {
 //        }
 //        imageView.setImageResource(albumCovers[position]);
         return convertView;
+    }
+
+    public void addAlbumButton() {
+        albumCovers.add(new AlbumCover("New Album", R.drawable.plus));
     }
 
     private void getAlbums() {
