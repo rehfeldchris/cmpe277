@@ -50,4 +50,5 @@ dependencies {
     )
     compile 'com.mashape.unirest:unirest-android:1.0'
     compile group: 'com.google.guava', name: 'guava', version: '18.0'
+    compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.3'
 }

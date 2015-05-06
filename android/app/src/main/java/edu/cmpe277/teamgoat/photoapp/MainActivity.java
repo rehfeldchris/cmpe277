@@ -1,7 +1,9 @@
 package edu.cmpe277.teamgoat.photoapp;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,6 +20,12 @@ import com.facebook.applinks.AppLinkData;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 
 import bolts.AppLinks;
 import edu.cmpe277.teamgoat.photoapp.util.IDs;
@@ -44,6 +52,7 @@ public class MainActivity extends Activity {
 //        startActivity(new Intent(this, PhotoAlbums.class));
 
 
+        initImageLoader(getApplicationContext());
 
         FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_login);
@@ -189,5 +198,32 @@ public class MainActivity extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+
+    public static void initImageLoader(Context context) {
+        DisplayImageOptions options = new DisplayImageOptions.Builder()
+                .showImageOnLoading(R.drawable.ic_contact_picture) // resource or drawable
+                .showImageForEmptyUri(R.drawable.ic_menu_help) // resource or drawable
+                .showImageOnFail(R.drawable.ic_delete) // resource or drawable
+                .resetViewBeforeLoading(!false)  // default
+                .delayBeforeLoading(10)
+                .cacheInMemory(true) // default
+                .cacheOnDisk(true) // default
+                .imageScaleType(ImageScaleType.IN_SAMPLE_POWER_OF_2) // default
+                .bitmapConfig(Bitmap.Config.ARGB_8888) // default
+                .build();
+
+        ImageLoaderConfiguration.Builder config = new ImageLoaderConfiguration.Builder(context);
+        config.threadPriority(Thread.NORM_PRIORITY - 2);
+        config.denyCacheImageMultipleSizesInMemory();
+        config.diskCacheFileNameGenerator(new Md5FileNameGenerator());
+        config.diskCacheSize(50 * 1024 * 1024); // 50 MiB
+        config.tasksProcessingOrder(QueueProcessingType.LIFO);
+        config.defaultDisplayImageOptions(options);
+
+        //config.writeDebugLogs(); // Remove for release app
+
+        ImageLoader.getInstance().init(config.build());
     }
 }
