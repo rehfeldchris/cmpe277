@@ -18,7 +18,7 @@ import com.facebook.share.widget.AppInviteDialog;
 public class PhotoAlbums extends ActionBarActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)     {
+    protected void onCreate(final Bundle savedInstanceState)     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_photo_albums);
 
@@ -28,9 +28,22 @@ public class PhotoAlbums extends ActionBarActivity {
         view.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v,
                                     int position, long id) {
-                //go to album
-                Intent i = new Intent(PhotoAlbums.this, AlbumViewerActivity.class);
-                startActivity(i);
+
+                if(position == 0) { //new album
+//                    Intent i = new Intent(PhotoAlbums.this, EditAlbumFragment.class);
+//                    startActivity(i);
+
+//                    if ( savedInstanceState == null) {
+//                        getFragmentManager()
+//                                .beginTransaction()
+//                                .add(R.id.fragment_create_album, new EditAlbumFragment())
+//                                .commit();
+//                    }
+                }
+                else { //go to album
+                    Intent i = new Intent(PhotoAlbums.this, AlbumViewerActivity.class);
+                    startActivity(i);
+                }
             }
         });
     }

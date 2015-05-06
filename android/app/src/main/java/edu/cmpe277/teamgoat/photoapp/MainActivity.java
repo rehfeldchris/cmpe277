@@ -41,6 +41,9 @@ public class MainActivity extends Activity {
 //        Intent i = new Intent(this, LayoutTest.class);
 //        startActivity(i);
 
+//        startActivity(new Intent(this, PhotoAlbums.class));
+
+
 
         FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_login);
