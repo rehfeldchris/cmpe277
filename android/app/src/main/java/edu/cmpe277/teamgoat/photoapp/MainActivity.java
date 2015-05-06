@@ -41,7 +41,7 @@ public class MainActivity extends Activity {
 //        Intent i = new Intent(this, LayoutTest.class);
 //        startActivity(i);
 
-        startActivity(new Intent(this, PhotoAlbums.class));
+//        startActivity(new Intent(this, PhotoAlbums.class));
 
 
 
