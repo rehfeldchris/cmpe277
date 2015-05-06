@@ -31,6 +31,8 @@ public class Album {
 
     private boolean isPubliclyAccessible = false;
 
+    private String coverPhotoUrl;
+
     @DBRef
     @CascadeSave
     private List<Image> images;
@@ -148,7 +150,15 @@ public class Album {
         ensureImagesUnique();
     }
 
-//    @Override
+    public String getCoverPhotoUrl() {
+        return coverPhotoUrl;
+    }
+
+    public void setCoverPhotoUrl(String coverPhotoUrl) {
+        this.coverPhotoUrl = coverPhotoUrl;
+    }
+
+    //    @Override
 //    public String toString() {
 //        return "Album{" +
 //                "_ID='" + _ID + '\'' +

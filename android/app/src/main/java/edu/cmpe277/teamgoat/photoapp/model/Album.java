@@ -14,11 +14,16 @@ public class Album
     private String ownerId;
     private List<String> grantedUserIds;
     private boolean isPubliclyAccessible = false;
+    private String coverPhotoUrl;
 
     public Album(String name, String _ID, String ownerId) {
         this.name = name;
         this._ID = _ID;
         this.ownerId = ownerId;
+    }
+
+    public Album() {
+
     }
 
     public void setName(String name) {
@@ -61,5 +66,9 @@ public class Album
     public void addGrantedUserId(String id)
     {
         grantedUserIds.add(id);
+    }
+
+    public String getCoverPhotoUrl() {
+        return coverPhotoUrl;
     }
 }

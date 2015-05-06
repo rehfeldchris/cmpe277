@@ -61,7 +61,9 @@ public class ApiRestController {
 	) {
 		String userId = userProfileService.getCurrentUser(facebookToken).getFacebookUserId();
 		LOG.info(String.format("listing all albums userid=%s", userId));
-		return albumRepo.findViewable(userId);
+		List<Album> albums = albumRepo.findViewable(userId);
+		addPhotoUrlToAlbums(albums);
+		return albums;
 	}
 
 	@RequestMapping(value = "/images-near-point", method = RequestMethod.GET)
@@ -226,9 +228,9 @@ public class ApiRestController {
 
 	private synchronized String generateUniqueFilename() {
 		return String.format(
-			"%s-%10s",
-			imageFilenameDateFormat.format(new Date()),
-			random.nextLong()
+				"%s-%10s",
+				imageFilenameDateFormat.format(new Date()),
+				random.nextLong()
 		);
 	}
 
@@ -261,6 +263,9 @@ public class ApiRestController {
 		return map;
 	}
 
-
-
+	private void addPhotoUrlToAlbums(List<Album> albums) {
+		for (Album album : albums) {
+			//album.setCoverPhotoUrl("http://www.derbyshireyfc.org.uk/images/2376629.gif");
+		}
+	}
 }
