@@ -3,6 +3,8 @@
 
     <string name="app_name">PhotoApp</string>
     <string name="app_id">1599780603601030</string>
+    <string name="app_url">https://fb.me/1608534259392331</string>
+    <string name="preview_image_url">http://hd.wallpaperswide.com/thumbs/dried_flowers_3-t2.jpg</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="btn_fb_login">Login with Facebook</string>
@@ -47,4 +49,6 @@
     <string name="title_activity_photo_albums">PhotoAlbums</string>
     <string name="title_activity_single_image_view">SingleImageViewActivity</string>
 
+
+    <string name="action_invite_friends">Invite Friends</string>
 </resources>

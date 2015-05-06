@@ -2,7 +2,9 @@ package edu.cmpe277.teamgoat.photoapp;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -12,10 +14,12 @@ import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
+import com.facebook.applinks.AppLinkData;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 
+import bolts.AppLinks;
 import edu.cmpe277.teamgoat.photoapp.util.IDs;
 import edu.cmpe277.teamgoat.photoapp.util.PhotoAppLog;
 
@@ -43,6 +47,22 @@ public class MainActivity extends Activity {
 
         FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_login);
+
+        Uri targetUrl =
+                AppLinks.getTargetUrlFromInboundIntent(this, getIntent());
+        if (targetUrl != null) {
+            Log.i("Activity", "App Link Target URL: " + targetUrl.toString());
+        } else {
+            AppLinkData.fetchDeferredAppLinkData(
+                    this,
+//                    activity,
+                    new AppLinkData.CompletionHandler() {
+                        @Override
+                        public void onDeferredAppLinkDataFetched(AppLinkData appLinkData) {
+                            //process applink data
+                        }
+                    });
+        }
 
         boolean forceShowLoginScreen = false;
         Intent launchIntent = getIntent();
@@ -118,8 +138,7 @@ public class MainActivity extends Activity {
 //        startActivity(i);
         // End Test
 
-
-//        startActivity(new Intent(this, PhotoAlbums.class));
+        startActivity(new Intent(this, PhotoAlbums.class));
     }
 
     @Override
