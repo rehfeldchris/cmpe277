@@ -16,6 +16,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.mashape.unirest.http.exceptions.UnirestException;
+
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -102,7 +104,7 @@ public class EditAlbumFragment extends Fragment {
             protected List<Friend> doInBackground(Void... params) {
                 try {
                     return getFriends();
-                } catch (IOException e) {
+                } catch (IOException|UnirestException  e) {
                     Log.d("main", "failed to load friend list", e);
                     return null;
                 }
@@ -120,7 +122,7 @@ public class EditAlbumFragment extends Fragment {
     }
 
     private void createAlbum() {
-        String apiUrl = R.string.api_host + "/api/v1/albums";
+        String apiUrl = ApiBroker.apiHost + "/api/v1/albums";
 
         // Create a new HttpClient and Post Header
         HttpClient httpclient = new DefaultHttpClient();
@@ -173,7 +175,7 @@ public class EditAlbumFragment extends Fragment {
         }
     }
 
-    private List<Friend> getFriends() throws IOException {
+    private List<Friend> getFriends() throws IOException, UnirestException {
         return ApiBroker.singleton().getFriends();
     }
 

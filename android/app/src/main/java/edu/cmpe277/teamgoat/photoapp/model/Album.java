@@ -7,35 +7,35 @@ import java.util.List;
  */
 public class Album
 {
-    private String _id;
-    private String title;
+    private String _ID;
+    private String name;
     private int total_image;
     private String description;
     private String ownerId;
     private List<String> grantedUserIds;
     private boolean isPubliclyAccessible = false;
 
-    public Album(String title, String _id, String ownerId) {
-        this.title = title;
-        this._id = _id;
+    public Album(String name, String _ID, String ownerId) {
+        this.name = name;
+        this._ID = _ID;
         this.ownerId = ownerId;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public void setDescription(String description) {
         this.description = description;
     }
 
-    public String get_id() {
+    public String get_ID() {
 
-        return _id;
+        return _ID;
     }
 
-    public String getTitle() {
-        return title;
+    public String getName() {
+        return name;
     }
 
     public int getTotal_image() {
