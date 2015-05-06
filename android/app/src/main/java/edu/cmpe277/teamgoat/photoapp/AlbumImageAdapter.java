@@ -57,6 +57,9 @@ public class AlbumImageAdapter extends BaseAdapter {
 //        else {
 //            imageView.setImageResource(albumCovers[position]);
 //        }
+        if (imageView != null) {
+            imageView.destroyDrawingCache();
+        }
         imageView.setImageResource(albumCovers[position]);
         return imageView;
     }
@@ -77,7 +80,7 @@ public class AlbumImageAdapter extends BaseAdapter {
 
     // references to test images
     private Integer[] albumCovers = {
-            R.drawable.albumcovertrivia, R.drawable.music
+            R.drawable.albumcovertrivia, R.drawable.tree
 //            R.drawable.sample_2, R.drawable.sample_3,
 //            R.drawable.sample_4, R.drawable.sample_5,
 //            R.drawable.sample_6, R.drawable.sample_7

@@ -59,6 +59,13 @@
             android:name=".SingleImageViewActivity"
             android:label="@string/title_activity_single_image_view" >
         </activity>
+
+        <activity
+            android:name=".PhotoAlbums"
+            android:label="@string/title_activity_photo_albums"
+            >
+
+        </activity>
     </application>
 
 </manifest>

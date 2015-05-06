@@ -20,12 +20,13 @@
     <string name="facebook_login_successful">Facebook login successful.</string>
     <string name="facebook_login_cancelled">Facebook login cancelled.</string>
     <string name="facebook_login_failed">Facebook login failed, please try again later.</string>
+    <string name="btn_add_photo">Add A Photo</string>
 
     <string-array name="menu_item">
         <item>Profile</item>
         <item>Album</item>
         <item>Friend</item>
-        <item>Sharing</item>
+        <item>Network</item>
     </string-array>
     <string-array name="albums_test">
         <item>Pew Pew</item>
