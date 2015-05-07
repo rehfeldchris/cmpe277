@@ -43,8 +43,7 @@ public class PhotoAlbums extends ActionBarActivity {
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-
-                albumUserMostRecentlyClicked = viewableAlbums.get(position);
+                albumUserMostRecentlyClicked = viewableAlbums.get(position - 1);
                 Intent i = new Intent(PhotoAlbums.this, AlbumViewerActivity.class);
                 startActivity(i);
             }

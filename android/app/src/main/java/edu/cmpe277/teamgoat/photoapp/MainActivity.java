@@ -31,6 +31,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import bolts.AppLinks;
+import edu.cmpe277.teamgoat.photoapp.model.ApiBroker;
 import edu.cmpe277.teamgoat.photoapp.util.IDs;
 import edu.cmpe277.teamgoat.photoapp.util.PhotoAppLog;
 
@@ -206,10 +207,9 @@ public class MainActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-
     public static void initImageLoader(Context context) {
         Map<String, String> headers = new HashMap<>();
-        headers.put("X-Facebook-Token", LolGlobalVariables.facebookAccessToken);
+        headers.put("X-Facebook-Token", ApiBroker.facebookAccessToken);
         DisplayImageOptions options = new DisplayImageOptions.Builder()
                 .showImageOnLoading(R.drawable.ic_contact_picture) // resource or drawable
                 .showImageForEmptyUri(R.drawable.ic_menu_help) // resource or drawable
@@ -221,9 +221,11 @@ public class MainActivity extends Activity {
                 .imageScaleType(ImageScaleType.IN_SAMPLE_POWER_OF_2) // default
                 .bitmapConfig(Bitmap.Config.ARGB_8888) // default
                 .extraForDownloader(headers)
+
                 .build();
 
         ImageLoaderConfiguration.Builder config = new ImageLoaderConfiguration.Builder(context);
+        config.imageDownloader(new CustomImageDownloader(context));
         config.threadPriority(Thread.NORM_PRIORITY - 2);
         config.denyCacheImageMultipleSizesInMemory();
         config.diskCacheFileNameGenerator(new Md5FileNameGenerator());
