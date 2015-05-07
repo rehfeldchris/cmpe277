@@ -154,6 +154,7 @@ public class MainActivity extends Activity {
         // End Test
 
         startActivity(new Intent(this, PhotoAlbums.class));
+        finish();
     }
 
     @Override
@@ -173,7 +174,6 @@ public class MainActivity extends Activity {
     @Override
     protected void onPause() {
         super.onPause();
-
         // Logs 'app deactivate' App Event.
 //        AppEventsLogger.deactivateApp(this);
     }
