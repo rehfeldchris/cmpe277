@@ -129,13 +129,13 @@ public class ApiRestController {
 			@RequestHeader("X-Facebook-Token") String facebookToken,
 			@RequestParam("title") String title,
 			@RequestParam("description") String description,
-			@RequestParam("grantedUserIds") List<String> grantedUserIds,
+			@RequestParam(value="grantedUserIds", required=false) List<String> grantedUserIds,
 			@RequestParam("isPubliclyAccessible") boolean isPubliclyAccessible
 	) {
 		String userId = userProfileService.getCurrentUser(facebookToken).getFacebookUserId();
 		LOG.info(String.format("attempt create album userid=%s", userId));
 		try {
-			Album album = albumService.createAlbum(title, userId, description, grantedUserIds, isPubliclyAccessible);
+			Album album = albumService.createAlbum(title, userId, description, grantedUserIds == null ? new ArrayList<>() : grantedUserIds, isPubliclyAccessible);
 			LOG.info(String.format("created album userid=%s album id=%s", userId, album.get_ID()));
 			return album;
 		} catch (BadApiRequestException ex) {
