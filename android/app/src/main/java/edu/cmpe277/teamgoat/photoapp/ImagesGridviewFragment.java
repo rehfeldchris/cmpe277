@@ -31,36 +31,22 @@ import edu.cmpe277.teamgoat.photoapp.model.Image;
 public class ImagesGridviewFragment extends Fragment implements AdapterView.OnItemClickListener
 {
 
-    //        GridLayout mGridLayout;
     GridView mGridView;
-    ArrayList<Image> images;    // for dynamic view
-    private Integer [] images_static = {
-            R.drawable.ic_launcher, R.drawable.sample_0,
-            R.drawable.sample_1, R.drawable.sample_2,
-            R.drawable.sample_3, R.drawable.sample_4,
-            R.drawable.sample_5, R.drawable.sample_6,
-            R.drawable.sample_7, R.drawable.goat_cool
-    };  // static view: code demo
-
     private Album albumCurrentlyBeingViewed;
+    public static Image imageMostRecentlyClicked;
 
     public ImagesGridviewFragment()
     {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.layout_gridview_view_image, container, false);
-
         albumCurrentlyBeingViewed = PhotoAlbums.albumUserMostRecentlyClicked;
-
         mGridView = (GridView)getActivity().findViewById(R.id.grid_images);
         ImageAdapter adapter = new ImageAdapter(getActivity());
         mGridView.setAdapter(adapter);
-
         mGridView.setOnItemClickListener(this);
-
 
         return rootView;
     }
@@ -68,9 +54,8 @@ public class ImagesGridviewFragment extends Fragment implements AdapterView.OnIt
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id)
     {
-        int clickedPosition = position;
+        imageMostRecentlyClicked = albumCurrentlyBeingViewed.getImages().get(position);
         Intent i = new Intent(getActivity(), SingleImageViewActivity.class);
-        i.putExtra(SingleImageViewActivity.IMAGE_TAG, images_static[clickedPosition].intValue());
         startActivity(i);
     }
 
@@ -84,7 +69,7 @@ public class ImagesGridviewFragment extends Fragment implements AdapterView.OnIt
             mContext = c;
         }
 
-        public int getCount() { return images_static.length; }
+        public int getCount() { return albumCurrentlyBeingViewed.getImages().size(); }
 
         public Object getItem(int position)
         {
@@ -99,24 +84,22 @@ public class ImagesGridviewFragment extends Fragment implements AdapterView.OnIt
         @Override
         public View getView(int position, View convertView, ViewGroup parent)
         {
-
             ImageView imageView;
 
-            if (convertView == null)
-            {
+            if (convertView == null) {
                 imageView = new ImageView(mContext);
                 imageView.setLayoutParams(new GridView.LayoutParams(85, 85));
                 imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
                 imageView.setPadding(8, 8, 8, 8);
-            }else
-                imageView = (ImageView)convertView;
-
-            imageView.setImageResource(images_static[position]);
+            } else {
+                imageView = (ImageView) convertView;
+            }
 
             try {
                 Image image = albumCurrentlyBeingViewed.getImages().get(position);
+                String imageUrl = ApiBroker.singleton().getUrlForImage(image);
                 ImageLoader.getInstance().displayImage(
-                    ApiBroker.singleton().getUrlForImage(image),
+                    imageUrl,
                     imageView
                 );
             } catch (ArrayIndexOutOfBoundsException e) {

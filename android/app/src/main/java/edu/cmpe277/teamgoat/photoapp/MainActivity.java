@@ -27,6 +27,9 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import bolts.AppLinks;
 import edu.cmpe277.teamgoat.photoapp.util.IDs;
 import edu.cmpe277.teamgoat.photoapp.util.PhotoAppLog;
@@ -52,7 +55,7 @@ public class MainActivity extends Activity {
 //        startActivity(new Intent(this, PhotoAlbums.class));
 
 
-        initImageLoader(getApplicationContext());
+
 
         FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_login);
@@ -99,6 +102,7 @@ public class MainActivity extends Activity {
                     accessToken = loginResult.getAccessToken();
                     accessTokenString = accessToken.getToken();
                     LolGlobalVariables.facebookAccessToken = accessTokenString;
+                    initImageLoader(getApplicationContext());
                     Toast.makeText(getApplicationContext(), R.string.facebook_login_successful, Toast.LENGTH_SHORT).show();
 
                     // Debug
@@ -131,6 +135,8 @@ public class MainActivity extends Activity {
                 }
             });
         } else {
+            LolGlobalVariables.facebookAccessToken = AccessToken.getCurrentAccessToken().getToken();
+            initImageLoader(getApplicationContext());
             launchMainPhotoAppActivity();
         }
     }
@@ -202,6 +208,8 @@ public class MainActivity extends Activity {
 
 
     public static void initImageLoader(Context context) {
+        Map<String, String> headers = new HashMap<>();
+        headers.put("X-Facebook-Token", LolGlobalVariables.facebookAccessToken);
         DisplayImageOptions options = new DisplayImageOptions.Builder()
                 .showImageOnLoading(R.drawable.ic_contact_picture) // resource or drawable
                 .showImageForEmptyUri(R.drawable.ic_menu_help) // resource or drawable
@@ -212,6 +220,7 @@ public class MainActivity extends Activity {
                 .cacheOnDisk(true) // default
                 .imageScaleType(ImageScaleType.IN_SAMPLE_POWER_OF_2) // default
                 .bitmapConfig(Bitmap.Config.ARGB_8888) // default
+                .extraForDownloader(headers)
                 .build();
 
         ImageLoaderConfiguration.Builder config = new ImageLoaderConfiguration.Builder(context);

@@ -6,19 +6,34 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 
+import com.nostra13.universalimageloader.core.ImageLoader;
+
+import edu.cmpe277.teamgoat.photoapp.model.ApiBroker;
+import edu.cmpe277.teamgoat.photoapp.model.Image;
+
 
 public class SingleImageViewActivity extends ActionBarActivity {
 
     public static final String IMAGE_TAG = "SingleImage";
+    private Image imageBeingDisplayed;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_single_image_view);
+        imageBeingDisplayed = ImagesGridviewFragment.imageMostRecentlyClicked;
 
         ImageView img = (ImageView)findViewById(R.id.img_singleImage_view);
-        int resourceId = getIntent().getIntExtra(IMAGE_TAG, R.drawable.goat_cool);
-        img.setImageResource(resourceId);
+
+        if (imageBeingDisplayed != null) {
+            ImageLoader.getInstance().displayImage(
+                ApiBroker.singleton().getUrlForImage(imageBeingDisplayed),
+                img
+            );
+        } else {
+            img.setImageResource(R.drawable.ic_delete);
+        }
+
     }
 
 

@@ -7,10 +7,11 @@ import edu.cmpe277.teamgoat.photoapp.errors.BadApiRequestException;
 import edu.cmpe277.teamgoat.photoapp.repos.AlbumMongoRepository;
 import edu.cmpe277.teamgoat.photoapp.repos.CommentMongoRepository;
 import edu.cmpe277.teamgoat.photoapp.repos.ImageMongoRepository;
-import edu.cmpe277.teamgoat.photoapp.services.*;
+import edu.cmpe277.teamgoat.photoapp.services.AlbumService;
+import edu.cmpe277.teamgoat.photoapp.services.PhotoService;
+import edu.cmpe277.teamgoat.photoapp.services.UserProfileService;
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
-import org.apache.tomcat.util.http.fileupload.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
@@ -65,15 +66,22 @@ public class ApiRestController {
 
 		if (image == null) {
 			response.setStatus(404);
+			return;
 		}
 
 		File file = new File(imageFileSaveDir + "/" + image.getImageId());
 		if (!file.exists()) {
 			response.setStatus(404);
+			return;
 		}
 
 		response.setContentType(image.getMimeType());
 		response.setCharacterEncoding("");
+
+		// Cache for 1 week.
+		int maxAgeSeconds = 60 * 60 * 24 * 7;
+		response.addHeader("Cache-Control", "private, max-age=" + maxAgeSeconds);
+
 		try {
 			IOUtils.copy(new FileInputStream(file), response.getOutputStream());
 			response.setContentLength((int) file.length());

@@ -6,6 +6,7 @@ package edu.cmpe277.teamgoat.photoapp.model;
 public class Image
 {
 //    private String id;
+    private String _ID;
     private String ownerId;
     private String imageId;
     private double[] locations;
@@ -21,6 +22,13 @@ public class Image
         this.ownerId = ownerId;
         this.imageId = imageId;
         this.albumId = albumId;
+    }
+
+    public Image() {
+    }
+
+    public String get_ID() {
+        return _ID;
     }
 
     public String getOwnerId() {
