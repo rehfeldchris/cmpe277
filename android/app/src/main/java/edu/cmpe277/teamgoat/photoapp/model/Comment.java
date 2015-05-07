@@ -1,17 +1,10 @@
-package edu.cmpe277.teamgoat.photoapp.dto;
+package edu.cmpe277.teamgoat.photoapp.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.util.Date;
 
-@Document
-//@JsonIgnoreProperties({"_ID"})
 public class Comment {
 
-    @Id
     private String _ID;
 
     private String userId;
@@ -28,12 +21,11 @@ public class Comment {
 
     }
 
-    public Comment(String userId, String comment, String imageId, Date timeStamp, String userName) {
+    public Comment(String userId, String comment, String imageId, Date timeStamp) {
         this.userId = userId;
         this.comment = comment;
         this.imageId = imageId;
         this.timeStamp = timeStamp;
-        this.userName = userName;
     }
 
     public String get_ID() {

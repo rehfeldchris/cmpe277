@@ -29,7 +29,6 @@ public class AlbumImageAdapter extends BaseAdapter {
         inflater = LayoutInflater.from(mContext);
         this.albums = albums;
 
-        addAlbumButton();
         initAlbumCovers();
     }
 
@@ -77,19 +76,7 @@ public class AlbumImageAdapter extends BaseAdapter {
 
         tag.setText(albumCover.text);
 
-//        if(imageView != null) {
-//            ((BitmapDrawable)imageView.getDrawable()).getBitmap().recycle();
-//            imageView.setImageResource(albumCovers[position]);
-//        }
-//        else {
-//            imageView.setImageResource(albumCovers[position]);
-//        }
-//        imageView.setImageResource(albumCovers[position]);
         return convertView;
-    }
-
-    public void addAlbumButton() {
-        albumCovers.add(new AlbumCover("Create New Album", R.drawable.plus, null));
     }
 
     private void initAlbumCovers() {

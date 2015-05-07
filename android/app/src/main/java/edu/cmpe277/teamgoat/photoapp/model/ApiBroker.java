@@ -17,13 +17,15 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 
+import java.io.File;
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ApiBroker {
     private ObjectMapper mapper = new ObjectMapper();
-    private String facebookAccessToken = "CAAWuZCfKYoIYBABNJ9aZC383P9XW6Ffl219kkfoU6lZBHx5AXz8ClLjVgPg2ZB0sAYEKOZB7GJk6qNLDiKqUzi5ZAkwfRlLmuI80BrbIWwDkbO07CZB5N1JbouWGOp1HDVRbmawVDwUoi9AugQIKOyOtyZBtdtVovpxH8ocuzDxqyHX9mVQasHxa4JL74O7AHZBrTw6fw5mLhsepEJwxA6jey";
+    public static String facebookAccessToken = "CAAWuZCfKYoIYBABNJ9aZC383P9XW6Ffl219kkfoU6lZBHx5AXz8ClLjVgPg2ZB0sAYEKOZB7GJk6qNLDiKqUzi5ZAkwfRlLmuI80BrbIWwDkbO07CZB5N1JbouWGOp1HDVRbmawVDwUoi9AugQIKOyOtyZBtdtVovpxH8ocuzDxqyHX9mVQasHxa4JL74O7AHZBrTw6fw5mLhsepEJwxA6jey";
     // 10.0.2.2 is localhost on the machine hosting the emulator.
     public static String apiHost = "http://10.0.2.2:80";
     private static ApiBroker instance;
@@ -90,11 +92,9 @@ public class ApiBroker {
     }
 
     public Album updateAlbum(Album newAlbum) throws IOException, UnirestException {
-        String apiUrl = ApiBroker.apiHost + "/api/v1/albums";
-
         String jsonAlbum = mapper.writeValueAsString(newAlbum);
 
-        String url = apiHost + "/api/v1/albums/" + newAlbum.get_ID();
+        String url = String.format("%s/api/v1/albums/%s", apiHost, URLEncoder.encode(newAlbum.get_ID()));
         com.mashape.unirest.http.HttpResponse<String> response = Unirest
             .put(url)
             .header("X-Facebook-Token", facebookAccessToken)
@@ -109,12 +109,32 @@ public class ApiBroker {
         return album;
     }
 
+    // untested
+    public Image uploadImage(Album album, File imageFile, String title, String description, Double lat, Double lon) throws IOException, UnirestException {
+        String url = String.format("%s/api/v1/albums/%s/images", apiHost, URLEncoder.encode(album.get_ID()));
+        com.mashape.unirest.http.HttpResponse<String> response = Unirest
+                .post(url)
+                .header("X-Facebook-Token", facebookAccessToken)
+                .field("file", imageFile)
+                .field("title", title)
+                .field("description", description)
+                .field("lat", lat.toString())
+                .field("lon", lon.toString())
+                .asString()
+                ;
+
+        String jsonReply = response.getBody();
+
+        Image image = mapper.readValue(jsonReply, new TypeReference<Image>(){});
+        return image;
+    }
+
     public boolean deleteAlbum(Album album) throws IOException, UnirestException {
         String apiUrl = ApiBroker.apiHost + "/api/v1/albums";
 
         String jsonAlbum = mapper.writeValueAsString(album);
 
-        String url = apiHost + "/api/v1/albums/" + album.get_ID();
+        String url = String.format("%s/api/v1/albums/%s", apiHost, URLEncoder.encode(album.get_ID()));
         com.mashape.unirest.http.HttpResponse<String> response = Unirest
                 .delete(url)
                 .header("X-Facebook-Token", facebookAccessToken)
@@ -137,7 +157,22 @@ public class ApiBroker {
     }
 
     public String getUrlForImage(Image image) {
-        return apiHost + "/api/v1/raw-images/" + image.get_ID();
+        return String.format("%s/api/v1/raw-images/%s", apiHost, URLEncoder.encode(image.get_ID()));
     }
+
+    public Comment commentOnImage(Image image, String commentText) throws IOException, UnirestException {
+        String url = String.format("%s/api/v1/images/%s/comments", apiHost, URLEncoder.encode(image.get_ID()));
+
+        com.mashape.unirest.http.HttpResponse<String> response = Unirest
+                .post(url)
+                .header("X-Facebook-Token", facebookAccessToken)
+                .field("comment", commentText)
+                .asString()
+                ;
+
+        String jsonReply = response.getBody();
+        return mapper.readValue(jsonReply, new TypeReference<Comment>() {});
+    }
+
 
 }

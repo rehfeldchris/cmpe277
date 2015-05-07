@@ -3,6 +3,7 @@ package edu.cmpe277.teamgoat.photoapp.services;
 import edu.cmpe277.teamgoat.photoapp.dto.Comment;
 import edu.cmpe277.teamgoat.photoapp.dto.Image;
 import edu.cmpe277.teamgoat.photoapp.dto.ImageInfo;
+import edu.cmpe277.teamgoat.photoapp.dto.User;
 import edu.cmpe277.teamgoat.photoapp.repos.AlbumMongoRepository;
 import edu.cmpe277.teamgoat.photoapp.repos.CommentMongoRepository;
 import edu.cmpe277.teamgoat.photoapp.repos.ImageMongoRepository;
@@ -68,7 +69,6 @@ public class PhotoService {
         return null;
     }
 
-
     public List<Image> findViewableImagesNearPoint(String userId, double lat, double lon, double maxDistance) {
         // This uses mongo to find images near the point.
         // But, these images may or may not be viewable by the user, so we filter the images that aren't in an album viewable by the user.
@@ -76,9 +76,8 @@ public class PhotoService {
         return imageMongoRepository.findImagesNearLocation(lat, lon, maxDistance).stream().filter(imagesInVieableAlbums::contains).collect(Collectors.toList());
     }
 
-
-    public Comment addComment(String userId, String imageId, String commentText) {
-        Comment comment = new Comment(userId, commentText, imageId, new Date());
+    public Comment addComment(User user, String imageId, String commentText) {
+        Comment comment = new Comment(user.getFacebookUserId(), commentText, imageId, new Date(), user.getName());
         Image image = imageMongoRepository.findBy_ID(imageId);
         commentMongoRepository.save(comment);
         image.addComment(comment);
