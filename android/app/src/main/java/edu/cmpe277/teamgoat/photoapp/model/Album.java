@@ -15,6 +15,7 @@ public class Album
     private List<String> grantedUserIds;
     private boolean isPubliclyAccessible = false;
     private String coverPhotoUrl;
+    private List<Image> images;
 
     public Album(String name, String _ID, String ownerId) {
         this.name = name;
@@ -70,5 +71,9 @@ public class Album
 
     public String getCoverPhotoUrl() {
         return coverPhotoUrl;
+    }
+
+    public List<Image> getImages() {
+        return images;
     }
 }

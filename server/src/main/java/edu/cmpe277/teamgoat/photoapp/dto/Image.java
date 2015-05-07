@@ -110,6 +110,10 @@ public class Image {
         return albumId;
     }
 
+    public String getMimeType() {
+        return mimeType;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

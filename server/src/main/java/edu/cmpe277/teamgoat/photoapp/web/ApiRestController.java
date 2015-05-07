@@ -8,7 +8,9 @@ import edu.cmpe277.teamgoat.photoapp.repos.AlbumMongoRepository;
 import edu.cmpe277.teamgoat.photoapp.repos.CommentMongoRepository;
 import edu.cmpe277.teamgoat.photoapp.repos.ImageMongoRepository;
 import edu.cmpe277.teamgoat.photoapp.services.*;
+import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
+import org.apache.tomcat.util.http.fileupload.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
@@ -16,10 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -53,6 +52,37 @@ public class ApiRestController {
 	private static Random random = new Random();
 	private static List<String> allowedImageMimeTypes = new ArrayList<>(Arrays.asList(new String[] {"image/jpeg", "image/gif", "image/png"}));
 	private static final Logger LOG = Logger.getLogger(ApiRestController.class);
+
+	@RequestMapping(value = "/raw-images/{imageId}", method = RequestMethod.GET)
+	public void getRawImage(
+			@RequestHeader("X-Facebook-Token") String facebookToken,
+			@PathVariable("imageId") String imageId
+	) {
+		String userId = userProfileService.getCurrentUser(facebookToken).getFacebookUserId();
+		LOG.info(String.format("outputting raw image for userid=%s imageId=%s", userId, imageId));
+
+		Image image = imageRepo.findBy_ID(imageId);
+
+		if (image == null) {
+			response.setStatus(404);
+		}
+
+		File file = new File(imageFileSaveDir + "/" + image.getImageId());
+		if (!file.exists()) {
+			response.setStatus(404);
+		}
+
+		response.setContentType(image.getMimeType());
+		response.setCharacterEncoding("");
+		try {
+			IOUtils.copy(new FileInputStream(file), response.getOutputStream());
+			response.setContentLength((int) file.length());
+		} catch (IOException e) {
+			e.printStackTrace();
+			response.setStatus(404);
+		}
+
+	}
 
 
 	@RequestMapping(value = "/albums", method = RequestMethod.GET)

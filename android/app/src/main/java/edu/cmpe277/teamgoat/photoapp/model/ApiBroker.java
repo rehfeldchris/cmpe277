@@ -69,8 +69,8 @@ public class ApiBroker {
                 .getBody()
                 ;
 
-        List<Album> friends = mapper.readValue(json, new TypeReference<List<Album>>(){});
-        return friends;
+        List<Album> albums = mapper.readValue(json, new TypeReference<List<Album>>(){});
+        return albums;
     }
 
     public Album createAlbum(String title, String description, boolean isPubliclyAccessible, List<String> grantedUserIds) throws IOException {

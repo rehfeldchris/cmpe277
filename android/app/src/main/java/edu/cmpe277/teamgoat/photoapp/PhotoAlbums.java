@@ -29,6 +29,9 @@ public class PhotoAlbums extends ActionBarActivity {
     private List<Album> viewableAlbums;
     private GridView gridView;
 
+    // public static so that other activity can easily access to determine which album to display.
+    public static Album albumUserMostRecentlyClicked;
+
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,7 +54,10 @@ public class PhotoAlbums extends ActionBarActivity {
 //                                .commit();
 //                    }
                 } else { //go to album
-                    // todo send the album over to the view so it can list the images.
+
+                    // We subtract 1 because we added a dummy item to the front of the list of albumCovers, which they click to add a new album. But, this dummy item isnt in the album list.
+                    albumUserMostRecentlyClicked = viewableAlbums.get(position - 1);
+
                     Intent i = new Intent(PhotoAlbums.this, AlbumViewerActivity.class);
                     startActivity(i);
                 }

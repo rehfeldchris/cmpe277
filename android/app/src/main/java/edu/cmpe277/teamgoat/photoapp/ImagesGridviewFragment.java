@@ -17,10 +17,14 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.Toast;
 //import android.widget.ListAdapter;
+
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.ArrayList;
 
+import edu.cmpe277.teamgoat.photoapp.model.Album;
 import edu.cmpe277.teamgoat.photoapp.model.Image;
 
 /**
@@ -40,6 +44,8 @@ public class ImagesGridviewFragment extends Fragment implements AdapterView.OnIt
             R.drawable.sample_7, R.drawable.goat_cool
     };  // static view: code demo
 
+    private Album albumCurrentlyBeingViewed;
+
     public ImagesGridviewFragment()
     {
     }
@@ -48,6 +54,8 @@ public class ImagesGridviewFragment extends Fragment implements AdapterView.OnIt
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.layout_gridview_view_image, container, false);
+
+        albumCurrentlyBeingViewed = PhotoAlbums.albumUserMostRecentlyClicked;
 
         mGridView = (GridView)getActivity().findViewById(R.id.grid_images);
         ImageAdapter adapter = new ImageAdapter(getActivity());
@@ -106,6 +114,21 @@ public class ImagesGridviewFragment extends Fragment implements AdapterView.OnIt
                 imageView = (ImageView)convertView;
 
             imageView.setImageResource(images_static[position]);
+
+            try {
+                Image image = albumCurrentlyBeingViewed.getImages().get(position);
+                ImageLoader.getInstance().displayImage(
+                        image.,
+                        imageView
+                );
+            } catch (ArrayIndexOutOfBoundsException e) {
+                e.printStackTrace();
+                imageView.setImageResource(R.drawable.ic_delete);
+                Toast.makeText(getActivity(), "Couldn't load image.", Toast.LENGTH_SHORT).show();
+            }
+
+
+
 
             return imageView;
         }

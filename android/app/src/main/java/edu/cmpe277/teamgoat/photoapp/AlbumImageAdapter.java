@@ -20,7 +20,7 @@ import edu.cmpe277.teamgoat.photoapp.model.Album;
  */
 public class AlbumImageAdapter extends BaseAdapter {
     private Context mContext;
-    private List<AlbumCover> albumCovers;
+    private List<AlbumCover> albumCovers  = new ArrayList<>();
     private LayoutInflater inflater;
     private List<Album> albums;
 
@@ -89,30 +89,18 @@ public class AlbumImageAdapter extends BaseAdapter {
     }
 
     public void addAlbumButton() {
-        albumCovers.add(new AlbumCover("New Album", R.drawable.plus, null));
-    }
-
-    private void getAlbums() {
-//        String apiUrl = R.string.api_host + "/albums";
-//        HttpClient httpclient = new DefaultHttpClient();
-//        HttpGet httpget = new HttpGet(apiUrl);
-//        httpget.addHeader("X-Facebook-Token", LolGlobalVariables.facebookAccessToken);
-//
-//        try {
-//            HttpResponse response = httpclient.execute(httpget);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-
-        albumCovers.add(new AlbumCover("Album 1", R.drawable.albumcovertrivia, null));
-        albumCovers.add(new AlbumCover("Album 2", R.drawable.music, null));
-        albumCovers.add(new AlbumCover("Album 3", R.drawable.tree, null));
+        albumCovers.add(new AlbumCover("Create New Album", R.drawable.plus, null));
     }
 
     private void initAlbumCovers() {
-        albumCovers  = new ArrayList<AlbumCover>();
+
+        int i = 0;
         for (Album album : albums) {
-            albumCovers.add(new AlbumCover(album.getName(), 0, null));
+            // For now, we just assign each album a cover until we have a gui to let users pick a cover photo.
+            int[] drawableIds = new int[]{R.drawable.albumcovertrivia, R.drawable.music, R.drawable.tree};
+            int albumCoverPhotoId = drawableIds[i++ % drawableIds.length];
+
+            albumCovers.add(new AlbumCover(album.getName(), albumCoverPhotoId, album.getCoverPhotoUrl()));
         }
     }
 
