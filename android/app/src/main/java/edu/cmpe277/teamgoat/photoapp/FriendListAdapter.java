@@ -16,6 +16,7 @@ import edu.cmpe277.teamgoat.photoapp.model.Friend;
 
 public class FriendListAdapter extends ArrayAdapter<Friend> {
     private List<Friend> friendList;
+    private List<ViewHolder> viewHolders = new ArrayList<>();
 
     private class ViewHolder {
         TextView textView;
@@ -40,6 +41,7 @@ public class FriendListAdapter extends ArrayAdapter<Friend> {
             convertView = vi.inflate(R.layout.layout_fragment_friendlist, null);
 
             holder = new ViewHolder();
+            viewHolders.add(holder);
             holder.textView = (TextView) convertView.findViewById(R.id.txtView_friend_name);
             holder.checkBox = (CheckBox) convertView.findViewById(R.id.grant_album_access_checkbox);
             convertView.setTag(holder);
@@ -52,5 +54,15 @@ public class FriendListAdapter extends ArrayAdapter<Friend> {
         holder.friend = friend;
 
         return convertView;
+    }
+
+    public List<Friend> getFriendsWhoCanViewAlbum() {
+        List<Friend> friends = new ArrayList<>();
+        for (ViewHolder viewHolder : viewHolders) {
+            if (viewHolder.checkBox.isChecked()) {
+                friends.add(viewHolder.friend);
+            }
+        }
+        return friends;
     }
 }

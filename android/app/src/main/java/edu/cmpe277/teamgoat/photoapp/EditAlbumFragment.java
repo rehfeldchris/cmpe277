@@ -34,6 +34,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.cmpe277.teamgoat.photoapp.model.Album;
 import edu.cmpe277.teamgoat.photoapp.model.ApiBroker;
 import edu.cmpe277.teamgoat.photoapp.model.Friend;
 
@@ -45,6 +46,7 @@ public class EditAlbumFragment extends Fragment {
     private Button submitButton;
     private ListView friendListView;
     private List<Friend> friends;
+    private FriendListAdapter friendListAdapter;
 
     public EditAlbumFragment() {
 
@@ -78,7 +80,7 @@ public class EditAlbumFragment extends Fragment {
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                createAlbum();
+                createNewAlbum();
                 Intent activity = new Intent(getActivity(), PhotoAlbums.class);
                 activity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(activity);
@@ -123,7 +125,40 @@ public class EditAlbumFragment extends Fragment {
                 if (friends == null) {
                     Toast.makeText(getActivity(), "Couldn't load friend list, so you can select which friends can see your album. Sorry.", Toast.LENGTH_SHORT).show();
                 } else {
-                    friendListView.setAdapter(new FriendListAdapter(getActivity(), R.layout.layout_fragment_friendlist, friends));
+                    friendListAdapter = new FriendListAdapter(getActivity(), R.layout.layout_fragment_friendlist, friends)
+                    friendListView.setAdapter(friendListAdapter);
+                }
+            }
+        }.execute();
+    }
+
+    private List<String> getUserIdsOfFriendsWhoCanViewAlbum() {
+        List<String> userIds = new ArrayList<>();
+        if (friendListAdapter == null) {
+            return userIds;
+        }
+        for (Friend friend : friendListAdapter.getFriendsWhoCanViewAlbum()) {
+            userIds.add((friend.getId()));
+        }
+        return userIds;
+    }
+
+    private void createNewAlbum() {
+        new AsyncTask<Void, Void, Album>() {
+            protected Album doInBackground(Void... params) {
+                try {
+                    return ApiBroker.singleton().createAlbum(titleTextInput.getText().toString(), descriptionTextInput.getText().toString(), isPublicCheckbox.isChecked(), getUserIdsOfFriendsWhoCanViewAlbum());
+                } catch (IOException  e) {
+                    Log.d("main", "failed to create album", e);
+                    return null;
+                }
+            }
+
+            protected void onPostExecute(Album album) {
+                if (album == null) {
+                    Toast.makeText(getActivity(), "Couldn't create your album. Maybe its a duplicate name?", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getActivity(), "Album created", Toast.LENGTH_SHORT).show();
                 }
             }
         }.execute();
@@ -156,30 +191,6 @@ public class EditAlbumFragment extends Fragment {
 
         } catch (IOException e) {
             Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    // example
-    public void postData() {
-        // Create a new HttpClient and Post Header
-        HttpClient httpclient = new DefaultHttpClient();
-        HttpPost httppost = new HttpPost("http://www.yoursite.com/script.php");
-        httppost.addHeader("X-Facebook-Token", LolGlobalVariables.facebookAccessToken);
-
-        try {
-            // Add your data
-            List<NameValuePair> nameValuePairs = new ArrayList<>();
-            nameValuePairs.add(new BasicNameValuePair("id", "12345"));
-            nameValuePairs.add(new BasicNameValuePair("stringdata", "AndDev is Cool!"));
-            httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-
-            // Execute HTTP Post Request
-            HttpResponse response = httpclient.execute(httppost);
-
-        } catch (ClientProtocolException e) {
-            // TODO Auto-generated catch block
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
         }
     }
 
