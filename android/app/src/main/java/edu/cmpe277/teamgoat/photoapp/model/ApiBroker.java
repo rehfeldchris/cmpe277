@@ -27,7 +27,8 @@ public class ApiBroker {
     private ObjectMapper mapper = new ObjectMapper();
     public static String facebookAccessToken = "CAAWuZCfKYoIYBABNJ9aZC383P9XW6Ffl219kkfoU6lZBHx5AXz8ClLjVgPg2ZB0sAYEKOZB7GJk6qNLDiKqUzi5ZAkwfRlLmuI80BrbIWwDkbO07CZB5N1JbouWGOp1HDVRbmawVDwUoi9AugQIKOyOtyZBtdtVovpxH8ocuzDxqyHX9mVQasHxa4JL74O7AHZBrTw6fw5mLhsepEJwxA6jey";
     // 10.0.2.2 is localhost on the machine hosting the emulator.
-    public static String apiHost = "http://10.0.2.2:80";
+//    public static String apiHost = "http://10.0.2.2:80";
+    public static String apiHost = "https://srkarra.com:444";
     private static ApiBroker instance;
 
     public ApiBroker() {

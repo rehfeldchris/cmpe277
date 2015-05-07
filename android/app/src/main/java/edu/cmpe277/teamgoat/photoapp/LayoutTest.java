@@ -26,7 +26,7 @@ public class LayoutTest extends Activity
 //        setContentView(R.layout.layout_fragment_container_album_item);
 //        setContentView(R.layout.layout_gridlayout_view_image);
 
-        setContentView(R.layout.layout_drawerlayout);
+        setContentView(R.layout.drawerlayout_left_panel);
 
         mDrawerLayout = (DrawerLayout)findViewById(R.id.layout_drawer);
         mDrawerList = (ListView)findViewById(R.id.left_drawer);

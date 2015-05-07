@@ -155,7 +155,7 @@ public class MainActivity extends Activity {
         // End Test
 
         startActivity(new Intent(this, PhotoAlbums.class));
-        finish();
+//        finish();
     }
 
     @Override

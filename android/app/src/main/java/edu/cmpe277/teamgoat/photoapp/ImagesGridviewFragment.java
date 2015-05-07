@@ -85,10 +85,10 @@ public class ImagesGridviewFragment extends Fragment implements AdapterView.OnIt
 
             if (convertView == null) {
                 convertView = inflater.inflate(R.layout.square_image, parent, false);
-                convertView.setTag(R.id.picture_photo, convertView.findViewById(R.id.picture_photo));
+                convertView.setTag(R.id.picture_photo, convertView.findViewById(R.id.picture));
             }
 
-            imageView = (ImageView) convertView.getTag(R.id.picture_photo);
+            imageView = (ImageView) convertView.findViewById(R.id.picture);
 
             try {
                 Image image = albumCurrentlyBeingViewed.getImages().get(position);
