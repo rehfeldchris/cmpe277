@@ -51,4 +51,5 @@
 
 
     <string name="action_invite_friends">Invite Friends</string>
+    <string name="action_create_album">Create Album</string>
 </resources>
