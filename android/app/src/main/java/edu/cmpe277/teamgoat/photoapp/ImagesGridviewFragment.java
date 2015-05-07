@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import edu.cmpe277.teamgoat.photoapp.model.Album;
 import edu.cmpe277.teamgoat.photoapp.model.ApiBroker;
@@ -28,22 +29,20 @@ import edu.cmpe277.teamgoat.photoapp.model.Image;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class ImagesGridviewFragment extends Fragment implements AdapterView.OnItemClickListener
-{
+public class ImagesGridviewFragment extends Fragment implements AdapterView.OnItemClickListener {
 
     GridView mGridView;
     private Album albumCurrentlyBeingViewed;
     public static Image imageMostRecentlyClicked;
 
-    public ImagesGridviewFragment()
-    {
+    public ImagesGridviewFragment() {
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.layout_gridview_view_image, container, false);
         albumCurrentlyBeingViewed = PhotoAlbums.albumUserMostRecentlyClicked;
-        mGridView = (GridView)getActivity().findViewById(R.id.grid_images);
+        mGridView = (GridView) getActivity().findViewById(R.id.grid_images);
         ImageAdapter adapter = new ImageAdapter(getActivity());
         mGridView.setAdapter(adapter);
         mGridView.setOnItemClickListener(this);
@@ -52,55 +51,51 @@ public class ImagesGridviewFragment extends Fragment implements AdapterView.OnIt
     }
 
     @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id)
-    {
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         imageMostRecentlyClicked = albumCurrentlyBeingViewed.getImages().get(position);
         Intent i = new Intent(getActivity(), SingleImageViewActivity.class);
         startActivity(i);
     }
 
-    class ImageAdapter extends BaseAdapter
-    {
+    class ImageAdapter extends BaseAdapter {
         private Context mContext;
+        private LayoutInflater inflater;
 
-        public ImageAdapter(Context c)
-        {
+        public ImageAdapter(Context c) {
             super();
             mContext = c;
+            inflater = LayoutInflater.from(mContext);
         }
 
-        public int getCount() { return albumCurrentlyBeingViewed.getImages().size(); }
-
-        public Object getItem(int position)
-        {
-            return null;
+        public int getCount() {
+            return albumCurrentlyBeingViewed.getImages().size();
         }
 
-        public long getItemId(int position)
-        {
-            return 0;
+        public Object getItem(int position) {
+            return albumCurrentlyBeingViewed.getImages().get(position);
+        }
+
+        public long getItemId(int position) {
+            return albumCurrentlyBeingViewed.getImages().get(position).get_drawable_id();
         }
 
         @Override
-        public View getView(int position, View convertView, ViewGroup parent)
-        {
+        public View getView(int position, View convertView, ViewGroup parent) {
             ImageView imageView;
 
             if (convertView == null) {
-                imageView = new ImageView(mContext);
-                imageView.setLayoutParams(new GridView.LayoutParams(85, 85));
-                imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                imageView.setPadding(8, 8, 8, 8);
-            } else {
-                imageView = (ImageView) convertView;
+                convertView = inflater.inflate(R.layout.square_image, parent, false);
+                convertView.setTag(R.id.picture_photo, convertView.findViewById(R.id.picture_photo));
             }
+
+            imageView = (ImageView) convertView.getTag(R.id.picture_photo);
 
             try {
                 Image image = albumCurrentlyBeingViewed.getImages().get(position);
                 String imageUrl = ApiBroker.singleton().getUrlForImage(image);
                 ImageLoader.getInstance().displayImage(
-                    imageUrl,
-                    imageView
+                        imageUrl,
+                        imageView
                 );
             } catch (ArrayIndexOutOfBoundsException e) {
                 e.printStackTrace();
@@ -108,7 +103,7 @@ public class ImagesGridviewFragment extends Fragment implements AdapterView.OnIt
                 Toast.makeText(getActivity(), "Couldn't load image.", Toast.LENGTH_SHORT).show();
             }
 
-            return imageView;
+            return convertView;
         }
     }
 }

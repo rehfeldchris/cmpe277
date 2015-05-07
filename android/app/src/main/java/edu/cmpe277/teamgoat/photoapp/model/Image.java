@@ -5,7 +5,7 @@ package edu.cmpe277.teamgoat.photoapp.model;
  */
 public class Image
 {
-//    private String id;
+    private int drawable_id;
     private String _ID;
     private String ownerId;
     private String imageId;
@@ -25,6 +25,14 @@ public class Image
     }
 
     public Image() {
+    }
+
+    public int get_drawable_id() {
+        return drawable_id;
+    }
+
+    public void set_drawable_id(int drawable_id) {
+        this.drawable_id = drawable_id;
     }
 
     public String get_ID() {
