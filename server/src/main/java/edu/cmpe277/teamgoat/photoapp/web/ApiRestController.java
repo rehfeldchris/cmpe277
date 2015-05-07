@@ -56,7 +56,7 @@ public class ApiRestController {
 
 	@RequestMapping(value = "/raw-images/{imageId}", method = RequestMethod.GET)
 	public void getRawImage(
-			@RequestHeader(value="X-Facebook-Token", required=false) String facebookToken,
+			@RequestHeader("X-Facebook-Token") String facebookToken,
 			@PathVariable("imageId") String imageId
 	) {
 		String userId = userProfileService.getCurrentUser(facebookToken).getFacebookUserId();
