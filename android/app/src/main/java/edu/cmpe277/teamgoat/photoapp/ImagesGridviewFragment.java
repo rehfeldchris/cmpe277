@@ -117,10 +117,10 @@ public class ImagesGridviewFragment extends Fragment implements AdapterView.OnIt
 
             try {
                 Image image = albumCurrentlyBeingViewed.getImages().get(position);
-                ImageLoader.getInstance().displayImage(
-                        image.,
-                        imageView
-                );
+//                ImageLoader.getInstance().displayImage(
+//                        image.,
+//                        imageView
+//                );
             } catch (ArrayIndexOutOfBoundsException e) {
                 e.printStackTrace();
                 imageView.setImageResource(R.drawable.ic_delete);

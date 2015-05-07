@@ -1,5 +1,6 @@
 package edu.cmpe277.teamgoat.photoapp;
 
+import android.app.Fragment;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
@@ -43,24 +44,9 @@ public class PhotoAlbums extends ActionBarActivity {
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
 
-                if (position == 0) { //new album
-//                    Intent i = new Intent(PhotoAlbums.this, EditAlbumFragment.class);
-//                    startActivity(i);
-
-//                    if ( savedInstanceState == null) {
-//                        getFragmentManager()
-//                                .beginTransaction()
-//                                .add(R.id.fragment_create_album, new EditAlbumFragment())
-//                                .commit();
-//                    }
-                } else { //go to album
-
-                    // We subtract 1 because we added a dummy item to the front of the list of albumCovers, which they click to add a new album. But, this dummy item isnt in the album list.
-                    albumUserMostRecentlyClicked = viewableAlbums.get(position - 1);
-
-                    Intent i = new Intent(PhotoAlbums.this, AlbumViewerActivity.class);
-                    startActivity(i);
-                }
+                albumUserMostRecentlyClicked = viewableAlbums.get(position);
+                Intent i = new Intent(PhotoAlbums.this, AlbumViewerActivity.class);
+                startActivity(i);
             }
         });
     }
@@ -78,6 +64,17 @@ public class PhotoAlbums extends ActionBarActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
+
+        //Create new album
+        if (id == R.id.action_create_album) {
+            setContentView(R.layout.layout_fragment_create_album);
+            Fragment frag = getFragmentManager().findFragmentById(R.id.fragment_create_album);
+            if (frag == null) {
+                getFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_create_album, new EditAlbumFragment())
+                        .commit();
+            }
+        }
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_invite_friends) {
