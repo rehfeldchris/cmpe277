@@ -140,4 +140,19 @@ public class ApiBroker {
         return apiHost + "/api/v1/raw-images/" + image.get_ID();
     }
 
+    public Comment commentOnImage(Image image, String commentText) throws IOException, UnirestException {
+        String apiUrl = ApiBroker.apiHost + "/api/v1/images/i/comments";
+
+        com.mashape.unirest.http.HttpResponse<String> response = Unirest
+                .post(apiUrl)
+                .header("X-Facebook-Token", facebookAccessToken)
+                .field("comment", commentText)
+                .asString()
+                ;
+
+        String jsonReply = response.getBody();
+        return mapper.readValue(jsonReply, new TypeReference<Comment>() {});
+    }
+
+
 }

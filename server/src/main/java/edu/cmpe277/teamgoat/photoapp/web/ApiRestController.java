@@ -3,6 +3,7 @@ package edu.cmpe277.teamgoat.photoapp.web;
 import edu.cmpe277.teamgoat.photoapp.dto.Album;
 import edu.cmpe277.teamgoat.photoapp.dto.Image;
 import edu.cmpe277.teamgoat.photoapp.dto.ImageInfo;
+import edu.cmpe277.teamgoat.photoapp.dto.User;
 import edu.cmpe277.teamgoat.photoapp.errors.BadApiRequestException;
 import edu.cmpe277.teamgoat.photoapp.repos.AlbumMongoRepository;
 import edu.cmpe277.teamgoat.photoapp.repos.CommentMongoRepository;
@@ -256,12 +257,12 @@ public class ApiRestController {
             @PathVariable("imageId") String imageId,
             @RequestParam("comment") String comment
     ) {
-        String userId = userProfileService.getCurrentUser(facebookToken).getFacebookUserId();
+        User user = userProfileService.getCurrentUser(facebookToken);
         if (imageRepo.findBy_ID(imageId) == null) {
             response.setStatus(404);
             return null;
         }
-        return photoService.addComment(userId, imageId, comment);
+        return photoService.addComment(user, imageId, comment);
 	}
 
 	private synchronized String generateUniqueFilename() {

@@ -1,14 +1,23 @@
 package edu.cmpe277.teamgoat.photoapp;
 
+import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
+import android.widget.Toast;
 
+import com.mashape.unirest.http.exceptions.UnirestException;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
+import java.io.IOException;
+import java.util.List;
+
 import edu.cmpe277.teamgoat.photoapp.model.ApiBroker;
+import edu.cmpe277.teamgoat.photoapp.model.Comment;
+import edu.cmpe277.teamgoat.photoapp.model.Friend;
 import edu.cmpe277.teamgoat.photoapp.model.Image;
 
 
@@ -33,9 +42,7 @@ public class SingleImageViewActivity extends ActionBarActivity {
         } else {
             img.setImageResource(R.drawable.ic_delete);
         }
-
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -57,5 +64,28 @@ public class SingleImageViewActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+
+    private void addComment(final String comment) {
+        new AsyncTask<Void, Void, Comment>() {
+            protected Comment doInBackground(Void... params) {
+                try {
+                    return ApiBroker.singleton().commentOnImage(imageBeingDisplayed, comment);
+                } catch (IOException |UnirestException e) {
+                    Log.d("main", "failed to load friend list", e);
+                    return null;
+                }
+            }
+
+            protected void onPostExecute(Comment comment) {
+                if (comment == null) {
+                    Toast.makeText(getApplicationContext(), "Couldn't add comment. Sorry. We suxorz..", Toast.LENGTH_SHORT).show();
+                } else {
+                    // Maybe reload data somehow to make the comment show up? or just add the comment manually.
+                    Toast.makeText(getApplicationContext(), "Comment added", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }.execute();
     }
 }
