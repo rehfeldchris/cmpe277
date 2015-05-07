@@ -50,6 +50,6 @@
     <string name="title_activity_single_image_view">SingleImageViewActivity</string>
 
 
-    <string name="action_invite_friends">Invite Friends</string>
+    <string name="action_invite_friends">Invite Friends To App</string>
     <string name="action_create_album">Create Album</string>
 </resources>
