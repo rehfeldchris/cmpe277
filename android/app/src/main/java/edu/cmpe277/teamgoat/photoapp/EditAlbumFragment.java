@@ -81,9 +81,6 @@ public class EditAlbumFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 createNewAlbum();
-                Intent activity = new Intent(getActivity(), PhotoAlbums.class);
-                activity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(activity);
             }
         });
 
@@ -159,6 +156,14 @@ public class EditAlbumFragment extends Fragment {
                     Toast.makeText(getActivity(), "Couldn't create your album. Maybe its a duplicate name?", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(getActivity(), "Album created", Toast.LENGTH_SHORT).show();
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Intent activity = new Intent(getActivity(), PhotoAlbums.class);
+                            activity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(activity);
+                        }
+                    });
                 }
             }
         }.execute();
