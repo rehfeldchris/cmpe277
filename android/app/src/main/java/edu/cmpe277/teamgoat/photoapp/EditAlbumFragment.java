@@ -125,7 +125,7 @@ public class EditAlbumFragment extends Fragment {
                 if (friends == null) {
                     Toast.makeText(getActivity(), "Couldn't load friend list, so you can select which friends can see your album. Sorry.", Toast.LENGTH_SHORT).show();
                 } else {
-                    friendListAdapter = new FriendListAdapter(getActivity(), R.layout.layout_fragment_friendlist, friends)
+                    friendListAdapter = new FriendListAdapter(getActivity(), R.layout.layout_fragment_friendlist, friends);
                     friendListView.setAdapter(friendListAdapter);
                 }
             }
