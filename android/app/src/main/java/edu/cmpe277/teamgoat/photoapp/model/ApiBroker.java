@@ -1,8 +1,5 @@
 package edu.cmpe277.teamgoat.photoapp.model;
 
-import android.widget.Toast;
-
-import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -16,17 +13,13 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.client.methods.HttpPut;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
-
-import edu.cmpe277.teamgoat.photoapp.LolGlobalVariables;
 
 public class ApiBroker {
     private ObjectMapper mapper = new ObjectMapper();
@@ -138,9 +131,13 @@ public class ApiBroker {
         req.addHeader("X-Facebook-Token", facebookAccessToken);
         HttpResponse response = httpclient.execute(req);
         String json = EntityUtils.toString(response.getEntity(), "UTF-8");
-        List<Friend> friends = mapper.readValue(json, new TypeReference<List<Friend>>(){});
+        List<Friend> friends = mapper.readValue(json, new TypeReference<List<Friend>>() {
+        });
         return friends;
     }
 
+    public String getUrlForImage(Image image) {
+        return apiHost + "/api/v1/raw-images/" + image.getImageId();
+    }
 
 }
