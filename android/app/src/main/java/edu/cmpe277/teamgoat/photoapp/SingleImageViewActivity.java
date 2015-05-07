@@ -77,7 +77,7 @@ public class SingleImageViewActivity extends ActionBarActivity {
             protected Comment doInBackground(Void... params) {
                 try {
                     return ApiBroker.singleton().commentOnImage(imageBeingDisplayed, comment);
-                } catch (IOException |UnirestException e) {
+                } catch (IOException | UnirestException e) {
                     Log.d("main", "failed to load friend list", e);
                     return null;
                 }
@@ -92,31 +92,6 @@ public class SingleImageViewActivity extends ActionBarActivity {
                 }
             }
         }.execute();
-    }
-
-    private class CommentListAdapter extends ArrayAdapter
-    {
-
-        public CommentListAdapter(Comment[] comments)
-        {
-            super(SingleImageViewActivity.this, 0, comments);
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent)
-        {
-            // TODO: setup the view and load fetched comments
-
-            if (convertView == null)
-                convertView = SingleImageViewActivity.this.getLayoutInflater().inflate(
-                        R.layout.textview_single_layout, null
-                );
-
-            TextView comment = (TextView)convertView.findViewById(R.id.textview_comment);
-            comment.setText(((Comment)getItem(position)).getComment() + "  " + position);
-
-            return convertView;
-        }
     }
 
     private class CommentBaseAdapter extends BaseAdapter
@@ -207,6 +182,10 @@ public class SingleImageViewActivity extends ActionBarActivity {
                         .add(new String(edittext_comment.getText().toString()));
                 ((CommentBaseAdapter) listview_container_comment.getAdapter()).notifyDataSetChanged();
                 // TODO: upload comment to the server
+                addComment(edittext_comment.getText().toString());
+
+                // Clear edittext comment
+                edittext_comment.setText("");
             }
         });
     }
