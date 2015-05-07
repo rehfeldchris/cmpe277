@@ -53,13 +53,6 @@ public class AlbumImageAdapter extends BaseAdapter {
             convertView = inflater.inflate(R.layout.square_image, parent, false);
             convertView.setTag(R.id.picture, convertView.findViewById(R.id.picture));
             convertView.setTag(R.id.photo_caption, convertView.findViewById(R.id.photo_caption));
-            // if it's not recycled, initialize some attributes
-//            imageView = new ImageView(mContext);
-//            imageView.setLayoutParams(new GridView.LayoutParams(100, 100));
-//            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-//            imageView.setPadding(3, 3, 3, 3);
-//        } else {
-//            imageView = (ImageView) convertView;
         }
 
         imageView = (ImageView) convertView.getTag(R.id.picture);
