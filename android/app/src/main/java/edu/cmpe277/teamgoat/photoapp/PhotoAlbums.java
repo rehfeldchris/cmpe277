@@ -10,7 +10,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.FrameLayout;
 import android.widget.GridView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.facebook.share.model.AppInviteContent;
@@ -66,11 +68,14 @@ public class PhotoAlbums extends ActionBarActivity {
 
         //Create new album
         if (id == R.id.action_create_album) {
-            setContentView(R.layout.layout_fragment_create_album);
+            FrameLayout frame = new FrameLayout(this);
+            frame.setId(R.id.fragment_create_album);
+            setContentView(frame, new FrameLayout.LayoutParams(
+                    FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));
             Fragment frag = getFragmentManager().findFragmentById(R.id.fragment_create_album);
             if (frag == null) {
                 getFragmentManager().beginTransaction()
-                        .replace(R.id.fragment_create_album, new EditAlbumFragment())
+                        .add(R.id.fragment_create_album, new EditAlbumFragment())
                         .commit();
             }
         }
