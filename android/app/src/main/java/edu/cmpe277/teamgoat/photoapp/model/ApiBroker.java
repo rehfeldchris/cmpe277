@@ -137,7 +137,7 @@ public class ApiBroker {
     }
 
     public String getUrlForImage(Image image) {
-        return apiHost + "/api/v1/raw-images/" + image.getImageId();
+        return apiHost + "/api/v1/raw-images/" + image.get_ID();
     }
 
 }
