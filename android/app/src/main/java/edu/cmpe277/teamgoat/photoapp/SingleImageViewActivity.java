@@ -35,6 +35,7 @@ public class SingleImageViewActivity extends ActionBarActivity {
     private Image       imageBeingDisplayed;
     private ListView    listview_container_comment;
     private Button      btn_add_comment;
+    private ImageView   mImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -154,15 +155,15 @@ public class SingleImageViewActivity extends ActionBarActivity {
 
         generateTestComments();
 
-        ImageView img = (ImageView)findViewById(R.id.img_singleImage_view);
+        mImage = (ImageView)findViewById(R.id.img_singleImage_view);
 
         if (imageBeingDisplayed != null) {
             ImageLoader.getInstance().displayImage(
                     ApiBroker.singleton().getUrlForImage(imageBeingDisplayed),
-                    img
+                    mImage
             );
         } else {
-            img.setImageResource(R.drawable.ic_delete);
+            mImage.setImageResource(R.drawable.ic_delete);
         }
 
         listview_container_comment = (ListView)findViewById(R.id.listView_singleImage_comments);
@@ -215,5 +216,18 @@ public class SingleImageViewActivity extends ActionBarActivity {
     }
     private List<String> test_comments;
 
+    @Override
+    protected void onDestroy() {
+        System.gc();
+        finish();
+        super.onDestroy();
+    }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mImage.destroyDrawingCache();
+        listview_container_comment.destroyDrawingCache();
+        System.gc();
+    }
 }
