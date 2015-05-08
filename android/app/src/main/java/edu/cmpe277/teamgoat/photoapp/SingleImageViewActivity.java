@@ -212,7 +212,7 @@ public class SingleImageViewActivity extends ActionBarActivity {
         }
 
         for (Comment comment : imageBeingDisplayed.getComments()) {
-            test_comments.add(comment.getUserName() + "-" + comment.getComment());
+            test_comments.add(comment.getComment());
         }
     }
     private List<String> test_comments;
