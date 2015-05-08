@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.facebook.AccessToken;
@@ -153,8 +155,14 @@ public class MainActivity extends Activity {
 //        Intent i = new Intent(this, AlbumViewerActivity.class);
 //        startActivity(i);
         // End Test
-
-        startActivity(new Intent(this, PhotoAlbums.class));
+        Button btn_launch = (Button)findViewById(R.id.btn_launch_app);
+        btn_launch.setVisibility(View.VISIBLE);
+        btn_launch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, PhotoAlbums.class));
+            }
+        });
 //        finish();
     }
 
