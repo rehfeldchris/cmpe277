@@ -144,7 +144,7 @@ public class SingleImageViewActivity extends ActionBarActivity {
                 );
 
             TextView comment = (TextView)convertView.findViewById(R.id.textview_comment);
-            comment.setText((String)getItem(position) + "  " + position);
+            comment.setText((String)getItem(position));
 
             return convertView;
         }
@@ -152,9 +152,9 @@ public class SingleImageViewActivity extends ActionBarActivity {
 
     private void initializeComponents()
     {
-        generateTestComments();
-
         imageBeingDisplayed = ImagesGridviewFragment.imageMostRecentlyClicked;
+
+        generateTestComments();
 
         ImageView img = (ImageView)findViewById(R.id.img_singleImage_view);
 
@@ -175,11 +175,11 @@ public class SingleImageViewActivity extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 // TODO: Add comment to the current view
-                EditText edittext_comment = (EditText)findViewById(R.id.edit_txt_comment);
+                EditText edittext_comment = (EditText) findViewById(R.id.edit_txt_comment);
 
                 ((CommentBaseAdapter) listview_container_comment.getAdapter())
                         .getComments()
-                        .add(new String(edittext_comment.getText().toString()));
+                        .add("you - " + edittext_comment.getText().toString());
                 ((CommentBaseAdapter) listview_container_comment.getAdapter()).notifyDataSetChanged();
                 // TODO: upload comment to the server
                 addComment(edittext_comment.getText().toString());
@@ -193,19 +193,27 @@ public class SingleImageViewActivity extends ActionBarActivity {
     private void generateTestComments()
     {
         test_comments = new ArrayList<String>();
-        test_comments.add(new String("Test comment "));
-        test_comments.add(new String("Test comment "));
-        test_comments.add(new String("Test comment "));
-        test_comments.add(new String("Test comment "));
-        test_comments.add(new String("Test comment "));
-        test_comments.add(new String("Test comment "));
-        test_comments.add(new String("Test comment "));
-        test_comments.add(new String("Test comment "));
-        test_comments.add(new String("Test comment "));
-        test_comments.add(new String("Test comment "));
-        test_comments.add(new String("Test comment "));
-        test_comments.add(new String("Test comment "));
-        test_comments.add(new String("Test comment "));
+//        test_comments.add(new String("Test comment "));
+//        test_comments.add(new String("Test comment "));
+//        test_comments.add(new String("Test comment "));
+//        test_comments.add(new String("Test comment "));
+//        test_comments.add(new String("Test comment "));
+//        test_comments.add(new String("Test comment "));
+//        test_comments.add(new String("Test comment "));
+//        test_comments.add(new String("Test comment "));
+//        test_comments.add(new String("Test comment "));
+//        test_comments.add(new String("Test comment "));
+//        test_comments.add(new String("Test comment "));
+//        test_comments.add(new String("Test comment "));
+//        test_comments.add(new String("Test comment "));
+
+        if (imageBeingDisplayed == null || imageBeingDisplayed.getComments() == null) {
+            return;
+        }
+
+        for (Comment comment : imageBeingDisplayed.getComments()) {
+            test_comments.add(comment.getUserName() + "-" + comment.getComment());
+        }
     }
     private List<String> test_comments;
 

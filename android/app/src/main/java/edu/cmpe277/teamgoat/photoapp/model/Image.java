@@ -1,5 +1,7 @@
 package edu.cmpe277.teamgoat.photoapp.model;
 
+import java.util.List;
+
 /**
  * Created by squall on 4/29/15.
  */
@@ -16,6 +18,7 @@ public class Image
     private int sizeBytes;
     private String mimeType;
     private String albumId;
+    private List<Comment> comments;
 
 
     public Image(String ownerId, String imageId, String albumId) {
@@ -109,5 +112,9 @@ public class Image
 
     public void setAlbumId(String albumId) {
         this.albumId = albumId;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
     }
 }
