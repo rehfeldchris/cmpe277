@@ -1,0 +1,2 @@
+show user name on comments
+show profile pic for all users in the list of friends able to view an album
