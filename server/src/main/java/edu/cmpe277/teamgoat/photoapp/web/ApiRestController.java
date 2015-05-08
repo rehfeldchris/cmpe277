@@ -277,7 +277,7 @@ public class ApiRestController {
 		String fileName = generateUniqueFilename();
 		String tempName = tempDir + "/" + fileName;
 		String finalName = imageFileSaveDir + "/" + fileName;
-
+		
 		File imageFile = new File(tempName);
 
 		BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(imageFile));
@@ -286,6 +286,8 @@ public class ApiRestController {
 
 		if (!imageFile.renameTo(new File(finalName))) {
 			throw new IOException("couldnt rename image file");
+		} else {
+			LOG.info(String.format("Image uploaded, filename is '%s'.", finalName));
 		}
 
 		return fileName;
