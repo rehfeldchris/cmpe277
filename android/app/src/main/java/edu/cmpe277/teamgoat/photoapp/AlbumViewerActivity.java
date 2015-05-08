@@ -1,26 +1,43 @@
 package edu.cmpe277.teamgoat.photoapp;
 
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.provider.MediaStore;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.mashape.unirest.http.exceptions.UnirestException;
+
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.Date;
+import java.util.List;
+
 import edu.cmpe277.teamgoat.photoapp.model.Album;
+import edu.cmpe277.teamgoat.photoapp.model.ApiBroker;
 import edu.cmpe277.teamgoat.photoapp.model.Image;
+import edu.cmpe277.teamgoat.photoapp.util.PhotoAppLog;
 
 
 public class AlbumViewerActivity extends ActionBarActivity
 {
     private static int RESULT_LOAD_IMG = 1;
     String imagePath;
+
+    private PhotoAppLog logger;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,10 +68,12 @@ public class AlbumViewerActivity extends ActionBarActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            Intent galleryIntent = new Intent(Intent.ACTION_PICK,
-                    android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-            startActivityForResult(galleryIntent, RESULT_LOAD_IMG);
+        if (id == R.id.upload_photo) {
+            Intent galleryIntent = new Intent();
+            galleryIntent.setType("image/*");
+            galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
+
+            startActivityForResult(Intent.createChooser(galleryIntent, "Select Picture"), RESULT_LOAD_IMG);
         }
 
         return super.onOptionsItemSelected(item);
@@ -64,34 +83,85 @@ public class AlbumViewerActivity extends ActionBarActivity
         super.onActivityResult(requestCode, resultCode, data);
         try {
             // When an Image is picked
-            if (requestCode == RESULT_LOAD_IMG && resultCode == RESULT_OK
-                    && null != data) {
-                // Get the Image from data
+            if (requestCode == RESULT_LOAD_IMG) {
+                if (resultCode == RESULT_OK && null != data) {
+                    // Get the Image from data
 
-                Uri selectedImage = data.getData();
-                String[] filePathColumn = { MediaStore.Images.Media.DATA };
+                    Uri selectedImage = data.getData();
+//                    String[] filePathColumn = {MediaStore.Images.Media.DATA};
+//
+//                    // Get the cursor
+//                    Cursor cursor = getContentResolver().query(selectedImage,
+//                            filePathColumn, null, null, null);
+//
+//                    int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+//                    // Move to first row
+//                    cursor.moveToFirst();
+//                    imagePath = cursor.getString(columnIndex);
+//                    cursor.close();
+//
+//                    String foo = "Path  ->" + BitmapFactory.decodeFile(imagePath).toString();
 
-                // Get the cursor
-                Cursor cursor = getContentResolver().query(selectedImage,
-                        filePathColumn, null, null, null);
-                // Move to first row
-                cursor.moveToFirst();
+                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), selectedImage);
+                    Album currentAlbum = PhotoAlbums.albumUserMostRecentlyClicked;
+                    Toast.makeText(this, "Uploading Image", Toast.LENGTH_SHORT).show();
 
-                int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-                imagePath = cursor.getString(columnIndex);
-                cursor.close();
+                    uploadImage(getApplication(), bitmap, currentAlbum);
 
-                Toast.makeText(this, imagePath, Toast.LENGTH_LONG)
-                        .show();
 
-//                Album currentAlbum = PhotoAlbums.albumUserMostRecentlyClicked;
-//                currentAlbum.getImages().add(new Image());
-            } else {
-                Toast.makeText(this, "You haven't picked Image",
-                        Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(this, "You haven't picked Image",
+                            Toast.LENGTH_LONG).show();
+                }
             }
         } catch (Exception e) {
+            e.printStackTrace();
         }
+
+    }
+
+
+    private void uploadImage(final Context context, final Bitmap bitmap, final Album album) {
+        new AsyncTask<Void, Void, Void>() {
+            protected Void doInBackground(Void... params) {
+                try {
+
+                    //create a file to write bitmap data
+                    File f = new File(context.getCacheDir(), "fileupload-" + System.currentTimeMillis());
+                    f.createNewFile();
+
+                    //Convert bitmap to byte array
+                    ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                    bitmap.compress(Bitmap.CompressFormat.PNG, 0, bos);
+                    byte[] bitmapdata = bos.toByteArray();
+
+                    //write the bytes in file
+                    FileOutputStream fos = new FileOutputStream(f);
+                    fos.write(bitmapdata);
+                    fos.flush();
+                    fos.close();
+
+                    ApiBroker.singleton().uploadImage(album, f, "Image", "Photo at" + new Date(), 0.0, 0.0);
+                } catch (IOException |UnirestException e) {
+                    Log.d("main", "failed to load album list", e);
+                }
+                return null;
+            }
+
+            protected void onPostExecute() {
+                Toast.makeText(context, "Image Uploaded.", Toast.LENGTH_SHORT).show();
+
+//                viewableAlbums = albums;
+//                if (albums == null) {
+//                    Toast.makeText(PhotoAlbums.this, "Couldn't load album list. Sorry.", Toast.LENGTH_SHORT).show();
+//                } else {
+//                    //gridView.invalidateViews();
+//                    AlbumImageAdapter adapter = new AlbumImageAdapter(PhotoAlbums.this, albums);
+//                    gridView.setAdapter(adapter);
+//                    adapter.notifyDataSetChanged();
+//                }
+            }
+        }.execute();
 
     }
 }
