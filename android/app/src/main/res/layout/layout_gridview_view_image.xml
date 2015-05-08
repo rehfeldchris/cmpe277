@@ -9,7 +9,7 @@
         android:id="@+id/grid_images"
         android:horizontalSpacing="0dp"
         android:verticalSpacing="0dp"
-        android:numColumns="2"
+        android:numColumns="3"
         android:stretchMode="columnWidth"
         />
 
