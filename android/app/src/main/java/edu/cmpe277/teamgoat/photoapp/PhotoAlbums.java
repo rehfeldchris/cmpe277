@@ -115,7 +115,10 @@ public class PhotoAlbums extends ActionBarActivity {
                 if (albums == null) {
                     Toast.makeText(PhotoAlbums.this, "Couldn't load album list. Sorry.", Toast.LENGTH_SHORT).show();
                 } else {
-                    gridView.setAdapter(new AlbumImageAdapter(PhotoAlbums.this, albums));
+                    //gridView.invalidateViews();
+                    AlbumImageAdapter adapter = new AlbumImageAdapter(PhotoAlbums.this, albums);
+                    gridView.setAdapter(adapter);
+                    adapter.notifyDataSetChanged();
                 }
             }
         }.execute();
