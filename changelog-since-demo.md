@@ -1,6 +1,5 @@
 
+## List of changes since the demo  
 
-## List of changes since the demo
-
-- TODO
-- 
+- Fix lots of bugs
+- Pull to refresh (Not Done -> Sai)
