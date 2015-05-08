@@ -7,24 +7,30 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.cmpe277.teamgoat.photoapp.model.ApiBroker;
 import edu.cmpe277.teamgoat.photoapp.model.Friend;
+import edu.cmpe277.teamgoat.photoapp.model.User;
 
-public class FriendListAdapter extends ArrayAdapter<Friend> {
-    private List<Friend> friendList;
+public class FriendListAdapter extends ArrayAdapter<User> {
+    private List<User> friendList;
     private List<ViewHolder> viewHolders = new ArrayList<>();
 
     private class ViewHolder {
         TextView textView;
         CheckBox checkBox;
-        Friend friend;
+        User friend;
+        ImageView imageView;
     }
 
-    public FriendListAdapter(Context context, int textViewResourceId, List<Friend> countryList) {
+    public FriendListAdapter(Context context, int textViewResourceId, List<User> countryList) {
         super(context, textViewResourceId, countryList);
         this.friendList = new ArrayList<>(countryList);
 
@@ -44,20 +50,29 @@ public class FriendListAdapter extends ArrayAdapter<Friend> {
             viewHolders.add(holder);
             holder.textView = (TextView) convertView.findViewById(R.id.txtView_friend_name);
             holder.checkBox = (CheckBox) convertView.findViewById(R.id.grant_album_access_checkbox);
+            holder.imageView = (ImageView) convertView.findViewById(R.id.imgView_friend_avatar);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        Friend friend = friendList.get(position);
+        User friend = friendList.get(position);
+        holder.textView.setText(friend.getName());
+        if (friend.getProfilePhotoUrl() != null) {
+            ImageLoader.getInstance().displayImage(
+                friend.getProfilePhotoUrl(),
+                holder.imageView
+            );
+        }
+
         holder.textView.setText(friend.getName());
         holder.friend = friend;
 
         return convertView;
     }
 
-    public List<Friend> getFriendsWhoCanViewAlbum() {
-        List<Friend> friends = new ArrayList<>();
+    public List<User> getFriendsWhoCanViewAlbum() {
+        List<User> friends = new ArrayList<>();
         for (ViewHolder viewHolder : viewHolders) {
             if (viewHolder.checkBox.isChecked()) {
                 friends.add(viewHolder.friend);

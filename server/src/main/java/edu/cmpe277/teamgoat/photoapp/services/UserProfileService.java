@@ -8,8 +8,11 @@ import edu.cmpe277.teamgoat.photoapp.repos.UserMongoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class UserProfileService {
@@ -70,11 +73,7 @@ public class UserProfileService {
 		FacebookClient facebookClient = new DefaultFacebookClient(facebookToken);
 		com.restfb.types.User fbuser = facebookClient.fetchObject("me", com.restfb.types.User.class);
 
-		User currentUser = new User();
-		currentUser.setFacebookUserId(fbuser.getId());
-		currentUser.setName(fbuser.getUsername());
-		currentUser.setProfilePhotoUrl(fbuser.getPicture() != null ? fbuser.getPicture().getUrl() : null);
-		currentUser.setWhenDataFetchedFromFacebook(new Date());
+		User currentUser = new User(fbuser);
 
 		// Update our cache.
 		facebookTokenToUserIdCache.setFacebookUserId(facebookToken, currentUser.getFacebookUserId());
@@ -87,12 +86,12 @@ public class UserProfileService {
 	 * @param facebookToken The app user's accessToken
 	 * @return A List of Users that are friends with the app user
 	 */
-	public List<com.restfb.types.User> getUserFriends(String facebookToken) {
+	public List<User> getUserFriends(String facebookToken) {
 		FacebookClient facebookClient = new DefaultFacebookClient(facebookToken);
 		Connection<com.restfb.types.User> myFriends = facebookClient.fetchConnection("me/friends", com.restfb.types.User.class);
-		return myFriends.getData();
+		List<User> friends = myFriends.getData().stream().map(User::new).collect(Collectors.toList());
+		return friends;
 	}
-
 
 	private User updateOrSave(User userInfo) {
 		// i know a girl with a broken water heater. she smells like a goat.

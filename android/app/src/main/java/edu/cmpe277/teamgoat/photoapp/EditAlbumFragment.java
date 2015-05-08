@@ -37,6 +37,7 @@ import java.util.List;
 import edu.cmpe277.teamgoat.photoapp.model.Album;
 import edu.cmpe277.teamgoat.photoapp.model.ApiBroker;
 import edu.cmpe277.teamgoat.photoapp.model.Friend;
+import edu.cmpe277.teamgoat.photoapp.model.User;
 
 public class EditAlbumFragment extends Fragment {
     private View view;
@@ -45,7 +46,7 @@ public class EditAlbumFragment extends Fragment {
     private CheckBox isPublicCheckbox;
     private Button submitButton;
     private ListView friendListView;
-    private List<Friend> friends;
+    private List<User> friends;
     private FriendListAdapter friendListAdapter;
 
     public EditAlbumFragment() {
@@ -107,8 +108,8 @@ public class EditAlbumFragment extends Fragment {
     }
 
     private void loadFriendList() {
-        new AsyncTask<Void, Void, List<Friend>>() {
-            protected List<Friend> doInBackground(Void... params) {
+        new AsyncTask<Void, Void, List<User>>() {
+            protected List<User> doInBackground(Void... params) {
                 try {
                     return getFriends();
                 } catch (IOException|UnirestException  e) {
@@ -117,7 +118,7 @@ public class EditAlbumFragment extends Fragment {
                 }
             }
 
-            protected void onPostExecute(List<Friend> friends) {
+            protected void onPostExecute(List<User> friends) {
                 EditAlbumFragment.this.friends = friends;
                 if (friends == null) {
                     Toast.makeText(getActivity(), "Couldn't load friend list, so you can select which friends can see your album. Sorry.", Toast.LENGTH_SHORT).show();
@@ -134,8 +135,8 @@ public class EditAlbumFragment extends Fragment {
         if (friendListAdapter == null) {
             return userIds;
         }
-        for (Friend friend : friendListAdapter.getFriendsWhoCanViewAlbum()) {
-            userIds.add((friend.getId()));
+        for (User friend : friendListAdapter.getFriendsWhoCanViewAlbum()) {
+            userIds.add((friend.getFacebookUserId()));
         }
         return userIds;
     }
@@ -169,37 +170,7 @@ public class EditAlbumFragment extends Fragment {
         }.execute();
     }
 
-    private void createAlbum() {
-        String apiUrl = ApiBroker.apiHost + "/api/v1/albums";
-
-        // Create a new HttpClient and Post Header
-        HttpClient httpclient = new DefaultHttpClient();
-        HttpPost httppost = new HttpPost(apiUrl);
-        httppost.addHeader("X-Facebook-Token", LolGlobalVariables.facebookAccessToken);
-
-        try {
-            // Add your data
-            List<NameValuePair> nameValuePairs = new ArrayList<>();
-            nameValuePairs.add(new BasicNameValuePair("title", titleTextInput.getText().toString()));
-            nameValuePairs.add(new BasicNameValuePair("description", descriptionTextInput.getText().toString()));
-            nameValuePairs.add(new BasicNameValuePair("isPubliclyAccessible", String.valueOf(isPublicCheckbox.isChecked())));
-            for (String s : new String[]{}) {
-                nameValuePairs.add(new BasicNameValuePair("grantedUserIds", s));
-            }
-            httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-
-            // Execute HTTP Post Request
-            HttpResponse response = httpclient.execute(httppost);
-            HttpEntity entity = response.getEntity();
-            String responseString = EntityUtils.toString(entity, "UTF-8");
-            Toast.makeText(getActivity(), responseString, Toast.LENGTH_SHORT).show();
-
-        } catch (IOException e) {
-            Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    private List<Friend> getFriends() throws IOException, UnirestException {
+    private List<User> getFriends() throws IOException, UnirestException {
         return ApiBroker.singleton().getFriends();
     }
 

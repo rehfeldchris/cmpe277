@@ -27,7 +27,7 @@ public class ApiBroker {
     private ObjectMapper mapper = new ObjectMapper();
     public static String facebookAccessToken = "CAAWuZCfKYoIYBABNJ9aZC383P9XW6Ffl219kkfoU6lZBHx5AXz8ClLjVgPg2ZB0sAYEKOZB7GJk6qNLDiKqUzi5ZAkwfRlLmuI80BrbIWwDkbO07CZB5N1JbouWGOp1HDVRbmawVDwUoi9AugQIKOyOtyZBtdtVovpxH8ocuzDxqyHX9mVQasHxa4JL74O7AHZBrTw6fw5mLhsepEJwxA6jey";
     // 10.0.2.2 is localhost on the machine hosting the emulator.
-//    public static String apiHost = "http://10.0.2.2:80";
+    //public static String apiHost = "http://10.0.2.2:80";
     public static String apiHost = "https://srkarra.com:444";
     private static ApiBroker instance;
 
@@ -43,7 +43,7 @@ public class ApiBroker {
         return instance;
     }
 
-    public List<Friend> getFriends() throws UnirestException, IOException {
+    public List<User> getFriends() throws UnirestException, IOException {
         String url = apiHost + "/api/v1/friends";
         String json = Unirest
             .get(url)
@@ -52,7 +52,7 @@ public class ApiBroker {
             .getBody()
         ;
 
-        List<Friend> friends = mapper.readValue(json, new TypeReference<List<Friend>>(){});
+        List<User> friends = mapper.readValue(json, new TypeReference<List<User>>(){});
         return friends;
     }
 
@@ -143,18 +143,6 @@ public class ApiBroker {
                 ;
 
         return response.getCode() == 200;
-    }
-
-    public List<Friend> _getFriends() throws IOException {
-        HttpClient httpclient = new DefaultHttpClient();
-        String url = apiHost + "/api/v1/friends";
-        HttpGet req = new HttpGet(url);
-        req.addHeader("X-Facebook-Token", facebookAccessToken);
-        HttpResponse response = httpclient.execute(req);
-        String json = EntityUtils.toString(response.getEntity(), "UTF-8");
-        List<Friend> friends = mapper.readValue(json, new TypeReference<List<Friend>>() {
-        });
-        return friends;
     }
 
     public String getUrlForImage(Image image) {

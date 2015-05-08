@@ -2,6 +2,7 @@ package edu.cmpe277.teamgoat.photoapp.dto;
 
 import org.springframework.data.annotation.Id;
 
+import java.net.URLEncoder;
 import java.util.Date;
 
 public class User {
@@ -18,11 +19,18 @@ public class User {
     public User() {
     }
 
-    public User(String facebookUserId, String name, String profilePhotoUrl, Date whenDataFetchedFromFacebook) {
+    public User(com.restfb.types.User fbuser) {
+        setFacebookUserId(fbuser.getId());
+        setName(fbuser.getName());
+        setWhenDataFetchedFromFacebook(new Date());
+        setProfilePhotoUrl();
+    }
+
+    public User(String facebookUserId, String name, Date whenDataFetchedFromFacebook) {
         this.facebookUserId = facebookUserId;
         this.name = name;
-        this.profilePhotoUrl = profilePhotoUrl;
         this.whenDataFetchedFromFacebook = whenDataFetchedFromFacebook;
+        setProfilePhotoUrl();
     }
 
     public String getFacebookUserId() {
@@ -42,7 +50,12 @@ public class User {
     }
 
     public String getProfilePhotoUrl() {
+        setProfilePhotoUrl();
         return profilePhotoUrl;
+    }
+
+    private void setProfilePhotoUrl() {
+        profilePhotoUrl = String.format("https://graph.facebook.com/%s/picture", URLEncoder.encode(facebookUserId));
     }
 
     public void setProfilePhotoUrl(String profilePhotoUrl) {
