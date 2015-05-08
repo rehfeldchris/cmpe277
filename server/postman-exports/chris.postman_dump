@@ -15,7 +15,8 @@
 				"e2b364f2-ca5a-aa71-5a39-8962ecee080f",
 				"1c071768-8666-aa44-e631-7de5f5ba948e",
 				"ec9e08c2-1075-12af-e5b9-50a1ea6151dc",
-				"97b33e3b-0916-fc93-bba9-1e1a3ecd125e"
+				"97b33e3b-0916-fc93-bba9-1e1a3ecd125e",
+				"1dd81037-09d8-4f46-36c9-962de468be00"
 			],
 			"folders": [],
 			"timestamp": 1429741880983,
@@ -31,20 +32,20 @@
 				{
 					"id": "1c071768-8666-aa44-e631-7de5f5ba948e",
 					"headers": "Accept: application/json\nX-Facebook-Token: {{X-Facebook-Token}}\n",
-					"url": "http://localhost/api/v1/images-near-point?lat=0&lon=0&maxDistanceMeters=1000",
+					"url": "{{host}}/api/v1/images-near-point?lat=0&lon=0&maxDistanceMeters=1000",
 					"preRequestScript": "",
 					"pathVariables": {},
 					"method": "GET",
 					"data": [
 						{
 							"key": "title",
-							"value": "image title",
+							"value": "Sued Tiger",
 							"type": "text",
 							"enabled": true
 						},
 						{
 							"key": "description",
-							"value": "image description",
+							"value": "a big tiger",
 							"type": "text",
 							"enabled": true
 						},
@@ -53,17 +54,43 @@
 							"value": "",
 							"type": "file",
 							"enabled": true
-						},
+						}
+					],
+					"dataMode": "params",
+					"version": 2,
+					"tests": "",
+					"currentHelper": "normal",
+					"helperAttributes": {},
+					"time": 1431040823658,
+					"name": "find images near",
+					"description": "",
+					"collectionId": "08d0c8a5-5752-286f-d1b8-782fb7e47d08",
+					"responses": []
+				},
+				{
+					"id": "1dd81037-09d8-4f46-36c9-962de468be00",
+					"headers": "Accept: application/json\nX-Facebook-Token: {{X-Facebook-Token}}\n",
+					"url": "{{host}}/api/v1/raw-images/{{imageId}}",
+					"preRequestScript": "",
+					"pathVariables": {},
+					"method": "GET",
+					"data": [
 						{
-							"key": "lat",
-							"value": "0",
+							"key": "title",
+							"value": "Sued Tiger",
 							"type": "text",
 							"enabled": true
 						},
 						{
-							"key": "lon",
-							"value": "0",
+							"key": "description",
+							"value": "a big tiger",
 							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "file",
+							"value": "",
+							"type": "file",
 							"enabled": true
 						}
 					],
@@ -72,37 +99,35 @@
 					"tests": "",
 					"currentHelper": "normal",
 					"helperAttributes": {},
-					"time": 1430112685068,
-					"name": "find images near",
+					"time": 1431040832773,
+					"name": "view raw image",
 					"description": "",
 					"collectionId": "08d0c8a5-5752-286f-d1b8-782fb7e47d08",
-					"responses": [],
-					"synced": false,
-					"owner": "40975"
+					"responses": []
 				},
 				{
 					"id": "2114db16-308d-a6dc-e7e3-e371e059fad0",
 					"headers": "Accept: application/json\nX-Facebook-Token: {{X-Facebook-Token}}\n",
-					"url": "http://localhost/api/v1/albums/{{albumId}}/images",
+					"url": "{{host}}/api/v1/albums/{{albumId}}/images",
 					"preRequestScript": "",
 					"pathVariables": {},
 					"method": "POST",
 					"data": [
 						{
 							"key": "title",
-							"value": "image title",
+							"value": "Sued Tiger",
 							"type": "text",
 							"enabled": true
 						},
 						{
 							"key": "description",
-							"value": "image description",
+							"value": "a big tiger",
 							"type": "text",
 							"enabled": true
 						},
 						{
 							"key": "file",
-							"value": "",
+							"value": "2012_Suedchinesischer_Tiger.JPG",
 							"type": "file",
 							"enabled": true
 						}
@@ -112,18 +137,16 @@
 					"tests": "",
 					"currentHelper": "normal",
 					"helperAttributes": {},
-					"time": 1430112668682,
+					"time": 1431040796952,
 					"name": "upload image",
 					"description": "",
 					"collectionId": "08d0c8a5-5752-286f-d1b8-782fb7e47d08",
-					"responses": [],
-					"synced": false,
-					"owner": "40975"
+					"responses": []
 				},
 				{
 					"id": "771935e2-13e0-d913-7da1-3ce63164a1b9",
 					"headers": "Accept: application/json\nX-Facebook-Token: {{X-Facebook-Token}}\n",
-					"url": "http://localhost/api/v1/albums/{{albumId}}",
+					"url": "{{host}}/api/v1/albums/{{albumId}}",
 					"preRequestScript": "",
 					"pathVariables": {},
 					"method": "DELETE",
@@ -133,18 +156,16 @@
 					"tests": "",
 					"currentHelper": "normal",
 					"helperAttributes": {},
-					"time": 1430112676337,
+					"time": 1431040816449,
 					"name": "delete specific album",
 					"description": "",
 					"collectionId": "08d0c8a5-5752-286f-d1b8-782fb7e47d08",
-					"responses": [],
-					"synced": false,
-					"owner": "40975"
+					"responses": []
 				},
 				{
 					"id": "9503efcf-cdf0-5f19-eb66-23fde579b9e4",
 					"headers": "Accept: application/json\nX-Facebook-Token: {{X-Facebook-Token}}\n",
-					"url": "http://localhost/api/v1/albums",
+					"url": "{{host}}/api/v1/albums",
 					"preRequestScript": "",
 					"pathVariables": {},
 					"method": "POST",
@@ -179,31 +200,29 @@
 					"tests": "",
 					"currentHelper": "normal",
 					"helperAttributes": {},
-					"time": 1430112658585,
+					"time": 1431040805426,
 					"name": "create album",
 					"description": "",
 					"collectionId": "08d0c8a5-5752-286f-d1b8-782fb7e47d08",
-					"responses": [],
-					"synced": false,
-					"owner": "40975"
+					"responses": []
 				},
 				{
 					"id": "97b33e3b-0916-fc93-bba9-1e1a3ecd125e",
 					"headers": "Accept: application/json\nX-Facebook-Token: {{X-Facebook-Token}}\n",
-					"url": "http://localhost/api/v1/friends",
+					"url": "{{host}}/api/v1/friends",
 					"preRequestScript": "",
 					"pathVariables": {},
 					"method": "GET",
 					"data": [
 						{
 							"key": "title",
-							"value": "image title",
+							"value": "Sued Tiger",
 							"type": "text",
 							"enabled": true
 						},
 						{
 							"key": "description",
-							"value": "image description",
+							"value": "a big tiger",
 							"type": "text",
 							"enabled": true
 						},
@@ -212,18 +231,6 @@
 							"value": "",
 							"type": "file",
 							"enabled": true
-						},
-						{
-							"key": "lat",
-							"value": "0",
-							"type": "text",
-							"enabled": true
-						},
-						{
-							"key": "lon",
-							"value": "0",
-							"type": "text",
-							"enabled": true
 						}
 					],
 					"dataMode": "params",
@@ -231,7 +238,7 @@
 					"tests": "",
 					"currentHelper": "normal",
 					"helperAttributes": {},
-					"time": 1430245420957,
+					"time": 1431040829452,
 					"name": "list all friends",
 					"description": "",
 					"collectionId": "08d0c8a5-5752-286f-d1b8-782fb7e47d08",
@@ -240,28 +247,45 @@
 				{
 					"id": "982de571-a66b-0319-5887-f4dc76e22479",
 					"headers": "Accept: application/json\nX-Facebook-Token: {{X-Facebook-Token}}\n",
-					"url": "http://localhost/api/v1/albums/{{albumId}}",
+					"url": "{{host}}/api/v1/albums/{{albumId}}",
 					"preRequestScript": "",
 					"pathVariables": {},
 					"method": "GET",
-					"data": [],
+					"data": [
+						{
+							"key": "title",
+							"value": "Sued Tiger",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "description",
+							"value": "a big tiger",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "file",
+							"value": "2012_Suedchinesischer_Tiger.JPG",
+							"type": "file",
+							"enabled": true
+						}
+					],
 					"dataMode": "params",
 					"version": 2,
 					"tests": "",
 					"currentHelper": "normal",
 					"helperAttributes": {},
-					"time": 1430112663752,
+					"time": 1431040809023,
 					"name": "get specific album",
 					"description": "",
 					"collectionId": "08d0c8a5-5752-286f-d1b8-782fb7e47d08",
-					"responses": [],
-					"synced": false,
-					"owner": "40975"
+					"responses": []
 				},
 				{
 					"id": "d1a11b65-9d12-7145-b4dc-fdb199cff6bd",
 					"headers": "Accept: application/json\nX-Facebook-Token: {{X-Facebook-Token}}\n",
-					"url": "http://localhost/api/v1/albums/{{albumId}}/images",
+					"url": "http://{{host}}/api/v1/albums/{{albumId}}/images",
 					"preRequestScript": "",
 					"pathVariables": {},
 					"method": "POST",
@@ -302,18 +326,16 @@
 					"tests": "",
 					"currentHelper": "normal",
 					"helperAttributes": {},
-					"time": 1430112672892,
+					"time": 1431040241058,
 					"name": "upload image with coords",
 					"description": "",
 					"collectionId": "08d0c8a5-5752-286f-d1b8-782fb7e47d08",
-					"responses": [],
-					"synced": false,
-					"owner": "40975"
+					"responses": []
 				},
 				{
 					"id": "e2b364f2-ca5a-aa71-5a39-8962ecee080f",
 					"headers": "Accept: application/json\nX-Facebook-Token: {{X-Facebook-Token}}\nContent-Type: application/json\n",
-					"url": "http://localhost/api/v1/albums/{{albumId}}",
+					"url": "{{host}}/api/v1/albums/{{albumId}}",
 					"preRequestScript": "",
 					"pathVariables": {},
 					"method": "PUT",
@@ -323,40 +345,54 @@
 					"tests": "",
 					"currentHelper": "normal",
 					"helperAttributes": {},
-					"time": 1430112681377,
+					"time": 1431040820657,
 					"name": "update album",
 					"description": "",
 					"collectionId": "08d0c8a5-5752-286f-d1b8-782fb7e47d08",
-					"responses": [],
-					"synced": false,
-					"rawModeData": "{\n    \"title\": \"updated album title\",\n    \"description\": \"updated album description\",\n    \"grantedUserIds\": [],\n    \"isPubliclyAccessible\": false\n}",
-					"owner": "40975"
+					"responses": []
 				},
 				{
 					"id": "e3186950-5eda-7aa5-eafe-8ee12b54bd67",
 					"headers": "Accept: application/json\nX-Facebook-Token: {{X-Facebook-Token}}\n",
-					"url": "http://localhost/api/v1/albums",
+					"url": "{{host}}/api/v1/albums",
 					"preRequestScript": "",
 					"pathVariables": {},
 					"method": "GET",
-					"data": [],
+					"data": [
+						{
+							"key": "title",
+							"value": "Sued Tiger",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "description",
+							"value": "a big tiger",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "file",
+							"value": "2012_Suedchinesischer_Tiger.JPG",
+							"type": "file",
+							"enabled": true
+						}
+					],
 					"dataMode": "params",
 					"version": 2,
 					"tests": "",
 					"currentHelper": "normal",
 					"helperAttributes": {},
-					"time": 1430112636754,
+					"time": 1431040801955,
 					"name": "list all albums",
 					"description": "",
 					"collectionId": "08d0c8a5-5752-286f-d1b8-782fb7e47d08",
-					"responses": [],
-					"synced": false,
-					"owner": "40975"
+					"responses": []
 				},
 				{
 					"id": "ec9e08c2-1075-12af-e5b9-50a1ea6151dc",
 					"headers": "Accept: application/json\nX-Facebook-Token: {{X-Facebook-Token}}\n",
-					"url": "http://localhost/api/v1/images/{{imageId}}/comments",
+					"url": "{{host}}/api/v1/images/{{imageId}}/comments",
 					"preRequestScript": "",
 					"pathVariables": {},
 					"method": "POST",
@@ -373,13 +409,11 @@
 					"tests": "",
 					"currentHelper": "normal",
 					"helperAttributes": {},
-					"time": 1430112688697,
+					"time": 1431040826578,
 					"name": "comment on photo",
 					"description": "",
 					"collectionId": "08d0c8a5-5752-286f-d1b8-782fb7e47d08",
-					"responses": [],
-					"synced": false,
-					"owner": "40975"
+					"responses": []
 				}
 			]
 		},
@@ -536,13 +570,20 @@
 				},
 				{
 					"key": "albumId",
-					"value": "553c15a436ebc3a07e3dae28",
+					"value": "554bf27c975afe4b56191207",
 					"type": "text",
 					"name": "albumId",
 					"enabled": true
+				},
+				{
+					"key": "host",
+					"value": "http://localhost",
+					"type": "text",
+					"name": "host",
+					"enabled": true
 				}
 			],
-			"timestamp": 1430331763654
+			"timestamp": 1431050868870
 		}
 	],
 	"headerPresets": [
