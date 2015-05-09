@@ -65,12 +65,20 @@ public class ApiRestController {
 
 		Image image = imageRepo.findBy_ID(imageId);
 
+		// Show 404 if the image id isnt in our db.
 		if (image == null) {
 			response.setStatus(404);
 			return;
 		}
 
+		// Show 403 if the user isnt allowed to view this image
+		if (photoService.isImageViewableByUser(image, userId)) {
+			response.setStatus(403);
+			return;
+		}
+
 		File file = new File(imageFileSaveDir + "/" + image.getImageId());
+		// Show 404 if the image is in the db, but missing from the filesystem. This should never happen.
 		if (!file.exists()) {
 			response.setStatus(404);
 			return;

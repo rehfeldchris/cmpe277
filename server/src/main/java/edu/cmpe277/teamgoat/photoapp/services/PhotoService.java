@@ -1,9 +1,6 @@
 package edu.cmpe277.teamgoat.photoapp.services;
 
-import edu.cmpe277.teamgoat.photoapp.dto.Comment;
-import edu.cmpe277.teamgoat.photoapp.dto.Image;
-import edu.cmpe277.teamgoat.photoapp.dto.ImageInfo;
-import edu.cmpe277.teamgoat.photoapp.dto.User;
+import edu.cmpe277.teamgoat.photoapp.dto.*;
 import edu.cmpe277.teamgoat.photoapp.repos.AlbumMongoRepository;
 import edu.cmpe277.teamgoat.photoapp.repos.CommentMongoRepository;
 import edu.cmpe277.teamgoat.photoapp.repos.ImageMongoRepository;
@@ -72,8 +69,8 @@ public class PhotoService {
     public List<Image> findViewableImagesNearPoint(String userId, double lat, double lon, double maxDistance) {
         // This uses mongo to find images near the point.
         // But, these images may or may not be viewable by the user, so we filter the images that aren't in an album viewable by the user.
-        Set<Image> imagesInVieableAlbums =  albumMongoRepository.findViewable(userId).stream().flatMap(album -> album.getImages().stream()).collect(Collectors.toSet());
-        return imageMongoRepository.findImagesNearLocation(lat, lon, maxDistance).stream().filter(imagesInVieableAlbums::contains).collect(Collectors.toList());
+        Set<Image> imagesInViewableAlbums = getViewableImages(userId);
+        return imageMongoRepository.findImagesNearLocation(lat, lon, maxDistance).stream().filter(imagesInViewableAlbums::contains).collect(Collectors.toList());
     }
 
     public Comment addComment(User user, String imageId, String commentText) {
@@ -84,4 +81,13 @@ public class PhotoService {
         imageMongoRepository.save(image);
         return comment;
     }
+
+    public boolean isImageViewableByUser(Image image, String userId) {
+        return getViewableImages(userId).contains(image);
+    }
+
+    public Set<Image> getViewableImages(String userId) {
+        return albumMongoRepository.findViewable(userId).stream().flatMap(album -> album.getImages().stream()).collect(Collectors.toSet());
+    }
+
 }
