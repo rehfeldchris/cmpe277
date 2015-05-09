@@ -21,11 +21,12 @@ public class Comment {
 
     }
 
-    public Comment(String userId, String commentText, String imageId, Date timeStamp) {
+    public Comment(String userId, String commentText, String imageId, Date timeStamp, String userName) {
         this.userId = userId;
         this.comment = commentText;
         this.imageId = imageId;
         this.timeStamp = timeStamp;
+        this.userName = userName;
     }
 
     public String get_ID() {
@@ -51,4 +52,6 @@ public class Comment {
     public String getUserName() {
         return userName;
     }
+
+
 }

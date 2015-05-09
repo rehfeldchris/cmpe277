@@ -19,9 +19,11 @@ import android.widget.Toast;
 
 import com.mashape.unirest.http.exceptions.UnirestException;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.ocpsoft.pretty.time.PrettyTime;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import edu.cmpe277.teamgoat.photoapp.model.ApiBroker;
@@ -31,21 +33,20 @@ import edu.cmpe277.teamgoat.photoapp.model.Image;
 
 public class SingleImageViewActivity extends ActionBarActivity {
 
-    public static final String IMAGE_TAG = "SingleImage";
     private Image       imageBeingDisplayed;
     private ListView    listview_container_comment;
     private Button      btn_add_comment;
     private ImageView   mImage;
+    private PrettyTime prettyTime = new PrettyTime();
+    private List<Comment> comments;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.linearlayout_activity_single_image_view);
 
-
         // Load components' views and setup controllers.
         initializeComponents();
-
     }
 
     @Override
@@ -95,7 +96,7 @@ public class SingleImageViewActivity extends ActionBarActivity {
 
     private class CommentBaseAdapter extends BaseAdapter
     {
-        private List<String> comments;
+        private List<Comment> comments;
 
         private final Context context;
 
@@ -104,7 +105,7 @@ public class SingleImageViewActivity extends ActionBarActivity {
             this.context = context;
         }
 
-        public CommentBaseAdapter addComments(List<String> comments)
+        public CommentBaseAdapter addComments(List<Comment> comments)
         {
             this.comments = comments;
             notifyDataSetChanged();
@@ -112,7 +113,7 @@ public class SingleImageViewActivity extends ActionBarActivity {
             return this;
         }
 
-        public List<String> getComments()
+        public List<Comment> getComments()
         {
             return comments;
         }
@@ -135,15 +136,22 @@ public class SingleImageViewActivity extends ActionBarActivity {
         @Override
         public View getView(int position, View convertView, ViewGroup parent)
         {
-            // TODO: setup the view and load fetched comments
-
-            if (convertView == null)
+            if (convertView == null) {
                 convertView = SingleImageViewActivity.this.getLayoutInflater().inflate(
-                        R.layout.textview_single_layout, null
+                    R.layout.layout_comment, null
                 );
+            }
 
-            TextView comment = (TextView)convertView.findViewById(R.id.textview_comment);
-            comment.setText((String)getItem(position));
+            Comment comment = (Comment) getItem(position);
+
+            TextView who = (TextView)convertView.findViewById(R.id.comment_who);
+            who.setText(comment.getUserName() == null ? "Unknown" : comment.getUserName());
+
+            TextView what = (TextView)convertView.findViewById(R.id.comment_what);
+            what.setText(comment.getComment());
+
+            TextView when = (TextView)convertView.findViewById(R.id.comment_when);
+            when.setText(prettyTime.format(comment.getTimeStamp()));
 
             return convertView;
         }
@@ -153,7 +161,7 @@ public class SingleImageViewActivity extends ActionBarActivity {
     {
         imageBeingDisplayed = ImagesGridviewFragment.imageMostRecentlyClicked;
 
-        generateTestComments();
+        initComments();
 
         mImage = (ImageView)findViewById(R.id.img_singleImage_view);
 
@@ -167,20 +175,19 @@ public class SingleImageViewActivity extends ActionBarActivity {
         }
 
         listview_container_comment = (ListView)findViewById(R.id.listView_singleImage_comments);
-        listview_container_comment.setAdapter(new CommentBaseAdapter(this).addComments(test_comments));
+        listview_container_comment.setAdapter(new CommentBaseAdapter(this).addComments(comments));
 
         btn_add_comment = (Button)findViewById(R.id.btn_comment_send);
         btn_add_comment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO: Add comment to the current view
                 EditText edittext_comment = (EditText) findViewById(R.id.edit_txt_comment);
 
-                ((CommentBaseAdapter) listview_container_comment.getAdapter())
-                        .getComments()
-                        .add("you - " + edittext_comment.getText().toString());
+                Comment newComment = new Comment(null, edittext_comment.getText().toString(), null, new Date(), "you");
+
+                ((CommentBaseAdapter) listview_container_comment.getAdapter()).getComments().add(newComment);
                 ((CommentBaseAdapter) listview_container_comment.getAdapter()).notifyDataSetChanged();
-                // TODO: upload comment to the server
+
                 addComment(edittext_comment.getText().toString());
 
                 // Clear edittext comment
@@ -189,32 +196,14 @@ public class SingleImageViewActivity extends ActionBarActivity {
         });
     }
 
-    private void generateTestComments()
+    private void initComments()
     {
-        test_comments = new ArrayList<String>();
-//        test_comments.add(new String("Test comment "));
-//        test_comments.add(new String("Test comment "));
-//        test_comments.add(new String("Test comment "));
-//        test_comments.add(new String("Test comment "));
-//        test_comments.add(new String("Test comment "));
-//        test_comments.add(new String("Test comment "));
-//        test_comments.add(new String("Test comment "));
-//        test_comments.add(new String("Test comment "));
-//        test_comments.add(new String("Test comment "));
-//        test_comments.add(new String("Test comment "));
-//        test_comments.add(new String("Test comment "));
-//        test_comments.add(new String("Test comment "));
-//        test_comments.add(new String("Test comment "));
-
         if (imageBeingDisplayed == null || imageBeingDisplayed.getComments() == null) {
-            return;
-        }
-
-        for (Comment comment : imageBeingDisplayed.getComments()) {
-            test_comments.add(comment.getComment());
+            comments = new ArrayList<>();
+        } else {
+            comments = imageBeingDisplayed.getComments();
         }
     }
-    private List<String> test_comments;
 
     @Override
     protected void onDestroy() {
