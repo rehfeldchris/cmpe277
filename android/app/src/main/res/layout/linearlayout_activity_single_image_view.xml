@@ -10,7 +10,6 @@
     tools:context="edu.cmpe277.teamgoat.photoapp.SingleImageViewActivity"
     >
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -27,6 +26,15 @@
             android:layout_weight="0.50"
             android:src="@drawable/ic_launcher"
             android:contentDescription="Image View" />
+
+        <TextView
+            android:id="@+id/single_image_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:textColor="@android:color/black"
+            android:layout_gravity="center"
+            />
 
         <ListView
             android:layout_width="fill_parent"

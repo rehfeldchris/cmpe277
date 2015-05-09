@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -39,6 +40,7 @@ public class SingleImageViewActivity extends ActionBarActivity {
     private ImageView   mImage;
     private PrettyTime prettyTime = new PrettyTime();
     private List<Comment> comments;
+    private TextView textView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +49,13 @@ public class SingleImageViewActivity extends ActionBarActivity {
 
         // Load components' views and setup controllers.
         initializeComponents();
+
+        // Set title/description
+        if (imageBeingDisplayed != null) {
+            textView = (TextView) findViewById(R.id.single_image_title);
+            textView.setText(imageBeingDisplayed.getDescription());
+        }
+
     }
 
     @Override

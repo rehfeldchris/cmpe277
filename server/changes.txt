@@ -1,2 +1,5 @@
-show user name on comments
-show profile pic for all users in the list of friends able to view an album
+-show user name + friendly date on comments
+-show profile pic for all users in the list of friends able to view an album
+-show description of image when showing an image wth its comments
+-do server side validation of users being allowed to view images, so that we dont end
+ up with an app like photofucket aimed at exploiting our lame engineering.
