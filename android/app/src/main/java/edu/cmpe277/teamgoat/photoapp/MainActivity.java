@@ -52,31 +52,22 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-//        Intent i = new Intent(this, LayoutTest.class);
-//        startActivity(i);
-
-//        startActivity(new Intent(this, PhotoAlbums.class));
-
-
-
-
         FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_login);
 
-        Uri targetUrl =
-                AppLinks.getTargetUrlFromInboundIntent(this, getIntent());
+        Uri targetUrl = AppLinks.getTargetUrlFromInboundIntent(this, getIntent());
         if (targetUrl != null) {
             Log.i("Activity", "App Link Target URL: " + targetUrl.toString());
         } else {
             AppLinkData.fetchDeferredAppLinkData(
-                    this,
-//                    activity,
-                    new AppLinkData.CompletionHandler() {
-                        @Override
-                        public void onDeferredAppLinkDataFetched(AppLinkData appLinkData) {
-                            //process applink data
-                        }
-                    });
+                this,
+                new AppLinkData.CompletionHandler() {
+                    @Override
+                    public void onDeferredAppLinkDataFetched(AppLinkData appLinkData) {
+                        //process applink data
+                    }
+                }
+            );
         }
 
         boolean forceShowLoginScreen = false;
