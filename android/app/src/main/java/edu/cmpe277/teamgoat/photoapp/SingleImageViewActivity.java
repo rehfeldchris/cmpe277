@@ -9,7 +9,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -23,7 +22,6 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import edu.cmpe277.teamgoat.photoapp.model.ApiBroker;
@@ -37,11 +35,12 @@ public class SingleImageViewActivity extends ActionBarActivity {
     private Image       imageBeingDisplayed;
     private ListView    listview_container_comment;
     private Button      btn_add_comment;
+    private ImageView   mImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.relativelayout_activity_single_image_view);
+        setContentView(R.layout.linearlayout_activity_single_image_view);
 
 
         // Load components' views and setup controllers.
@@ -156,15 +155,15 @@ public class SingleImageViewActivity extends ActionBarActivity {
 
         generateTestComments();
 
-        ImageView img = (ImageView)findViewById(R.id.img_singleImage_view);
+        mImage = (ImageView)findViewById(R.id.img_singleImage_view);
 
         if (imageBeingDisplayed != null) {
             ImageLoader.getInstance().displayImage(
                     ApiBroker.singleton().getUrlForImage(imageBeingDisplayed),
-                    img
+                    mImage
             );
         } else {
-            img.setImageResource(R.drawable.ic_delete);
+            mImage.setImageResource(R.drawable.ic_delete);
         }
 
         listview_container_comment = (ListView)findViewById(R.id.listView_singleImage_comments);
@@ -217,5 +216,12 @@ public class SingleImageViewActivity extends ActionBarActivity {
     }
     private List<String> test_comments;
 
+    @Override
+    protected void onDestroy() {
+        mImage.destroyDrawingCache();
+        listview_container_comment.destroyDrawingCache();
+        System.gc();
+        super.onDestroy();
+    }
 
 }

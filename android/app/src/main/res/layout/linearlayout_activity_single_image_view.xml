@@ -17,20 +17,21 @@
         android:layout_weight="0.85"
         android:orientation="vertical"
         android:layout_gravity="top"
+        android:isScrollContainer="true"
         >
 
         <ImageView
             android:id="@+id/img_singleImage_view"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.30"
+            android:layout_weight="0.50"
             android:src="@drawable/ic_launcher"
             android:contentDescription="Image View" />
 
         <ListView
             android:layout_width="fill_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.70"
+            android:layout_weight="0.50"
             android:id="@+id/listView_singleImage_comments">
 
         </ListView>
