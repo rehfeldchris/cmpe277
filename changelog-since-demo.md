@@ -1,4 +1,4 @@
-### Planned requrired features  
+### Planned required features  
 - Pull to refresh on albums and images view 
 - new Upload Image Screen (use name of photo and location of photo if available)
 - Fix names on activity and fragments in the Action Bar
