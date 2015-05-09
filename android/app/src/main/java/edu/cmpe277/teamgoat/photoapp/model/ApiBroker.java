@@ -141,10 +141,6 @@ public class ApiBroker {
     }
 
     public boolean deleteAlbum(Album album) throws IOException, UnirestException {
-        String apiUrl = ApiBroker.apiHost + "/api/v1/albums";
-
-        String jsonAlbum = mapper.writeValueAsString(album);
-
         String url = String.format("%s/api/v1/albums/%s", apiHost, URLEncoder.encode(album.get_ID()));
         com.mashape.unirest.http.HttpResponse<String> response = Unirest
                 .delete(url)
@@ -153,6 +149,19 @@ public class ApiBroker {
                 ;
 
         return response.getCode() == 200;
+    }
+
+    public boolean deleteImage(Image image) throws IOException, UnirestException {
+        String jsonAlbum = mapper.writeValueAsString(image);
+
+        String url = String.format("%s/api/v1/images/%s", apiHost, URLEncoder.encode(image.get_ID()));
+        com.mashape.unirest.http.HttpResponse<String> response = Unirest
+                .delete(url)
+                .header("X-Facebook-Token", facebookAccessToken)
+                .asString()
+                ;
+
+        return response.getCode() == 204;
     }
 
     public String getUrlForImage(Image image) {
