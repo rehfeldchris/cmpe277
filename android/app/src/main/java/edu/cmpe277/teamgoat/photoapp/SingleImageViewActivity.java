@@ -218,16 +218,10 @@ public class SingleImageViewActivity extends ActionBarActivity {
 
     @Override
     protected void onDestroy() {
-        System.gc();
-        finish();
-        super.onDestroy();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
         mImage.destroyDrawingCache();
         listview_container_comment.destroyDrawingCache();
         System.gc();
+        super.onDestroy();
     }
+
 }
