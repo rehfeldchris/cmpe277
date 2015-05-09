@@ -14,6 +14,8 @@ public class PhotoApp extends Application {
 
     private PhotoAppLog masterLogger;
 
+    private String facebookAccessToken;
+
     public SharedPreferences getMasterPreferences() {
         if (masterPreferences == null) {
             masterPreferences = getPreferences(IDs.BASE_PACKAGE_NAME);
@@ -36,5 +38,14 @@ public class PhotoApp extends Application {
 
     public PhotoAppLog createLogger(String loggingPackage) {
         return new PhotoAppLog(Logger.getLogger(loggingPackage));
+    }
+
+
+    public String getFacebookAccessToken() {
+        return facebookAccessToken;
+    }
+
+    public void setFacebookAccessToken(String facebookAccessToken) {
+        this.facebookAccessToken = facebookAccessToken;
     }
 }

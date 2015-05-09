@@ -23,7 +23,12 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.cmpe277.teamgoat.photoapp.PhotoApp;
+
 public class ApiBroker {
+
+    private static PhotoApp application;
+
     private ObjectMapper mapper = new ObjectMapper();
     public static String facebookAccessToken = "CAAWuZCfKYoIYBABNJ9aZC383P9XW6Ffl219kkfoU6lZBHx5AXz8ClLjVgPg2ZB0sAYEKOZB7GJk6qNLDiKqUzi5ZAkwfRlLmuI80BrbIWwDkbO07CZB5N1JbouWGOp1HDVRbmawVDwUoi9AugQIKOyOtyZBtdtVovpxH8ocuzDxqyHX9mVQasHxa4JL74O7AHZBrTw6fw5mLhsepEJwxA6jey";
     // 10.0.2.2 is localhost on the machine hosting the emulator.
@@ -41,6 +46,11 @@ public class ApiBroker {
             instance = new ApiBroker();
         }
         return instance;
+    }
+
+    public static void setApplication(PhotoApp photoApp) {
+        ApiBroker.application = photoApp;
+        // ApiBroker.facebookAccessToken = photoApp.getFacebookAccessToken(); // TODO TEST
     }
 
     public List<User> getFriends() throws UnirestException, IOException {
