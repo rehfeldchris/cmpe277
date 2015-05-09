@@ -1,6 +1,7 @@
 package edu.cmpe277.teamgoat.photoapp.services;
 
 import edu.cmpe277.teamgoat.photoapp.dto.*;
+import edu.cmpe277.teamgoat.photoapp.errors.BadApiRequestException;
 import edu.cmpe277.teamgoat.photoapp.repos.AlbumMongoRepository;
 import edu.cmpe277.teamgoat.photoapp.repos.CommentMongoRepository;
 import edu.cmpe277.teamgoat.photoapp.repos.ImageMongoRepository;
@@ -89,5 +90,7 @@ public class PhotoService {
     public Set<Image> getViewableImages(String userId) {
         return albumMongoRepository.findViewable(userId).stream().flatMap(album -> album.getImages().stream()).collect(Collectors.toSet());
     }
+
+
 
 }

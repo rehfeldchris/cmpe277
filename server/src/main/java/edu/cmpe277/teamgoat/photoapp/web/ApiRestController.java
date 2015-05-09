@@ -185,6 +185,7 @@ public class ApiRestController {
 		try {
 			albumService.deleteAlbum(albumId, userId);
 			LOG.info(String.format("delete album userid=%s album id = %s", userId, albumId));
+			response.setStatus(204);
 			return null;
 		} catch (BadApiRequestException ex) {
 			LOG.error(String.format("failed to delete album userid=%s album id = %s", userId, albumId), ex);
@@ -257,6 +258,32 @@ public class ApiRestController {
 		imageRepo.save(image);
 		albumRepo.save(album);
 		return image;
+	}
+
+	@RequestMapping(value="/images/{imageId}", method = RequestMethod.DELETE)
+	public void deleteImage(
+			@RequestHeader("X-Facebook-Token") String facebookToken,
+			@PathVariable("imageId") String imageId
+	) {
+		String userId = userProfileService.getCurrentUser(facebookToken).getFacebookUserId();
+		LOG.info(String.format("attempt delete image userid=%s image id = %s", userId, imageId));
+
+		Image image = imageRepo.findBy_ID(imageId);
+
+		// Show 404 if the image id isnt in our db.
+		if (image == null) {
+			response.setStatus(404);
+			return;
+		}
+
+		// Show 403 if the user isnt allowed to delete this image(must be the original creator to delete)
+		if (image.getOwnerId().equals(userId)) {
+			response.setStatus(403);
+			return;
+		}
+
+		imageRepo.delete(image);
+		response.setStatus(204);
 	}
 
 	@RequestMapping(value = "/images/{imageId}/comments", method = RequestMethod.POST)
