@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.cmpe277.teamgoat.photoapp.model.Album;
+import edu.cmpe277.teamgoat.photoapp.model.ApiBroker;
 
 /**
  * Created by Carita on 4/29/2015.
@@ -23,11 +24,13 @@ public class AlbumImageAdapter extends BaseAdapter {
     private List<AlbumCover> albumCovers  = new ArrayList<>();
     private LayoutInflater inflater;
     private List<Album> albums;
+    private ApiBroker apiBroker;
 
-    public AlbumImageAdapter(Context c, List<Album> albums) {
+    public AlbumImageAdapter(Context c, List<Album> albums, ApiBroker apiBroker) {
         mContext = c;
         inflater = LayoutInflater.from(mContext);
         this.albums = albums;
+        this.apiBroker = apiBroker;
 
         initAlbumCovers();
     }
@@ -73,12 +76,11 @@ public class AlbumImageAdapter extends BaseAdapter {
     }
 
     private void initAlbumCovers() {
-
-        int i = 0;
         for (Album album : albums) {
             // For now, we just use a placeholder image, we need to create a collage or just use the first image in the album
             int albumCoverPhotoId = R.drawable.ic_image_placeholder;
-            albumCovers.add(new AlbumCover(album.getName(), albumCoverPhotoId, album.getCoverPhotoUrl()));
+            String coverPhotoUrl = album.getImages().size() > 0 ? apiBroker.getUrlForImage(album.getImages().get(0)) : null;
+            albumCovers.add(new AlbumCover(album.getName(), albumCoverPhotoId, coverPhotoUrl));
         }
     }
 

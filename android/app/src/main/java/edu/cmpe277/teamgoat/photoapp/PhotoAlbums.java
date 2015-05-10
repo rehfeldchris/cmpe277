@@ -1,6 +1,8 @@
 package edu.cmpe277.teamgoat.photoapp;
 
+import android.app.AlertDialog;
 import android.app.Fragment;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
@@ -26,13 +28,14 @@ import edu.cmpe277.teamgoat.photoapp.model.ApiBroker;
 import edu.cmpe277.teamgoat.photoapp.util.IDs;
 
 
-public class PhotoAlbums extends ActionBarActivity {
+public class PhotoAlbums extends ActionBarActivity implements AdapterView.OnItemLongClickListener {
 
     private PhotoApp photoApp;
     private ApiBroker apiBroker;
 
     private List<Album> viewableAlbums;
     private GridView gridView;
+    private AlbumImageAdapter albumImageAdapter;
 
     // public static so that other activity can easily access to determine which album to display.
     public static Album albumUserMostRecentlyClicked;
@@ -108,6 +111,55 @@ public class PhotoAlbums extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+        final Album albumToDelete = viewableAlbums.get(position);
+
+        if (!albumToDelete.getOwnerId().equals(photoApp.getFacebookUserId())) {
+            Toast.makeText(this, "You're not the original creator of this album, so you can't delete it.", Toast.LENGTH_SHORT).show();
+            return true;
+        }
+
+        new AlertDialog.Builder(this)
+            .setIcon(android.R.drawable.ic_dialog_alert)
+            .setTitle("Confirm Delete")
+            .setMessage("Are you sure you want to delete this album, and all the images and comments within it?")
+            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    deleteAlbum(albumToDelete);
+                }
+            })
+            .setNegativeButton("No", null)
+            .show()
+        ;
+
+        return true;
+    }
+
+    private void deleteAlbum(final Album albumToDelete) {
+        new AsyncTask<Void, Void, Boolean>() {
+            protected Boolean doInBackground(Void... params) {
+                try {
+                    return apiBroker.deleteAlbum(albumToDelete);
+                } catch (IOException|UnirestException e) {
+                    Log.d("main", "failed to delete album", e);
+                    return Boolean.FALSE;
+                }
+            }
+
+            protected void onPostExecute(Boolean success) {
+                if (!success) {
+                    Toast.makeText(PhotoAlbums.this, "Couldn't delete album. Maybe you aren't the owner?", Toast.LENGTH_SHORT).show();
+                } else {
+                    viewableAlbums.remove(albumToDelete);
+                    albumImageAdapter.notifyDataSetChanged();
+                    Toast.makeText(PhotoAlbums.this, "Album deleted", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }.execute();
+    }
+
     private void loadAlbumsThenSetAdapter() {
         new AsyncTask<Void, Void, List<Album>>() {
             protected List<Album> doInBackground(Void... params) {
@@ -125,9 +177,9 @@ public class PhotoAlbums extends ActionBarActivity {
                     Toast.makeText(PhotoAlbums.this, "Couldn't load album list. Sorry.", Toast.LENGTH_SHORT).show();
                 } else {
                     //gridView.invalidateViews();
-                    AlbumImageAdapter adapter = new AlbumImageAdapter(PhotoAlbums.this, albums);
-                    gridView.setAdapter(adapter);
-                    adapter.notifyDataSetChanged();
+                    albumImageAdapter = new AlbumImageAdapter(PhotoAlbums.this, albums, apiBroker);
+                    gridView.setAdapter(albumImageAdapter);
+                    albumImageAdapter.notifyDataSetChanged();
                 }
             }
         }.execute();
