@@ -1,3 +1,18 @@
 <resources>
     <string name="app_name">PhotoApp</string>
+    <string name="title_activity_login">LoginActivity</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="facebook_app_id">1599780603601030</string>
+    <string name="facebook_app_url">https://fb.me/1608534259392331</string>
+
+
+    <string name="login_facebook_toast_successful">Facebook login successful.</string>
+    <string name="login_facebook_toast_cancelled">Facebook login cancelled.</string>
+    <string name="login_facebook_toast_failed">Facebook login failed, please try again later.</string>
+
+    <string name="login_facebook_launch_app_button_text">Go To My Albums</string>
+
 </resources>
