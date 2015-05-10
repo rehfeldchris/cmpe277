@@ -27,11 +27,13 @@
         />
 
     <Button
-        android:id="@+id/btn_launch_app"
-        android:layout_width="wrap_content"
+        android:id="@+id/login_btn_launch_app"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Go To Your Albums"
-        android:padding="40sp"
+        android:text="@string/login_facebook_launch_app_button_text"
+        android:layout_margin="10dp"
+        android:textColor="@android:color/white"
+        android:background="@color/com_facebook_blue"
         android:visibility="invisible"
         />
 

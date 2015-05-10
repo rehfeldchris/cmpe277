@@ -2,9 +2,7 @@ package edu.cmpe277.teamgoat.photoapp;
 
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.provider.MediaStore;
@@ -14,7 +12,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.mashape.unirest.http.exceptions.UnirestException;
@@ -24,25 +21,23 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Date;
-import java.util.List;
 
 import edu.cmpe277.teamgoat.photoapp.model.Album;
 import edu.cmpe277.teamgoat.photoapp.model.ApiBroker;
-import edu.cmpe277.teamgoat.photoapp.model.Image;
-import edu.cmpe277.teamgoat.photoapp.util.PhotoAppLog;
 
-
-public class AlbumViewerActivity extends ActionBarActivity
-{
+public class AlbumViewerActivity extends ActionBarActivity {
     private static int RESULT_LOAD_IMG = 1;
-    String imagePath;
 
-    private PhotoAppLog logger;
+    private PhotoApp photoApp;
+    private ApiBroker apiBroker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_gridview_view_image);
+
+        photoApp = (PhotoApp) getApplication();
+        apiBroker = photoApp.getApiBroker();
 
         Fragment frag = getSupportFragmentManager().findFragmentById(R.id.layout_fragment_gridview_view_image_container);
         if (frag == null) {
@@ -110,14 +105,12 @@ public class AlbumViewerActivity extends ActionBarActivity
 
 
                 } else {
-                    Toast.makeText(this, "You haven't picked Image",
-                            Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, "You haven't picked Image", Toast.LENGTH_LONG).show();
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
 
@@ -141,7 +134,7 @@ public class AlbumViewerActivity extends ActionBarActivity
                     fos.flush();
                     fos.close();
 
-                    ApiBroker.singleton().uploadImage(album, f, "Image", "Photo at" + new Date(), 0.0, 0.0);
+                    apiBroker.uploadImage(album, f, "Image", "Photo at" + new Date(), 0.0, 0.0);
                 } catch (IOException |UnirestException e) {
                     Log.d("main", "failed to load album list", e);
                 }

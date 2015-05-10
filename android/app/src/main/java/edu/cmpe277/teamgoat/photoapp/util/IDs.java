@@ -5,13 +5,15 @@ package edu.cmpe277.teamgoat.photoapp.util;
  */
 public class IDs {
 
-    /** PhotoApp Base Package for Logging and Preferences */
+    /** PhotoApp Base Package */
     public static final String BASE_PACKAGE_NAME                    = "edu.cmpe277.teamgoat.photoapp";
 
+    /** PhotoApp Base Package for Logging */
+    public static final String BASE_LOGGING_TAG                     = "goat.photoapp";
 
     /** Required permission for Facebook */
     public static final String[] FACEBOOK_LOGIN_PERMISSIONS         = {
-        "user_about_me", "user_friends", "email"
+            "user_about_me", "user_friends", "email"
     };
 
 

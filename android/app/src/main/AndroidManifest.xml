@@ -22,6 +22,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!--
+            FACEBOOK Requirements
+        -->
         <!-- Required for Facebook login -->
         <activity
             android:name="com.facebook.FacebookActivity"
@@ -33,18 +37,24 @@
             android:name="com.facebook.FacebookContentProvider"
             android:authorities="com.facebook.app.FacebookContentProvider1599780603601030"
             android:exported="true" />
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationName"
+            android:value="@string/app_name" />
 
-        <activity
-            android:name=".LayoutTest"
-            android:label="User Profile" >
-        </activity>
+        <!--<activity-->
+            <!--android:name=".LayoutTest"-->
+            <!--android:label="User Profile" >-->
+        <!--</activity>-->
         <!-- <activity -->
         <!-- android:name=".EditAlbumFragment" -->
         <!-- android:label="Edit or Create an Album" -->
         <!-- > -->
-
-
         <!-- </activity> -->
+
+
         <activity
             android:name=".AlbumViewerActivity"
             android:label="Album" >
@@ -55,12 +65,7 @@
             android:label="PhotoAlbums" >
         </activity>
 
-        <meta-data
-            android:name="com.facebook.sdk.ApplicationId"
-            android:value="@string/app_id" />
-        <meta-data
-            android:name="com.facebook.sdk.ApplicationName"
-            android:value="@string/app_name" />
+
 
         <activity
             android:name=".SingleImageViewActivity"
@@ -69,11 +74,10 @@
             >
         </activity>
 
-        <activity
-            android:name=".TestFragmentActivity"
-            android:label="test album create" >
-
-        </activity>
+        <!--<activity-->
+            <!--android:name=".TestFragmentActivity"-->
+            <!--android:label="test album create" >-->
+        <!--</activity>-->
     </application>
 
 </manifest>

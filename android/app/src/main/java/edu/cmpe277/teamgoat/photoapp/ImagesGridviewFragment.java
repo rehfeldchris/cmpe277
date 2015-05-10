@@ -40,6 +40,9 @@ public class ImagesGridviewFragment extends Fragment implements AdapterView.OnIt
     public static Image imageMostRecentlyClicked;
     private ImageAdapter imageAdapter;
 
+    private PhotoApp photoApp;
+    private ApiBroker apiBroker;
+
     public ImagesGridviewFragment() {
     }
 
@@ -48,6 +51,10 @@ public class ImagesGridviewFragment extends Fragment implements AdapterView.OnIt
         View rootView = inflater.inflate(R.layout.layout_gridview_view_image, container, false);
         albumCurrentlyBeingViewed = PhotoAlbums.albumUserMostRecentlyClicked;
         mGridView = (GridView) getActivity().findViewById(R.id.grid_images);
+
+        photoApp = (PhotoApp) getActivity().getApplication();
+        apiBroker = photoApp.getApiBroker();
+
         imageAdapter = new ImageAdapter(getActivity());
         mGridView.setAdapter(imageAdapter);
         mGridView.setOnItemClickListener(this);
@@ -68,7 +75,7 @@ public class ImagesGridviewFragment extends Fragment implements AdapterView.OnIt
         final Album albumToModify = albumCurrentlyBeingViewed;
         final Image imageToDelete = albumToModify.getImages().get(position);
 
-        if (!imageToDelete.getOwnerId().equals(LolGlobalVariables.currentlyLoggedInFacebookUserId)) {
+        if (!imageToDelete.getOwnerId().equals(photoApp.getFacebookUserId())) {
             Toast.makeText(getActivity(), "You're not the original uploader of this image, so you can't delete it.", Toast.LENGTH_SHORT).show();
             return true;
         }
@@ -95,7 +102,7 @@ public class ImagesGridviewFragment extends Fragment implements AdapterView.OnIt
         new AsyncTask<Void, Void, Boolean>() {
             protected Boolean doInBackground(Void... params) {
                 try {
-                    return ApiBroker.singleton().deleteImage(imageToDelete);
+                    return apiBroker.deleteImage(imageToDelete);
                 } catch (IOException|UnirestException e) {
                     Log.d("main", "failed to delete image", e);
                     return Boolean.FALSE;
@@ -149,7 +156,7 @@ public class ImagesGridviewFragment extends Fragment implements AdapterView.OnIt
 
             try {
                 Image image = albumCurrentlyBeingViewed.getImages().get(position);
-                String imageUrl = ApiBroker.singleton().getUrlForImage(image);
+                String imageUrl = apiBroker.getUrlForImage(image);
                 ImageLoader.getInstance().displayImage(
                         imageUrl,
                         imageView

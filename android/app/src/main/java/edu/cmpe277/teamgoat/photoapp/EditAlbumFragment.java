@@ -49,12 +49,18 @@ public class EditAlbumFragment extends Fragment {
     private List<User> friends;
     private FriendListAdapter friendListAdapter;
 
+    private PhotoApp photoApp;
+    private ApiBroker apiBroker;
+
     public EditAlbumFragment() {
 
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        photoApp = (PhotoApp) getActivity().getApplication();
+        apiBroker = photoApp.getApiBroker();
+
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.layout_fragment_create_album, container, false);
         titleTextInput = (EditText) view.findViewById(R.id.album_title_input);
@@ -145,7 +151,7 @@ public class EditAlbumFragment extends Fragment {
         new AsyncTask<Void, Void, Album>() {
             protected Album doInBackground(Void... params) {
                 try {
-                    return ApiBroker.singleton().createAlbum(titleTextInput.getText().toString(), descriptionTextInput.getText().toString(), isPublicCheckbox.isChecked(), getUserIdsOfFriendsWhoCanViewAlbum());
+                    return apiBroker.createAlbum(titleTextInput.getText().toString(), descriptionTextInput.getText().toString(), isPublicCheckbox.isChecked(), getUserIdsOfFriendsWhoCanViewAlbum());
                 } catch (IOException  e) {
                     Log.d("main", "failed to create album", e);
                     return null;
@@ -171,7 +177,7 @@ public class EditAlbumFragment extends Fragment {
     }
 
     private List<User> getFriends() throws IOException, UnirestException {
-        return ApiBroker.singleton().getFriends();
+        return apiBroker.getFriends();
     }
 
 }
