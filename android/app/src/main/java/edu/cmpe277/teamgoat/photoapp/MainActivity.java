@@ -31,6 +31,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import bolts.AppLinks;
+import edu.cmpe277.teamgoat.photoapp.util.CustomImageDownloader;
 import edu.cmpe277.teamgoat.photoapp.util.IDs;
 import edu.cmpe277.teamgoat.photoapp.util.PaLog;
 
@@ -134,8 +135,8 @@ public class MainActivity extends Activity {
                 accessToken.getExpires(),
                 accessToken.getLastRefresh()));
 
-        LolGlobalVariables.facebookAccessToken = accessTokenString;
-        LolGlobalVariables.currentlyLoggedInFacebookUserId = accessToken.getUserId();
+//        LolGlobalVariables.facebookAccessToken = accessTokenString;
+//        LolGlobalVariables.currentlyLoggedInFacebookUserId = accessToken.getUserId();
 
         photoApp.setFacebookAccessToken(accessTokenString);
         photoApp.setFacebookUserId(accessToken.getUserId());
