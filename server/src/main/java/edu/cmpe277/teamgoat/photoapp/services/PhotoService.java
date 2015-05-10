@@ -91,6 +91,20 @@ public class PhotoService {
         return albumMongoRepository.findViewable(userId).stream().flatMap(album -> album.getImages().stream()).collect(Collectors.toSet());
     }
 
+    public void deleteImage(Image image) {
+        // Remove the image from the album.
+        Album album = albumMongoRepository.findBy_ID(image.getAlbumId());
+        album.getImages().remove(image);
+
+        // Delete all the comments for the image.
+        for (Comment comment : image.getComments()) {
+            commentMongoRepository.delete(comment);
+        }
+
+        // Finally, delete the image.
+        imageMongoRepository.delete(image);
+        albumMongoRepository.save(album);
+    }
 
 
 }
