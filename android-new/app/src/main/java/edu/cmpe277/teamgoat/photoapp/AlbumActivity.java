@@ -8,6 +8,9 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.facebook.share.model.AppInviteContent;
+import com.facebook.share.widget.AppInviteDialog;
+
 import edu.cmpe277.teamgoat.photoapp.util.IDs;
 
 
@@ -55,6 +58,18 @@ public class AlbumActivity extends ActionBarActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
+        // Facebook App Invite
+        if (id == R.id.action_invite_friends) {
+            if (AppInviteDialog.canShow()) {
+                AppInviteContent content = new AppInviteContent.Builder()
+                        .setApplinkUrl("@string/facebook_app_url")
+                        .setPreviewImageUrl("@string/facebook_app_invite_image_url")
+                        .build();
+                AppInviteDialog.show(this, content);
+            }
+        }
+
+
         // Launch the Login Activity and force it to stay
         if (id == R.id.album_action_login_screen) {
             Intent intent = new Intent(this, LoginActivity.class);
@@ -63,11 +78,6 @@ public class AlbumActivity extends ActionBarActivity {
             intent.putExtras(b);
             startActivity(intent);
             finish();
-        }
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.album_action_settings) {
-            return true;
         }
 
         return super.onOptionsItemSelected(item);

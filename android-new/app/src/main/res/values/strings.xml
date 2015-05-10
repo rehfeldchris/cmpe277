@@ -5,7 +5,8 @@
     <string name="action_settings">Settings</string>
 
     <string name="facebook_app_id">1599780603601030</string>
-    <string name="facebook_app_url">https://fb.me/1608534259392331</string>
+    <string name="facebook_app_invite_url">https://fb.me/1608534259392331</string>
+    <string name="facebook_app_invite_image_url">http://hd.wallpaperswide.com/thumbs/dried_flowers_3-t2.jpg</string>
 
 
     <string name="login_facebook_toast_successful">Facebook login successful.</string>
@@ -13,10 +14,10 @@
     <string name="login_facebook_toast_failed">Facebook login failed, please try again later.</string>
     <string name="login_facebook_launch_app_button_text">Go To My Albums</string>
 
+    <string name="album_action_bar_facebook_invite">Invite Friends</string>
+    <string name="album_action_bar_login_screen">Logout</string>
 
-    <string name="album_action_bar_login_screen">Log out</string>
-
-    <string name="album_activity_title">AlbumActivity</string>
+    <string name="album_activity_title">Albums</string>
 
 
 </resources>
