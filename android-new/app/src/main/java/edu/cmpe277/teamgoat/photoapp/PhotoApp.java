@@ -3,13 +3,12 @@ package edu.cmpe277.teamgoat.photoapp;
 import android.app.Application;
 import android.content.SharedPreferences;
 
-import java.util.logging.Logger;
-
 import edu.cmpe277.teamgoat.photoapp.model.ApiBroker;
 import edu.cmpe277.teamgoat.photoapp.util.IDs;
 
 public class PhotoApp extends Application {
 
+    private  static String debugFacebookAccessToken = "CAAWuZCfKYoIYBABNJ9aZC383P9XW6Ffl219kkfoU6lZBHx5AXz8ClLjVgPg2ZB0sAYEKOZB7GJk6qNLDiKqUzi5ZAkwfRlLmuI80BrbIWwDkbO07CZB5N1JbouWGOp1HDVRbmawVDwUoi9AugQIKOyOtyZBtdtVovpxH8ocuzDxqyHX9mVQasHxa4JL74O7AHZBrTw6fw5mLhsepEJwxA6jey";
     private SharedPreferences masterPreferences;
 
     private String facebookAccessToken;
@@ -29,7 +28,11 @@ public class PhotoApp extends Application {
     }
 
     public String getFacebookAccessToken() {
-        return facebookAccessToken;
+        return getFacebookAccessToken(false);  // TODO change for production
+    }
+
+    public String getFacebookAccessToken(boolean production) {
+        return production ? facebookAccessToken : debugFacebookAccessToken;
     }
 
     public void setFacebookAccessToken(String facebookAccessToken) {
