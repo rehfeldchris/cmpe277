@@ -9,8 +9,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
 import com.facebook.AccessToken;
@@ -33,28 +31,29 @@ import java.util.HashMap;
 import java.util.Map;
 
 import bolts.AppLinks;
-import edu.cmpe277.teamgoat.photoapp.model.ApiBroker;
+import edu.cmpe277.teamgoat.photoapp.util.CustomImageDownloader;
 import edu.cmpe277.teamgoat.photoapp.util.IDs;
-import edu.cmpe277.teamgoat.photoapp.util.PhotoAppLog;
+import edu.cmpe277.teamgoat.photoapp.util.PaLog;
 
 public class MainActivity extends Activity {
 
     // Facebook instance variables
-    CallbackManager callbackManager;
-    LoginManager loginManager;
-    private AccessToken accessToken;
-    private String accessTokenString;
-
+    private CallbackManager callbackManager;
+    private LoginManager loginManager;
     private PhotoApp photoApp;
-    private PhotoAppLog logger;
+
+    // TODO handle visibility of go to albums button
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        photoApp = (PhotoApp) getApplication();
 
+        // Initialize the Facebook SDK, must be done before the UI is loaded or else it crashes
         FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_login);
 
+        // What is this? - Sai
         Uri targetUrl = AppLinks.getTargetUrlFromInboundIntent(this, getIntent());
         if (targetUrl != null) {
             Log.i("Activity", "App Link Target URL: " + targetUrl.toString());
@@ -71,8 +70,8 @@ public class MainActivity extends Activity {
         }
 
 
-        // This lets us show the login screen if the user selected it
-        // or goes directly to the main activity if the user is just launching the app
+        // This lets us show the login screen if the user selected it or goes directly to the main activity if the user is just launching the app
+        // NOTE: To show the logout screen, launch this activity with the force intent key set using key INTENT_LAUNCH_LOGIN_VIEW_FORCE_VIEW_PARAMETER_KEY
         boolean forceShowLoginScreen = false;
         Intent launchIntent = getIntent();
         if (launchIntent != null ) {
@@ -80,93 +79,81 @@ public class MainActivity extends Activity {
             forceShowLoginScreen = launchBundle != null && launchBundle.getBoolean(IDs.INTENT_LAUNCH_LOGIN_VIEW_FORCE_VIEW_PARAMETER_KEY, false);
         }
 
-        photoApp = (PhotoApp) getApplication();
-        logger = photoApp.getMasterLogger();
 
-        // Get the current access token, if it's null or expired, we will show the login view, else direct to the main app
-        // NOTE: To show the logout screen, launch this activity with the force intent key set using key INTENT_LAUNCH_LOGIN_VIEW_FORCE_VIEW_PARAMETER_KEY
+        // Check if the user is logged in by getting the current access token
         AccessToken currentAccessToken = AccessToken.getCurrentAccessToken();
         if (forceShowLoginScreen || currentAccessToken == null || currentAccessToken.isExpired()) {
+            PaLog.debug("Need to show the login screen");
+
             callbackManager = CallbackManager.Factory.create();
             loginManager = LoginManager.getInstance();
 
             LoginButton loginButton = (LoginButton) findViewById(R.id.login_button);
             loginButton.setReadPermissions(IDs.FACEBOOK_LOGIN_PERMISSIONS);
             loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+
                 @Override
                 public void onSuccess(LoginResult loginResult) {
-                    // App code
-                    accessToken = loginResult.getAccessToken();
-                    assignAccessToken(accessToken.getToken());
-                    accessTokenString = accessToken.getToken();
-                    LolGlobalVariables.facebookAccessToken = accessTokenString;
-                    LolGlobalVariables.currentlyLoggedInFacebookUserId = accessToken.getUserId();
-                    initImageLoader(getApplicationContext());
-                    Toast.makeText(getApplicationContext(), R.string.facebook_login_successful, Toast.LENGTH_SHORT).show();
-
-                    // Debug
-                    logger.info(String.format("\n=================\n" +
-                                    "Application Id: '%s'\n" +
-                                    "UserId: '%s'\n" +
-                                    "Access Token: '%s'\n" +
-                                    "Token: '%s'\n" +
-                                    "Expiration: '%s'\n" +
-                                    "Last Refresh: '%s'\n=================\n",
-                            accessToken.getApplicationId(),
-                            accessToken.getUserId(),
-                            accessTokenString,
-                            accessToken.getToken(),
-                            accessToken.getExpires(),
-                            accessToken.getLastRefresh()));
+                    assignAndDoThingsWithFacebookAccessToken(loginResult.getAccessToken());
+                    Toast.makeText(getApplicationContext(), R.string.login_facebook_successful, Toast.LENGTH_SHORT).show();
                     launchMainPhotoAppActivity();
                 }
 
                 @Override
                 public void onCancel() {
-                    Toast.makeText(getApplicationContext(), R.string.facebook_login_cancelled, Toast.LENGTH_SHORT).show();
-                    logger.info("User cancelled Facebook Authentication.");
+                    Toast.makeText(getApplicationContext(), R.string.login_facebook_cancelled, Toast.LENGTH_SHORT).show();
+                    PaLog.info("User cancelled Facebook Authentication.");
                 }
 
                 @Override
                 public void onError(FacebookException exception) {
-                    Toast.makeText(getApplicationContext(), R.string.facebook_login_failed, Toast.LENGTH_SHORT).show();
-                    logger.error("Facebook authentication failed, Msg: " + exception.getMessage(), exception);
+                    Toast.makeText(getApplicationContext(), R.string.login_facebook_failed, Toast.LENGTH_SHORT).show();
+                    PaLog.error("Facebook authentication failed, Msg: " + exception.getMessage(), exception);
                 }
             });
         } else {
-            LolGlobalVariables.facebookAccessToken = AccessToken.getCurrentAccessToken().getToken();
-            LolGlobalVariables.currentlyLoggedInFacebookUserId = AccessToken.getCurrentAccessToken().getUserId();
-            assignAccessToken(currentAccessToken.getToken());
-            initImageLoader(getApplicationContext());
+            PaLog.debug("Already have the facebook token, show the albums screen");
+            assignAndDoThingsWithFacebookAccessToken(currentAccessToken);
             launchMainPhotoAppActivity();
         }
     }
 
-    private void assignAccessToken(String accessToken) {
-        accessTokenString = accessToken;
-        photoApp.setFacebookAccessToken(accessToken);
+    private void assignAndDoThingsWithFacebookAccessToken(AccessToken accessToken) {
+        String accessTokenString = accessToken.getToken();
+
+        // Debug
+        PaLog.info(String.format("\n=================\n" +
+                        "Application Id: '%s'\n" +
+                        "UserId: '%s'\n" +
+                        "Access Token: '%s'\n" +
+                        "Expiration: '%s'\n" +
+                        "Last Refresh: '%s'\n" +
+                        "=================\n",
+                accessToken.getApplicationId(),
+                accessToken.getUserId(),
+                accessTokenString,
+                accessToken.getExpires(),
+                accessToken.getLastRefresh()));
+
+//        LolGlobalVariables.facebookAccessToken = accessTokenString;
+//        LolGlobalVariables.currentlyLoggedInFacebookUserId = accessToken.getUserId();
+
+        photoApp.setFacebookAccessToken(accessTokenString);
+        photoApp.setFacebookUserId(accessToken.getUserId());
+        photoApp.forceRecreateApiInstance();
+
+        initImageLoader(getApplicationContext(), accessTokenString);
     }
 
     private void launchMainPhotoAppActivity() {
-        // THIS IS A TEST CALL
-        // WE NEED TO UPDATE THIS TO THE CORRECT LAYOUT/VIEW
-        // NOTE: This function call causes a bug: missing layout files
-//        Intent i = new Intent(this, LayoutTest.class);
-//        startActivity(i);
+        PaLog.info("Launching Main PhotoApp Activity");
 
-        // App Test - Thong
-//        Intent i = new Intent(this, AlbumViewerActivity.class);
-//        startActivity(i);
-        // End Test
-        Button btn_launch = (Button)findViewById(R.id.btn_launch_app);
-        btn_launch.setVisibility(View.VISIBLE);
-        btn_launch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, PhotoAlbums.class));
-            }
-        });
-//        finish();
+        // Launch main activity
+        Intent i = new Intent(this, PhotoAlbums.class);
+        startActivity(i);
+
+        // Finish the current activity
+        finish();
     }
 
     @Override
@@ -175,26 +162,6 @@ public class MainActivity extends Activity {
         callbackManager.onActivityResult(requestCode, resultCode, data);
     }
 
-//    @Override
-//    protected void onResume() {
-//        super.onResume();
-//
-        // Logs 'install' and 'app activate' App Events.
-//        AppEventsLogger.activateApp(this);
-//    }
-
-//    @Override
-//    protected void onPause() {
-//        super.onPause();
-        // Logs 'app deactivate' App Event.
-//        AppEventsLogger.deactivateApp(this);
-//    }
-
-//    @Override
-//    public void onDestroy() {
-//        System.gc(); // who did this?
-//        super.onDestroy();
-//    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -218,14 +185,14 @@ public class MainActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-    public static void initImageLoader(Context context) {
+    public static void initImageLoader(Context context, String facebookAccessToken) {
         Map<String, String> headers = new HashMap<>();
-        headers.put("X-Facebook-Token", ApiBroker.facebookAccessToken);
+        headers.put("X-Facebook-Token", facebookAccessToken);
         DisplayImageOptions options = new DisplayImageOptions.Builder()
                 .showImageOnLoading(R.drawable.ic_contact_picture) // resource or drawable
                 .showImageForEmptyUri(R.drawable.ic_menu_help) // resource or drawable
                 .showImageOnFail(R.drawable.ic_delete) // resource or drawable
-                .resetViewBeforeLoading(!false)  // default
+                .resetViewBeforeLoading(true)  // default
                 .delayBeforeLoading(10)
                 .cacheInMemory(true) // default
                 .cacheOnDisk(true) // default

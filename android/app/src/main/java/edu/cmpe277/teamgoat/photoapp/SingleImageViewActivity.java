@@ -42,10 +42,16 @@ public class SingleImageViewActivity extends ActionBarActivity {
     private List<Comment> comments;
     private TextView textView;
 
+    private PhotoApp photoApp;
+    private ApiBroker apiBroker;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.linearlayout_activity_single_image_view);
+
+        photoApp = (PhotoApp) getApplication();
+        apiBroker = photoApp.getApiBroker();
 
         // Load components' views and setup controllers.
         initializeComponents();
@@ -85,7 +91,7 @@ public class SingleImageViewActivity extends ActionBarActivity {
         new AsyncTask<Void, Void, Comment>() {
             protected Comment doInBackground(Void... params) {
                 try {
-                    return ApiBroker.singleton().commentOnImage(imageBeingDisplayed, comment);
+                    return apiBroker.commentOnImage(imageBeingDisplayed, comment);
                 } catch (IOException | UnirestException e) {
                     Log.d("main", "failed to load friend list", e);
                     return null;
@@ -176,7 +182,7 @@ public class SingleImageViewActivity extends ActionBarActivity {
 
         if (imageBeingDisplayed != null) {
             ImageLoader.getInstance().displayImage(
-                    ApiBroker.singleton().getUrlForImage(imageBeingDisplayed),
+                   apiBroker.getUrlForImage(imageBeingDisplayed),
                     mImage
             );
         } else {

@@ -11,7 +11,6 @@ import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
@@ -27,40 +26,44 @@ import edu.cmpe277.teamgoat.photoapp.PhotoApp;
 
 public class ApiBroker {
 
-    private static PhotoApp application;
+    private PhotoApp application;
 
-    private ObjectMapper mapper = new ObjectMapper();
-    public static String facebookAccessToken = "CAAWuZCfKYoIYBABNJ9aZC383P9XW6Ffl219kkfoU6lZBHx5AXz8ClLjVgPg2ZB0sAYEKOZB7GJk6qNLDiKqUzi5ZAkwfRlLmuI80BrbIWwDkbO07CZB5N1JbouWGOp1HDVRbmawVDwUoi9AugQIKOyOtyZBtdtVovpxH8ocuzDxqyHX9mVQasHxa4JL74O7AHZBrTw6fw5mLhsepEJwxA6jey";
-    // 10.0.2.2 is localhost on the machine hosting the emulator.
-    //public static String apiHost = "http://10.0.2.2:80";
-    public static String apiHost = "https://srkarra.com:444";
-    private static ApiBroker instance;
+    private String apiHost;
+    private String facebookAccessToken;
 
-    public ApiBroker() {
-        //facebookAccessToken = LolGlobalVariables.facebookAccessToken;
+    private ObjectMapper mapper;
+
+//    private static ApiBroker instance;
+
+    public ApiBroker(PhotoApp application) {
+        mapper = new ObjectMapper();
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+
+        this.application = application;
+        facebookAccessToken = application.getFacebookAccessToken();
+        apiHost = application.getServerUrl();
     }
 
-    public static ApiBroker singleton() {
-        if (instance == null) {
-            instance = new ApiBroker();
-        }
-        return instance;
-    }
+//    public static ApiBroker singleton() {
+//        if (instance == null) {
+//            instance = new ApiBroker();
+//        }
+//        return instance;
+//    }
 
-    public static void setApplication(PhotoApp photoApp) {
-        ApiBroker.application = photoApp;
-        // ApiBroker.facebookAccessToken = photoApp.getFacebookAccessToken(); // TODO TEST
-    }
+//    public static void setApplication(PhotoApp photoApp) {
+//        ApiBroker.application = photoApp;
+//        // ApiBroker.facebookAccessToken = photoApp.getFacebookAccessToken();
+//    }
 
     public List<User> getFriends() throws UnirestException, IOException {
         String url = apiHost + "/api/v1/friends";
         String json = Unirest
-            .get(url)
-            .header("X-Facebook-Token", facebookAccessToken)
-            .asString()
-            .getBody()
-        ;
+                .get(url)
+                .header("X-Facebook-Token", facebookAccessToken)
+                .asString()
+                .getBody()
+                ;
 
         List<User> friends = mapper.readValue(json, new TypeReference<List<User>>(){});
         return friends;
@@ -80,7 +83,7 @@ public class ApiBroker {
     }
 
     public Album createAlbum(String title, String description, boolean isPubliclyAccessible, List<String> grantedUserIds) throws IOException {
-        String apiUrl = ApiBroker.apiHost + "/api/v1/albums";
+        String apiUrl = apiHost + "/api/v1/albums";
 
         HttpClient httpclient = new DefaultHttpClient();
         HttpPost httppost = new HttpPost(apiUrl);
@@ -107,12 +110,12 @@ public class ApiBroker {
 
         String url = String.format("%s/api/v1/albums/%s", apiHost, URLEncoder.encode(newAlbum.get_ID()));
         com.mashape.unirest.http.HttpResponse<String> response = Unirest
-            .put(url)
-            .header("X-Facebook-Token", facebookAccessToken)
-            .header("Content-type", "application/json")
-            .body(jsonAlbum)
-            .asString()
-            ;
+                .put(url)
+                .header("X-Facebook-Token", facebookAccessToken)
+                .header("Content-type", "application/json")
+                .body(jsonAlbum)
+                .asString()
+                ;
 
         String jsonReply = response.getBody();
 
@@ -121,6 +124,7 @@ public class ApiBroker {
     }
 
     // untested
+    // todo this doesn't work
     public Image uploadImage(Album album, File imageFile, String title, String description, Double lat, Double lon) throws IOException, UnirestException {
         String url = String.format("%s/api/v1/albums/%s/images", apiHost, URLEncoder.encode(album.get_ID()));
         com.mashape.unirest.http.HttpResponse<String> response = Unirest
@@ -181,6 +185,4 @@ public class ApiBroker {
         String jsonReply = response.getBody();
         return mapper.readValue(jsonReply, new TypeReference<Comment>() {});
     }
-
-
 }
