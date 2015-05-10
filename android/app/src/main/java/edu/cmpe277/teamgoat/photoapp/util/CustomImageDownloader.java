@@ -1,4 +1,4 @@
-package edu.cmpe277.teamgoat.photoapp;
+package edu.cmpe277.teamgoat.photoapp.util;
 
 import android.content.Context;
 
