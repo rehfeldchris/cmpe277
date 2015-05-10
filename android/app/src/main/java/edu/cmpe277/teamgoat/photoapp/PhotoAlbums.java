@@ -5,6 +5,7 @@ import android.app.Fragment;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -40,6 +41,8 @@ public class PhotoAlbums extends ActionBarActivity implements AdapterView.OnItem
     // public static so that other activity can easily access to determine which album to display.
     public static Album albumUserMostRecentlyClicked;
 
+    private SwipeRefreshLayout mSwipeRefreshLayout;
+
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,9 +51,21 @@ public class PhotoAlbums extends ActionBarActivity implements AdapterView.OnItem
         photoApp = (PhotoApp) getApplication();
         apiBroker = photoApp.getApiBroker();
 
-        gridView = (GridView) findViewById(R.id.albums_grid);
-        loadAlbumsThenSetAdapter();
+        // Pull to refresh
+        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.album_swipe_container);
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                loadAlbumsThenSetAdapter();
+            }
+        });
+        // Adds color to the refresh
+        mSwipeRefreshLayout.setColorSchemeResources(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
 
+        gridView = (GridView) findViewById(R.id.albums_grid);
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                 albumUserMostRecentlyClicked = viewableAlbums.get(position);
@@ -58,6 +73,8 @@ public class PhotoAlbums extends ActionBarActivity implements AdapterView.OnItem
                 startActivity(i);
             }
         });
+
+        loadAlbumsThenSetAdapter();
     }
 
     @Override
@@ -161,6 +178,7 @@ public class PhotoAlbums extends ActionBarActivity implements AdapterView.OnItem
     }
 
     private void loadAlbumsThenSetAdapter() {
+        setRefreshingStateForSwipeView(true);
         new AsyncTask<Void, Void, List<Album>>() {
             protected List<Album> doInBackground(Void... params) {
                 try {
@@ -176,12 +194,27 @@ public class PhotoAlbums extends ActionBarActivity implements AdapterView.OnItem
                 if (albums == null) {
                     Toast.makeText(PhotoAlbums.this, "Couldn't load album list. Sorry.", Toast.LENGTH_SHORT).show();
                 } else {
-                    //gridView.invalidateViews();
+                    gridView.invalidateViews();
                     albumImageAdapter = new AlbumImageAdapter(PhotoAlbums.this, albums, apiBroker);
                     gridView.setAdapter(albumImageAdapter);
                     albumImageAdapter.notifyDataSetChanged();
+
                 }
+                setRefreshingStateForSwipeView(false);
             }
         }.execute();
     }
+
+
+    private void setRefreshingStateForSwipeView(final boolean isRefreshing) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if(mSwipeRefreshLayout !=null) {
+                    mSwipeRefreshLayout.setRefreshing(isRefreshing);
+                }
+            }
+        });
+    }
+
 }
