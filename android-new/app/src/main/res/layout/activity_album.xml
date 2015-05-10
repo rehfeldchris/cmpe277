@@ -7,16 +7,20 @@
     tools:context="edu.cmpe277.teamgoat.photoapp.AlbumActivity"
     >
 
-    <ScrollView
+    <FrameLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:text="@string/album_test"
+        <GridView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/albums_grid"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:gravity="center"/>
-    </ScrollView>
+            android:layout_height="match_parent"
+            android:horizontalSpacing="0dp"
+            android:verticalSpacing="0dp"
+            android:numColumns="2"
+            android:stretchMode="columnWidth"
+            />
+    </FrameLayout>
 
 </android.support.v4.widget.SwipeRefreshLayout>
