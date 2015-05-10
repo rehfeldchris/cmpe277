@@ -1,6 +1,8 @@
 package edu.cmpe277.teamgoat.photoapp;
 
 import android.content.Intent;
+import android.os.Handler;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -10,12 +12,34 @@ import edu.cmpe277.teamgoat.photoapp.util.IDs;
 
 
 public class AlbumActivity extends ActionBarActivity {
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_album);
+
+        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.album_swipe_container);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        swipeRefreshLayout.setRefreshing(false);
+                    }
+                }, 5000);
+            }
+        });
+
+        // Adds color to the refresh
+        swipeRefreshLayout.setColorSchemeResources(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
     }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

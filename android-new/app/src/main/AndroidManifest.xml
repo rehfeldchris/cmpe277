@@ -21,15 +21,16 @@
         tools:replace="android:icon,android:theme" >
         <activity
             android:name=".LoginActivity"
-            android:label="@string/title_activity_login" >
-            <intent-filter>
+            android:label="@string/app_name" >
+            <intent-filter
+                >
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-<!--             FACEBOOK -->
+        <!-- FACEBOOK -->
         <!-- Required for Facebook login -->
         <activity
             android:name="com.facebook.FacebookActivity"
@@ -41,7 +42,6 @@
             android:name="com.facebook.FacebookContentProvider"
             android:authorities="com.facebook.app.FacebookContentProvider1599780603601030"
             android:exported="true" />
-
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
@@ -49,9 +49,10 @@
             android:name="com.facebook.sdk.ApplicationName"
             android:value="@string/app_name" />
 
+
         <activity
             android:name=".AlbumActivity"
-            android:label="@string/title_activity_album" >
+            android:label="@string/album_activity_title" >
         </activity>
     </application>
 
