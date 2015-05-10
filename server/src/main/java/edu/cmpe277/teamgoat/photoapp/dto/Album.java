@@ -137,7 +137,7 @@ public class Album {
     }
 
     public List<Image> getImages() {
-        return Collections.unmodifiableList(images);
+        return images;
     }
 
     public void setImages(List<Image> images) {

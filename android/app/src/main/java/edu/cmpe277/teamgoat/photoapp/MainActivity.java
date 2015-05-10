@@ -96,6 +96,7 @@ public class MainActivity extends Activity {
                     accessToken = loginResult.getAccessToken();
                     accessTokenString = accessToken.getToken();
                     LolGlobalVariables.facebookAccessToken = accessTokenString;
+                    LolGlobalVariables.currentlyLoggedInFacebookUserId = accessToken.getUserId();
                     initImageLoader(getApplicationContext());
                     Toast.makeText(getApplicationContext(), R.string.facebook_login_successful, Toast.LENGTH_SHORT).show();
 
@@ -130,6 +131,7 @@ public class MainActivity extends Activity {
             });
         } else {
             LolGlobalVariables.facebookAccessToken = AccessToken.getCurrentAccessToken().getToken();
+            LolGlobalVariables.currentlyLoggedInFacebookUserId = AccessToken.getCurrentAccessToken().getUserId();
             initImageLoader(getApplicationContext());
             launchMainPhotoAppActivity();
         }

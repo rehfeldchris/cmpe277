@@ -4,11 +4,14 @@ package edu.cmpe277.teamgoat.photoapp;
  * Created by squall on 4/29/15.
  */
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.view.Display;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,12 +21,10 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.mashape.unirest.http.exceptions.UnirestException;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.assist.ImageScaleType;
-import com.nostra13.universalimageloader.core.assist.ImageSize;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.io.IOException;
 
 import edu.cmpe277.teamgoat.photoapp.model.Album;
 import edu.cmpe277.teamgoat.photoapp.model.ApiBroker;
@@ -32,11 +33,12 @@ import edu.cmpe277.teamgoat.photoapp.model.Image;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class ImagesGridviewFragment extends Fragment implements AdapterView.OnItemClickListener {
+public class ImagesGridviewFragment extends Fragment implements AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener {
 
     GridView mGridView;
     private Album albumCurrentlyBeingViewed;
     public static Image imageMostRecentlyClicked;
+    private ImageAdapter imageAdapter;
 
     public ImagesGridviewFragment() {
     }
@@ -46,9 +48,10 @@ public class ImagesGridviewFragment extends Fragment implements AdapterView.OnIt
         View rootView = inflater.inflate(R.layout.layout_gridview_view_image, container, false);
         albumCurrentlyBeingViewed = PhotoAlbums.albumUserMostRecentlyClicked;
         mGridView = (GridView) getActivity().findViewById(R.id.grid_images);
-        ImageAdapter adapter = new ImageAdapter(getActivity());
-        mGridView.setAdapter(adapter);
+        imageAdapter = new ImageAdapter(getActivity());
+        mGridView.setAdapter(imageAdapter);
         mGridView.setOnItemClickListener(this);
+        mGridView.setOnItemLongClickListener(this);
 
         return rootView;
     }
@@ -58,6 +61,57 @@ public class ImagesGridviewFragment extends Fragment implements AdapterView.OnIt
         imageMostRecentlyClicked = albumCurrentlyBeingViewed.getImages().get(position);
         Intent i = new Intent(getActivity(), SingleImageViewActivity.class);
         startActivity(i);
+    }
+
+    @Override
+    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+        final Album albumToModify = albumCurrentlyBeingViewed;
+        final Image imageToDelete = albumToModify.getImages().get(position);
+
+        if (!imageToDelete.getOwnerId().equals(LolGlobalVariables.currentlyLoggedInFacebookUserId)) {
+            Toast.makeText(getActivity(), "You're not the original uploader of this image, so you can't delete it.", Toast.LENGTH_SHORT).show();
+            return true;
+        }
+
+        new AlertDialog.Builder(getActivity())
+            .setIcon(android.R.drawable.ic_dialog_alert)
+            .setTitle("Confirm Delete")
+            .setMessage("Are you sure you want to delete this image?")
+            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    deleteImage(imageToDelete, albumToModify);
+
+                }
+            })
+            .setNegativeButton("No", null)
+            .show()
+        ;
+
+        return true;
+    }
+
+    private void deleteImage(final Image imageToDelete, final Album albumToModify) {
+        new AsyncTask<Void, Void, Boolean>() {
+            protected Boolean doInBackground(Void... params) {
+                try {
+                    return ApiBroker.singleton().deleteImage(imageToDelete);
+                } catch (IOException|UnirestException e) {
+                    Log.d("main", "failed to delete image", e);
+                    return Boolean.FALSE;
+                }
+            }
+
+            protected void onPostExecute(Boolean success) {
+                if (!success) {
+                    Toast.makeText(getActivity(), "Couldn't delete image. Maybe you aren't the owner?", Toast.LENGTH_SHORT).show();
+                } else {
+                    albumToModify.getImages().remove(imageToDelete);
+                    imageAdapter.notifyDataSetChanged();
+                    Toast.makeText(getActivity(), "Image deleted", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }.execute();
     }
 
     class ImageAdapter extends BaseAdapter {

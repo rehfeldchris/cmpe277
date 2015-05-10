@@ -277,12 +277,12 @@ public class ApiRestController {
 		}
 
 		// Show 403 if the user isnt allowed to delete this image(must be the original creator to delete)
-		if (image.getOwnerId().equals(userId)) {
+		if (!image.getOwnerId().equals(userId)) {
 			response.setStatus(403);
 			return;
 		}
 
-		imageRepo.delete(image);
+		photoService.deleteImage(image);
 		response.setStatus(204);
 	}
 
