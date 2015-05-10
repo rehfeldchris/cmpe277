@@ -76,10 +76,8 @@ public class AlbumImageAdapter extends BaseAdapter {
 
         int i = 0;
         for (Album album : albums) {
-            // For now, we just assign each album a cover until we have a gui to let users pick a cover photo.
-            int[] drawableIds = new int[]{R.drawable.albumcovertrivia, R.drawable.music, R.drawable.tree};
-            int albumCoverPhotoId = drawableIds[i++ % drawableIds.length];
-
+            // For now, we just use a placeholder image, we need to create a collage or just use the first image in the album
+            int albumCoverPhotoId = R.drawable.ic_image_placeholder;
             albumCovers.add(new AlbumCover(album.getName(), albumCoverPhotoId, album.getCoverPhotoUrl()));
         }
     }
