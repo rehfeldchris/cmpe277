@@ -72,7 +72,7 @@ public class ApiRestController {
 		}
 
 		// Show 403 if the user isnt allowed to view this image
-		if (photoService.isImageViewableByUser(image, userId)) {
+		if (!photoService.isImageViewableByUser(image, userId)) {
 			response.setStatus(403);
 			return;
 		}
