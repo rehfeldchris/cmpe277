@@ -27,7 +27,7 @@
         android:layout_margin="10dp"
         android:textColor="@android:color/white"
         android:background="@color/com_facebook_blue"
-        android:visibility="gone"
+        android:visibility="invisible"
         android:onClick="launchMainPhotoAppActivityButton"
         />
 

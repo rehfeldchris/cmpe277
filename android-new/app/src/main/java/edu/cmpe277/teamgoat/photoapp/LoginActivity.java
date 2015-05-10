@@ -28,6 +28,8 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 
+import org.apache.http.util.LangUtils;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -66,25 +68,27 @@ public class LoginActivity extends Activity {
         // Facebook Access Token Tracker
         accessTokenTracker = new AccessTokenTracker() {
             @Override
-            protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken, AccessToken newAccessToken) {
-                if (newAccessToken == null) {
-
-                    // The user has logged out of Facebook, hide the button
-                    runOnUiThread(new Runnable() {
-                        public void run() {
-                            setGoToMainAppButtonState(View.GONE);
-                        }
-                    });
-                }
+            protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken, final AccessToken newAccessToken) {
+                // The user has logged out of Facebook, hide the button
+                runOnUiThread(new Runnable() {
+                    public void run() {
+                        setGoToMainAppButtonState(newAccessToken == null ? View.INVISIBLE : View.VISIBLE);
+                    }
+                });
             }
         };
 
         // Get the current access token, if it's null or expired, we will show the login view, else redirect to the main app
         // NOTE: To show the logout screen, launch this activity with the force intent key set using key INTENT_LAUNCH_LOGIN_VIEW_FORCE_VIEW_PARAMETER_KEY
         AccessToken currentAccessToken = AccessToken.getCurrentAccessToken();
+
+        // we need to show the go to album button if the token is
+        if (currentAccessToken != null && !currentAccessToken.isExpired()) {
+            setGoToMainAppButtonState(View.VISIBLE);
+        }
+
         if (forceShowLoginScreen || currentAccessToken == null || currentAccessToken.isExpired()) {
             PaLog.debug("Need to show the login screen");
-
 
             LoginButton loginButton = (LoginButton) findViewById(R.id.login_button);
             loginButton.setReadPermissions(IDs.FACEBOOK_LOGIN_PERMISSIONS);
@@ -140,9 +144,14 @@ public class LoginActivity extends Activity {
 
 
     private void setGoToMainAppButtonState(int status) {
+        LinearLayout linearLayout = (LinearLayout) findViewById(R.id.login_linear_layout);
         Button button = (Button) findViewById(R.id.login_btn_launch_app);
-        if (button != null) {
+        if (linearLayout != null && button != null) {
+            PaLog.info("Button Visibility Before Change: " + button.getVisibility());
             button.setVisibility(status);
+            PaLog.info(String.format("Button Visibility After Change : %s, Requested: %s ", button.getVisibility(), status));
+            PaLog.info(String.format("%15s: %-4s, %15s: %-4s, %15s: %-4s", "Visibile", View.VISIBLE, "Invisible", View.INVISIBLE, "GONE", View.GONE));
+            linearLayout.invalidate();
         }
     }
 
@@ -180,33 +189,20 @@ public class LoginActivity extends Activity {
         } else {
             // This should never happen
             PaLog.error("Button clicked w/o access token. This should never have happened");
-            setGoToMainAppButtonState(View.GONE);
+            setGoToMainAppButtonState(View.INVISIBLE);
             // reload the view?
         }
     }
 
     private void launchMainPhotoAppActivity() {
         PaLog.info("Launching Main PhotoApp Activity");
-        Toast.makeText(getApplicationContext(), "TODO Launch Main App", Toast.LENGTH_SHORT).show();
-        // THIS IS A TEST CALL
-        // WE NEED TO UPDATE THIS TO THE CORRECT LAYOUT/VIEW
-        // NOTE: This function call causes a bug: missing layout files
-//        Intent i = new Intent(this, LayoutTest.class);
-//        startActivity(i);
 
-        // App Test - Thong
-//        Intent i = new Intent(this, AlbumViewerActivity.class);
-//        startActivity(i);
-        // End Test
-//        Button btn_launch = (Button)findViewById(R.id.btn_launch_app);
-//        btn_launch.setVisibility(View.VISIBLE);
-//        btn_launch.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                startActivity(new Intent(MainActivity.this, PhotoAlbums.class));
-//            }
-//        });
-//        finish();
+        //
+        Intent i = new Intent(this, AlbumActivity.class);
+        startActivity(i);
+
+        // Finish the current activity
+        finish();
     }
 
 
