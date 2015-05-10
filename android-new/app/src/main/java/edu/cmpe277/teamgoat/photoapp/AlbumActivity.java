@@ -1,6 +1,8 @@
 package edu.cmpe277.teamgoat.photoapp;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Handler;
@@ -36,8 +38,6 @@ public class AlbumActivity extends ActionBarActivity {
 
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private GridView mGridView;
-
-    private List<Album> viewableAlbums;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,7 +82,16 @@ public class AlbumActivity extends ActionBarActivity {
         loadAlbums();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
 
+        if (photoApp ==null) {
+            photoApp = (PhotoApp) getApplication();
+        }
+
+        // photoApp.setMostRecentSelectedAlbumIndex(-1); // We don't need to do this
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -139,7 +148,7 @@ public class AlbumActivity extends ActionBarActivity {
             }
 
             protected void onPostExecute(List<Album> albums) {
-                viewableAlbums = albums;
+                photoApp.setUserViewableAlbums(albums);
                 if (albums == null) {
                     Toast.makeText(applicationContext, "Couldn't load album list. Sorry.", Toast.LENGTH_SHORT).show();
                 } else {
@@ -168,7 +177,30 @@ public class AlbumActivity extends ActionBarActivity {
 
     }
 
-    private void handleAlbumDeleteSelect(int position) {
+    private void handleAlbumDeleteSelect(final int position) {
+        // TODO verify user has permission
+//        if (!imageToDelete.getOwnerId().equals(LolGlobalVariables.currentlyLoggedInFacebookUserId)) {
+//            Toast.makeText(getActivity(), "You're not the original uploader of this image, so you can't delete it.", Toast.LENGTH_SHORT).show();
+//            return true;
+//        }
 
+        new AlertDialog.Builder(getActivi)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setTitle("Confirm Delete")
+                .setMessage("Are you sure you want to delete this album?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // TODO Verify
+                        deleteAlbum(photoApp.getUserViewableAlbums().get(position));
+                    }
+                })
+                .setNegativeButton("No", null)
+                .show()
+        ;
+    }
+
+    private void deleteAlbum(Album albumToDelete) {
+        // TODO
     }
 }
