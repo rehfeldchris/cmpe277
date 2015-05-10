@@ -1,15 +1,26 @@
-<?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<android.support.v4.widget.SwipeRefreshLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/album_swipe_container"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <GridView xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/albums_grid"
+    android:layout_height="match_parent"
+    tools:context="edu.cmpe277.teamgoat.photoapp.AlbumActivity"
+    >
+
+    <FrameLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:horizontalSpacing="0dp"
-        android:verticalSpacing="0dp"
-        android:numColumns="2"
-        android:stretchMode="columnWidth"
-        />
-</FrameLayout>
+        android:layout_height="match_parent">
+        <GridView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/albums_grid"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:horizontalSpacing="0dp"
+            android:verticalSpacing="0dp"
+            android:numColumns="2"
+            android:stretchMode="columnWidth"
+            />
+    </FrameLayout>
+
+</android.support.v4.widget.SwipeRefreshLayout>
+
