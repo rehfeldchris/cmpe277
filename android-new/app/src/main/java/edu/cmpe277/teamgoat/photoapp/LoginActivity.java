@@ -44,9 +44,11 @@ public class LoginActivity extends Activity {
     private CallbackManager callbackManager;
     private LoginManager loginManager;
     private AccessTokenTracker accessTokenTracker;
-    private String accessTokenString;
+//    private String accessTokenString;
 
     private PhotoApp photoApp;
+
+    // TODO there seems to be a bug with setting the got albums button visible
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -157,7 +159,7 @@ public class LoginActivity extends Activity {
 
 
     private void assignAndDoThingsWithFacebookAccessToken(AccessToken accessToken) {
-        accessTokenString = accessToken.getToken();
+        String accessTokenString = accessToken.getToken();
 
         // Debug
         PaLog.info(String.format("\n=================\n" +
@@ -174,11 +176,9 @@ public class LoginActivity extends Activity {
                 accessToken.getLastRefresh()));
 
 
-        photoApp.setFacebookAccessToken(accessTokenString);
         setGoToMainAppButtonState(View.VISIBLE);
-
-        // TODO Update PhotoApp Application -> API BROKER AND STUFF
-
+        photoApp.setFacebookAccessToken(accessTokenString);
+        photoApp.forceRecreateApiInstance();
         initImageLoader(getApplicationContext(), accessTokenString);
     }
 
@@ -243,6 +243,12 @@ public class LoginActivity extends Activity {
     }
 
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        accessTokenTracker.stopTracking();
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
