@@ -70,6 +70,9 @@ public class MainActivity extends Activity {
             );
         }
 
+
+        // This lets us show the login screen if the user selected it
+        // or goes directly to the main activity if the user is just launching the app
         boolean forceShowLoginScreen = false;
         Intent launchIntent = getIntent();
         if (launchIntent != null ) {
@@ -94,6 +97,7 @@ public class MainActivity extends Activity {
                 public void onSuccess(LoginResult loginResult) {
                     // App code
                     accessToken = loginResult.getAccessToken();
+                    assignAccessToken(accessToken.getToken());
                     accessTokenString = accessToken.getToken();
                     LolGlobalVariables.facebookAccessToken = accessTokenString;
                     LolGlobalVariables.currentlyLoggedInFacebookUserId = accessToken.getUserId();
@@ -132,9 +136,15 @@ public class MainActivity extends Activity {
         } else {
             LolGlobalVariables.facebookAccessToken = AccessToken.getCurrentAccessToken().getToken();
             LolGlobalVariables.currentlyLoggedInFacebookUserId = AccessToken.getCurrentAccessToken().getUserId();
+            assignAccessToken(currentAccessToken.getToken());
             initImageLoader(getApplicationContext());
             launchMainPhotoAppActivity();
         }
+    }
+
+    private void assignAccessToken(String accessToken) {
+        accessTokenString = accessToken;
+        photoApp.setFacebookAccessToken(accessToken);
     }
 
     private void launchMainPhotoAppActivity() {
@@ -165,24 +175,24 @@ public class MainActivity extends Activity {
         callbackManager.onActivityResult(requestCode, resultCode, data);
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-
+//    @Override
+//    protected void onResume() {
+//        super.onResume();
+//
         // Logs 'install' and 'app activate' App Events.
 //        AppEventsLogger.activateApp(this);
-    }
+//    }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
+//    @Override
+//    protected void onPause() {
+//        super.onPause();
         // Logs 'app deactivate' App Event.
 //        AppEventsLogger.deactivateApp(this);
-    }
+//    }
 
 //    @Override
 //    public void onDestroy() {
-//        System.gc();
+//        System.gc(); // who did this?
 //        super.onDestroy();
 //    }
 
