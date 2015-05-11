@@ -1,5 +1,9 @@
 package edu.cmpe277.teamgoat.photoapp.model;
 
+import android.content.ContentResolver;
+import android.net.Uri;
+import android.webkit.MimeTypeMap;
+
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -23,6 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.cmpe277.teamgoat.photoapp.PhotoApp;
+
 
 public class ApiBroker {
 
@@ -123,16 +128,16 @@ public class ApiBroker {
         return album;
     }
 
-    // untested
-    // todo this doesn't work
     public Image uploadImage(Album album, File imageFile, String title, String description, Double lat, Double lon) throws IOException, UnirestException {
         String url = String.format("%s/api/v1/albums/%s/images", apiHost, URLEncoder.encode(album.get_ID()));
+
         com.mashape.unirest.http.HttpResponse<String> response = Unirest
                 .post(url)
                 .header("X-Facebook-Token", facebookAccessToken)
                 .field("file", imageFile)
                 .field("title", title)
                 .field("description", description)
+                .field("fileMimeType", getMimeTypeFromContentsOrFilename(imageFile))
                 .field("lat", lat.toString())
                 .field("lon", lon.toString())
                 .asString()
@@ -156,8 +161,6 @@ public class ApiBroker {
     }
 
     public boolean deleteImage(Image image) throws IOException, UnirestException {
-        String jsonAlbum = mapper.writeValueAsString(image);
-
         String url = String.format("%s/api/v1/images/%s", apiHost, URLEncoder.encode(image.get_ID()));
         com.mashape.unirest.http.HttpResponse<String> response = Unirest
                 .delete(url)
@@ -183,6 +186,19 @@ public class ApiBroker {
                 ;
 
         String jsonReply = response.getBody();
-        return mapper.readValue(jsonReply, new TypeReference<Comment>() {});
+        return mapper.readValue(jsonReply, new TypeReference<Comment>() {
+        });
+    }
+
+    private String getMimeTypeFromContentsOrFilename(File imageFile) {
+        String fileMimeType = application.getContentResolver().getType(Uri.fromFile(imageFile));
+        if (fileMimeType != null && !"application/octet-stream".equals(fileMimeType)) {
+            return fileMimeType;
+        }
+        String url = imageFile.getAbsolutePath();
+        String extension = url.substring(url.lastIndexOf("."));
+        String mimeTypeMap = MimeTypeMap.getFileExtensionFromUrl(extension);
+        String mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(mimeTypeMap);
+        return mimeType;
     }
 }

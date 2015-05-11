@@ -75,6 +75,8 @@ public class PhotoAlbums extends ActionBarActivity implements AdapterView.OnItem
         });
 
         loadAlbumsThenSetAdapter();
+
+        gridView.setOnItemLongClickListener(this);
     }
 
     @Override
@@ -210,7 +212,7 @@ public class PhotoAlbums extends ActionBarActivity implements AdapterView.OnItem
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                if(mSwipeRefreshLayout !=null) {
+                if (mSwipeRefreshLayout != null) {
                     mSwipeRefreshLayout.setRefreshing(isRefreshing);
                 }
             }

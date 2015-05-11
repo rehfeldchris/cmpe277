@@ -4,3 +4,7 @@
 -do server side validation of users being allowed to view images, so that we dont end
  up with an app like photofucket aimed at exploiting our lame engineering.
 - allow user to delete an image, if they own it, by long clicking it in the album image grid view
+- allow user to delete an album, if they own it, by long clicking it in the album image grid view
+- make a dedicated image upload screen, allowing description input
+- use the first image inside an album as the cover photo for the album.
+
