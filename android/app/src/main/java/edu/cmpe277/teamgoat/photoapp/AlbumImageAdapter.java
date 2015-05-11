@@ -71,6 +71,7 @@ public class AlbumImageAdapter extends BaseAdapter {
         }
 
         tag.setText(albumCover.text);
+        tag.setCompoundDrawablesWithIntrinsicBounds(0, 0, albumCover.showLockOnAlbum ? R.drawable.ic_album_lock : 0, 0);
 
         return convertView;
     }
@@ -80,7 +81,7 @@ public class AlbumImageAdapter extends BaseAdapter {
             // For now, we just use a placeholder image, we need to create a collage or just use the first image in the album
             int albumCoverPhotoId = R.drawable.ic_image_placeholder;
             String coverPhotoUrl = album.getImages().size() > 0 ? apiBroker.getUrlForImage(album.getImages().get(0)) : null;
-            albumCovers.add(new AlbumCover(album.getName(), albumCoverPhotoId, coverPhotoUrl));
+            albumCovers.add(new AlbumCover(album.getName(), albumCoverPhotoId, coverPhotoUrl, !album.isPubliclyAccessible()));
         }
     }
 
@@ -88,11 +89,14 @@ public class AlbumImageAdapter extends BaseAdapter {
         final String text;
         final int id;
         final String imageUrl;
+        final boolean showLockOnAlbum;
 
-        AlbumCover(String text, int id, String imageUrl) {
+        AlbumCover(String text, int id, String imageUrl, boolean showLockOnAlbum) {
             this.text = text;
             this.id = id;
             this.imageUrl = imageUrl;
+            this.showLockOnAlbum = showLockOnAlbum;
         }
+
     }
 }

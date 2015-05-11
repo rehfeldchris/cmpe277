@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent"
-    android:id="@+id/layout_fragment_gridview_view_image_container">
+    android:orientation="horizontal"
+    android:id="@+id/layout_fragment_gridview_view_image_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <GridView
+        android:id="@+id/grid_images"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/grid_images"
         android:horizontalSpacing="0dp"
-        android:verticalSpacing="0dp"
         android:numColumns="3"
         android:stretchMode="columnWidth"
-        />
+        android:verticalSpacing="0dp" />
 
     <Button
         android:layout_width="match_parent"
