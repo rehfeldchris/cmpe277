@@ -174,7 +174,7 @@ public class SingleImageViewActivity extends ActionBarActivity {
 
     private void initializeComponents()
     {
-        imageBeingDisplayed = ImagesGridviewFragment.imageMostRecentlyClicked;
+        imageBeingDisplayed = AlbumViewerActivity.imageMostRecentlyClicked;
 
         initComments();
 
