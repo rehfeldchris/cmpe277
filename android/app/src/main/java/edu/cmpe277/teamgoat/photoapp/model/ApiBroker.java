@@ -152,7 +152,7 @@ public class ApiBroker {
                 .asString()
                 ;
 
-        return response.getCode() == 200;
+        return response.getCode() == 204;
     }
 
     public boolean deleteImage(Image image) throws IOException, UnirestException {
