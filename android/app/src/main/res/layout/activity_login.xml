@@ -18,23 +18,30 @@
         android:text="@string/app_name"
         android:textSize="30sp" />
 
+    <Button
+        android:id="@+id/login_btn_launch_app"
+        android:layout_width="match_parent"
+        android:layout_height="35dip"
+        android:text="@string/login_facebook_launch_app_button_text"
+        android:textStyle="bold"
+        android:textColor="@android:color/white"
+        android:padding="0dp"
+        android:layout_margin="10dp"
+        android:layout_marginStart="0dp"
+        android:layout_marginEnd="0dp"
+        android:background="@color/com_facebook_blue"
+        android:visibility="gone"
+        android:onClick="goToAlbumsButtonClicked"
+        />
+
+
     <com.facebook.login.widget.LoginButton
         android:id="@+id/login_button"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_margin="30dp"
+        android:layout_margin="10dp"
         />
 
-    <Button
-        android:id="@+id/login_btn_launch_app"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/login_facebook_launch_app_button_text"
-        android:layout_margin="10dp"
-        android:textColor="@android:color/white"
-        android:background="@color/com_facebook_blue"
-        android:visibility="invisible"
-        />
 
 </LinearLayout>

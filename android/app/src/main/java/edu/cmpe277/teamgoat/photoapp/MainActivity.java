@@ -9,9 +9,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.facebook.AccessToken;
+import com.facebook.AccessTokenTracker;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -40,9 +43,8 @@ public class MainActivity extends Activity {
     // Facebook instance variables
     private CallbackManager callbackManager;
     private LoginManager loginManager;
+    private AccessTokenTracker accessTokenTracker;
     private PhotoApp photoApp;
-
-    // TODO handle visibility of go to albums button
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +80,13 @@ public class MainActivity extends Activity {
             Bundle launchBundle = launchIntent.getExtras();
             forceShowLoginScreen = launchBundle != null && launchBundle.getBoolean(IDs.INTENT_LAUNCH_LOGIN_VIEW_FORCE_VIEW_PARAMETER_KEY, false);
         }
+
+        AccessTokenTracker accessTokenTracker = new AccessTokenTracker() {
+            @Override
+            protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken, AccessToken currentAccessToken) {
+                verifyLoginStateAndUpdateButtonVisibility();
+            }
+        };
 
 
         // Check if the user is logged in by getting the current access token
@@ -116,6 +125,35 @@ public class MainActivity extends Activity {
             assignAndDoThingsWithFacebookAccessToken(currentAccessToken);
             launchMainPhotoAppActivity();
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        verifyLoginStateAndUpdateButtonVisibility();
+    }
+
+    public void goToAlbumsButtonClicked(View view) {
+        // One last sanity check, just to be sure
+        AccessToken currentAccessToken = AccessToken.getCurrentAccessToken();
+        if (currentAccessToken == null || currentAccessToken.isExpired()) {
+            verifyLoginStateAndUpdateButtonVisibility();
+        } else {
+            launchMainPhotoAppActivity();
+        }
+
+    }
+
+    private void verifyLoginStateAndUpdateButtonVisibility() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Button goToAlbumsBtn = (Button) findViewById(R.id.login_btn_launch_app);
+                AccessToken currentAccessToken = AccessToken.getCurrentAccessToken();
+                goToAlbumsBtn.setVisibility( currentAccessToken == null || currentAccessToken.isExpired() ? View.GONE : View.VISIBLE);
+                goToAlbumsBtn.setText(R.string.login_facebook_launch_app_button_text); // Force redraw
+            }
+        });
     }
 
     private void assignAndDoThingsWithFacebookAccessToken(AccessToken accessToken) {
