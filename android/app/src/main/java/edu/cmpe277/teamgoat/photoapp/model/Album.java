@@ -13,7 +13,7 @@ public class Album
     private String description;
     private String ownerId;
     private List<String> grantedUserIds;
-    private boolean isPubliclyAccessible = false;
+    private boolean publiclyAccessible = false;
     private String coverPhotoUrl;
     private List<Image> images;
 
@@ -61,7 +61,7 @@ public class Album
     }
 
     public boolean isPubliclyAccessible() {
-        return isPubliclyAccessible;
+        return publiclyAccessible;
     }
 
     public void addGrantedUserId(String id)
