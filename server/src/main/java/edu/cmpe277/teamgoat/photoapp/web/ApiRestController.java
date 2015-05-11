@@ -222,6 +222,7 @@ public class ApiRestController {
 			@PathVariable("album_id") String album_id,
 			@RequestParam("title") String title,
 			@RequestParam("description") String description,
+			@RequestParam(value="fileMimeType", required=false) String fileMimeType,
 			@RequestParam(value = "lat", required = false) Double lat,
 			@RequestParam(value = "lon", required = false) Double lon,
 			@RequestParam("file") MultipartFile file,
@@ -230,6 +231,10 @@ public class ApiRestController {
 	) throws IOException {
 
 		ImageInfo imageInfo = photoService.getImageInfo(file);
+		String mimeType = imageInfo.getMimeType();
+		if ("application/octet-stream".equals(mimeType)) {
+			mimeType = fileMimeType;
+		}
 		if (imageInfo.getHeight() > 10_000) {
 			response.setStatus(400);
 			return new ApiErrorResponse("height too big. must be under 10,000", "");
@@ -242,7 +247,7 @@ public class ApiRestController {
 			response.setStatus(400);
 			return new ApiErrorResponse("size too big. must be under 1,000,000,000 bytes", "");
 		}
-		if (!allowedImageMimeTypes.contains(imageInfo.getMimeType())) {
+		if (!allowedImageMimeTypes.contains(mimeType)) {
 			response.setStatus(400);
 			return new ApiErrorResponse("mime type not allowed. must be one of " + String.join(", ", allowedImageMimeTypes), "");
 		}

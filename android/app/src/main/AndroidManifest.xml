@@ -65,7 +65,10 @@
             android:label="PhotoAlbums" >
         </activity>
 
-
+        <activity
+            android:name=".ImageUploadActivity"
+            android:label="ImageUploadActivity" >
+        </activity>
 
         <activity
             android:name=".SingleImageViewActivity"

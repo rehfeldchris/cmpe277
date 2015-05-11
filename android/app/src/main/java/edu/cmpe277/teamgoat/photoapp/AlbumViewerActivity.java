@@ -64,11 +64,14 @@ public class AlbumViewerActivity extends ActionBarActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.upload_photo) {
-            Intent galleryIntent = new Intent();
-            galleryIntent.setType("image/*");
-            galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
+            Intent i = new Intent(AlbumViewerActivity.this, ImageUploadActivity.class);
+            startActivity(i);
 
-            startActivityForResult(Intent.createChooser(galleryIntent, "Select Picture"), RESULT_LOAD_IMG);
+//            Intent galleryIntent = new Intent();
+//            galleryIntent.setType("image/*");
+//            galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
+//
+//            startActivityForResult(Intent.createChooser(galleryIntent, "Select Picture"), RESULT_LOAD_IMG);
         }
 
         return super.onOptionsItemSelected(item);
