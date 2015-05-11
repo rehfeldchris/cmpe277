@@ -1,22 +1,25 @@
 ### Planned required features  
 - new Upload Image Screen (use name of photo and location of photo if available)
 - Fix names on activity and fragments in the Action Bar
-- Welcome Screen
-  - There was a force close on logout (need to investigate)
+- ~~Welcome Screen~~
+  - ~~There was a force close on logout (need to investigate)~~
   - ~~Make the welcome button look better~~
-  - Make the welcome button show up when necessary and not after logout
+  - ~~Make the welcome button show up when necessary and not after logout~~
 - Album View
   - ~~Pull to refresh~~
-  - Make the standard image for albums consitent or use the first image in the album
+  - ~~Make the standard image for albums consitent or use the first image in the album~~
   - Add icons to distinguish between public, self, and shared albums?
+  - prevent creating/editing albums with empty names
 - Image view
   - pull to refresh
   - swipe left/right to go to another image
   - fix add comments field and button being cut out
-  - change the way comments appear to be cleaner
+  - ~~change the way comments appear to be cleaner~~
   - make picture the width of the screen
   - make the text look nicer
   - make everything a linear layout so they flow better
+  - prevent empty comments
+  - allow scrolling when keyboard is out
 - Search Screen
   - search by name and/or description
   - search by location
