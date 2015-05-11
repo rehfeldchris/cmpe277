@@ -62,6 +62,7 @@ public class AlbumViewerActivity extends ActionBarActivity {
 //                    .commit();
 //        }
         albumCurrentlyBeingViewed = PhotoAlbums.albumUserMostRecentlyClicked;
+        setTitle(albumCurrentlyBeingViewed.getName());
         mGridView = (GridView) findViewById(R.id.grid_images);
 
         imageAdapter = new ImageAdapter(this);
