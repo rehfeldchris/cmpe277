@@ -1,21 +1,13 @@
 package edu.cmpe277.teamgoat.photoapp;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
-
-import android.content.Context;
 import android.os.AsyncTask;
-import android.support.v7.app.ActionBarActivity;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBarActivity;
 import android.text.Editable;
-import android.text.Layout;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -35,6 +27,11 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.ocpsoft.pretty.time.PrettyTime;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
 import edu.cmpe277.teamgoat.photoapp.model.Album;
 import edu.cmpe277.teamgoat.photoapp.model.ApiBroker;
 import edu.cmpe277.teamgoat.photoapp.model.Comment;
@@ -47,7 +44,7 @@ public class ImageTabActivity extends ActionBarActivity {
     private ViewPager mViewPager;
 
     private PhotoApp photoApp;
-    private ApiBroker apiBroker;
+//    private ApiBroker apiBroker;
     private Album currentlyViewingAlbum;
 
     @Override
@@ -56,7 +53,7 @@ public class ImageTabActivity extends ActionBarActivity {
         setContentView(R.layout.activity_image_tab);
 
         photoApp = (PhotoApp) getApplication();
-        apiBroker = photoApp.getApiBroker();
+//        apiBroker = photoApp.getApiBroker();
         currentlyViewingAlbum = PhotoAlbums.albumUserMostRecentlyClicked;
 
         // Create the adapter that will return a fragment for each of the Image View sections of the activity.
