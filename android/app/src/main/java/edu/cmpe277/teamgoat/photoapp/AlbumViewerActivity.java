@@ -7,7 +7,9 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Handler;
 import android.provider.MediaStore;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -44,8 +46,10 @@ public class AlbumViewerActivity extends ActionBarActivity {
     GridView mGridView;
     private Album albumCurrentlyBeingViewed;
     public static Image imageMostRecentlyClicked;
+    public static int imageMostRecentlyClickedIndex;
     public static ImageAdapter imageAdapter;
 
+    private SwipeRefreshLayout mSwipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,10 +84,25 @@ public class AlbumViewerActivity extends ActionBarActivity {
                 return true;
             }
         });
+
+        // Pull to refresh
+        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.images_swipe_container);
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                handleImagesRefresh();
+            }
+        });
+        // Adds color to the refresh
+        mSwipeRefreshLayout.setColorSchemeResources(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
     }
 
     private void handleItemClick(int position) {
         imageMostRecentlyClicked = albumCurrentlyBeingViewed.getImages().get(position);
+        imageMostRecentlyClickedIndex = position;
         Intent i = new Intent(this, ImageTabActivity.class);
         startActivity(i);
     }
@@ -134,6 +153,31 @@ public class AlbumViewerActivity extends ActionBarActivity {
                 }
             }
         }.execute();
+    }
+
+
+    private void handleImagesRefresh() {
+        setRefreshingStateForSwipeView(true);
+        Toast.makeText(getApplicationContext(), "TODO Handle Refresh", Toast.LENGTH_SHORT).show();
+        // TODO handle refresh --> async task -> get album -> update global variable album --> update adapter
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                setRefreshingStateForSwipeView(false);
+            }
+        }, 5000);
+    }
+
+    private void setRefreshingStateForSwipeView(final boolean isRefreshing) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+            if (mSwipeRefreshLayout != null) {
+                mSwipeRefreshLayout.setRefreshing(isRefreshing);
+            }
+            }
+        });
     }
 
 
