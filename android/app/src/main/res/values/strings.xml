@@ -57,4 +57,8 @@
     <string name="album_action_bar_login_screen">Logout</string>
 
     <string name="album_view_action_bar_upload_photo">Upload Image</string>
+
+    <string name="image_tab_view_title">Uploaded Image</string>
+    <string name="image_tab_view_image_description">Uploaded Image</string>
+    <string name="image_tab_add_comment_btn_text">Comment</string>
 </resources>
