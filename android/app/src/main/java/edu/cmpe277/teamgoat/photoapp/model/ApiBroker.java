@@ -87,6 +87,20 @@ public class ApiBroker {
         return albums;
     }
 
+    public Album getAlbumById(String albumId) throws UnirestException, IOException {
+        String url = String.format("%s/api/v1/albums/%s", apiHost, URLEncoder.encode(albumId));
+
+        String json = Unirest
+                .get(url)
+                .header("X-Facebook-Token", facebookAccessToken)
+                .asString()
+                .getBody()
+                ;
+
+        Album album = mapper.readValue(json, new TypeReference<Album>() {});
+        return album;
+    }
+
     public Album createAlbum(String title, String description, boolean isPubliclyAccessible, List<String> grantedUserIds) throws IOException {
         String apiUrl = apiHost + "/api/v1/albums";
 
