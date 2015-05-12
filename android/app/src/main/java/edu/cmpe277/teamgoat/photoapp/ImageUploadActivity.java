@@ -5,11 +5,11 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
@@ -24,6 +24,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -161,16 +163,34 @@ public class ImageUploadActivity extends Activity {
         return image;
     }
 
+    private void copyInputStreamToFile(InputStream in, File file) {
+        try {
+            OutputStream out = new FileOutputStream(file);
+            byte[] buf = new byte[1024];
+            int len;
+            while((len = in.read(buf)) > 0){
+                out.write(buf, 0, len);
+            }
+            out.close();
+            in.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     private void uploadImageTakenFromDisk() throws IOException {
         final Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), selectedImage);
         final Album currentAlbum = PhotoAlbums.albumUserMostRecentlyClicked;
         Toast.makeText(this, "Uploading Image", Toast.LENGTH_SHORT).show();
         final Context context = getApplicationContext();
+        InputStream is = getContentResolver().openInputStream(selectedImage);
+        final File imageFile = createImageFile();
+        copyInputStreamToFile(is, imageFile);
 
         new AsyncTask<Void, Void, Image>() {
             protected Image doInBackground(Void... params) {
                 try {
-
+                    Double[] latLon = getLatLon(imageFile);
                     String[] parts = selectedImage.getPath().split("\\.");
                     String fileExtension = parts[parts.length - 1];
 
@@ -189,7 +209,7 @@ public class ImageUploadActivity extends Activity {
                     fos.flush();
                     fos.close();
 
-                    apiBroker.uploadImage(currentAlbum, file, "Image", imageDescription.getText().toString(), null, null);
+                    apiBroker.uploadImage(currentAlbum, file, "Image", imageDescription.getText().toString(), latLon[0], latLon[1]);
                 } catch (IOException |UnirestException e) {
                     Log.d("main", "failed to upload image", e);
                 }
@@ -212,7 +232,8 @@ public class ImageUploadActivity extends Activity {
         new AsyncTask<Void, Void, Image>() {
             protected Image doInBackground(Void... params) {
                 try {
-                    return apiBroker.uploadImage(currentAlbum, imageFromCamera, "Image", imageDescription.getText().toString(), null, null);
+                    Double[] latLon = getLatLon(imageFromCamera);
+                    return apiBroker.uploadImage(currentAlbum, imageFromCamera, "Image", imageDescription.getText().toString(), latLon[0], latLon[1]);
                 } catch (IOException |UnirestException e) {
                     Log.d("main", "failed to upload image", e);
                 }
@@ -251,5 +272,19 @@ public class ImageUploadActivity extends Activity {
                 startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
             }
         }
+    }
+
+    private Double[] getLatLon(File imageFile) {
+        try {
+            ExifInterface exif = new ExifInterface(imageFile.getAbsolutePath());
+            float[] latLon = new float[2];
+            if (exif.getLatLong(latLon)) {
+                return new Double[]{(double) latLon[0], (double) latLon[1]};
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return new Double[]{null, null};
     }
 }
