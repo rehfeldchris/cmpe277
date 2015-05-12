@@ -20,13 +20,38 @@
         android:hint="...no image selected..."
         />
 
-    <Button
-        android:id="@+id/choose_image_button"
-        android:layout_height="wrap_content"
+    <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_margin="10sp"
-        android:text="Choose Image"
-        />
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/choose_image_button"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_margin="10sp"
+            android:text="Choose File"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:layout_gravity="center"
+            android:layout_margin="10sp"
+            android:hint=" or "
+            />
+
+        <Button
+            android:id="@+id/take_picture_button"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_margin="10sp"
+            android:text="Take Picture"
+            />
+
+    </LinearLayout>
+
+
 
     <EditText
         android:id="@+id/image_upload_description"
