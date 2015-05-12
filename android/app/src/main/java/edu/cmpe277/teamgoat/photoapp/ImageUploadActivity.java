@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -45,7 +46,6 @@ public class ImageUploadActivity extends Activity {
     private PhotoApp photoApp;
     private ApiBroker apiBroker;
     private boolean imageIsFromCamera = false;
-    private String mCurrentPhotoPath;
     private File imageFromCamera;
 
     @Override
@@ -142,24 +142,11 @@ public class ImageUploadActivity extends Activity {
         // Create an image file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String imageFileName = "JPEG_" + timeStamp + "_";
-        // We try different dirs because emulator environemnts seem to have differences.
-//        File storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-//        if (storageDir == null || !storageDir.exists() || !storageDir.canWrite()) {
-//            storageDir = getApplicationContext().getCacheDir();
-//        }
-//        if (storageDir == null || !storageDir.exists() || !storageDir.canWrite()) {
-//            storageDir = new File("/storage/sdcard/Android/data/files/");
-//        }
-        //File storageDir = getApplicationContext().getCacheDir();
         File storageDir = Build.FINGERPRINT.startsWith("generic") ? new File("/storage/sdcard/Android/data/files/") : getApplicationContext().getCacheDir();
-        File image = File.createTempFile(
-                imageFileName,  /* prefix */
-                ".jpg",         /* suffix */
-                storageDir      /* directory */
-        );
+        storageDir.mkdirs();
 
-        // Save a file: path for use with ACTION_VIEW intents
-        mCurrentPhotoPath = image.getAbsolutePath();
+        File image = new File(storageDir + "/" + imageFileName);
+        image.createNewFile();
         return image;
     }
 
@@ -179,7 +166,6 @@ public class ImageUploadActivity extends Activity {
     }
 
     private void uploadImageTakenFromDisk() throws IOException {
-        final Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), selectedImage);
         final Album currentAlbum = PhotoAlbums.albumUserMostRecentlyClicked;
         Toast.makeText(this, "Uploading Image", Toast.LENGTH_SHORT).show();
         final Context context = getApplicationContext();
@@ -191,25 +177,7 @@ public class ImageUploadActivity extends Activity {
             protected Image doInBackground(Void... params) {
                 try {
                     Double[] latLon = getLatLon(imageFile);
-                    String[] parts = selectedImage.getPath().split("\\.");
-                    String fileExtension = parts[parts.length - 1];
-
-                    //create a file to write bitmap data
-                    File file = new File(context.getCacheDir(), "fileupload-" + System.currentTimeMillis() + "." + fileExtension);
-                    file.createNewFile();
-
-                    //Convert bitmap to byte array
-                    ByteArrayOutputStream bos = new ByteArrayOutputStream();
-                    bitmap.compress(Bitmap.CompressFormat.PNG, 0, bos);
-                    byte[] bitmapdata = bos.toByteArray();
-
-                    //write the bytes in file
-                    FileOutputStream fos = new FileOutputStream(file);
-                    fos.write(bitmapdata);
-                    fos.flush();
-                    fos.close();
-
-                    apiBroker.uploadImage(currentAlbum, file, "Image", imageDescription.getText().toString(), latLon[0], latLon[1]);
+                    apiBroker.uploadImage(currentAlbum, imageFile, "Image", imageDescription.getText().toString(), latLon[0], latLon[1]);
                 } catch (IOException |UnirestException e) {
                     Log.d("main", "failed to upload image", e);
                 }
