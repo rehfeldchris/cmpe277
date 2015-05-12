@@ -2,8 +2,10 @@ package edu.cmpe277.teamgoat.photoapp;
 
 import android.app.AlertDialog;
 import android.app.Fragment;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarActivity;
@@ -20,12 +22,21 @@ import android.widget.Toast;
 import com.facebook.share.model.AppInviteContent;
 import com.facebook.share.widget.AppInviteDialog;
 import com.mashape.unirest.http.exceptions.UnirestException;
+import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import edu.cmpe277.teamgoat.photoapp.model.Album;
 import edu.cmpe277.teamgoat.photoapp.model.ApiBroker;
+import edu.cmpe277.teamgoat.photoapp.util.CustomImageDownloader;
 import edu.cmpe277.teamgoat.photoapp.util.IDs;
 
 
@@ -50,6 +61,8 @@ public class PhotoAlbums extends ActionBarActivity implements AdapterView.OnItem
 
         photoApp = (PhotoApp) getApplication();
         apiBroker = photoApp.getApiBroker();
+
+        initImageLoader(getApplicationContext(), photoApp.getFacebookAccessToken());
 
         // Pull to refresh
         mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.album_swipe_container);
@@ -217,6 +230,38 @@ public class PhotoAlbums extends ActionBarActivity implements AdapterView.OnItem
                 }
             }
         });
+    }
+
+
+    public static void initImageLoader(Context context, String facebookAccessToken) {
+        Map<String, String> headers = new HashMap<>();
+        headers.put("X-Facebook-Token", facebookAccessToken);
+        DisplayImageOptions options = new DisplayImageOptions.Builder()
+                .showImageOnLoading(R.drawable.ic_contact_picture) // resource or drawable
+                .showImageForEmptyUri(R.drawable.ic_menu_help) // resource or drawable
+                .showImageOnFail(R.drawable.ic_delete) // resource or drawable
+                .resetViewBeforeLoading(true)  // default
+                .delayBeforeLoading(10)
+                .cacheInMemory(true) // default
+                .cacheOnDisk(true) // default
+                .imageScaleType(ImageScaleType.IN_SAMPLE_POWER_OF_2) // default
+                .bitmapConfig(Bitmap.Config.ARGB_8888) // default
+                .extraForDownloader(headers)
+
+                .build();
+
+        ImageLoaderConfiguration.Builder config = new ImageLoaderConfiguration.Builder(context);
+        config.imageDownloader(new CustomImageDownloader(context));
+        config.threadPriority(Thread.NORM_PRIORITY - 2);
+        config.denyCacheImageMultipleSizesInMemory();
+        config.diskCacheFileNameGenerator(new Md5FileNameGenerator());
+        config.diskCacheSize(50 * 1024 * 1024); // 50 MiB
+        config.tasksProcessingOrder(QueueProcessingType.LIFO);
+        config.defaultDisplayImageOptions(options);
+
+        //config.writeDebugLogs(); // Remove for release app
+
+        ImageLoader.getInstance().init(config.build());
     }
 
 }
