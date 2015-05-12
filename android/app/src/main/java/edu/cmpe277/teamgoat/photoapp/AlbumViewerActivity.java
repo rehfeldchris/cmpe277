@@ -7,9 +7,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Handler;
 import android.provider.MediaStore;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -46,10 +44,8 @@ public class AlbumViewerActivity extends ActionBarActivity {
     GridView mGridView;
     private Album albumCurrentlyBeingViewed;
     public static Image imageMostRecentlyClicked;
-    public static int imageMostRecentlyClickedIndex;
-    private ImageAdapter imageAdapter;
+    public static ImageAdapter imageAdapter;
 
-    private SwipeRefreshLayout mSwipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,26 +80,10 @@ public class AlbumViewerActivity extends ActionBarActivity {
                 return true;
             }
         });
-
-        // Pull to refresh
-        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.images_swipe_container);
-        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                handleImagesRefresh();
-            }
-        });
-        // Adds color to the refresh
-        mSwipeRefreshLayout.setColorSchemeResources(android.R.color.holo_blue_bright,
-                android.R.color.holo_green_light,
-                android.R.color.holo_orange_light,
-                android.R.color.holo_red_light);
     }
 
     private void handleItemClick(int position) {
-        imageMostRecentlyClickedIndex = position;
         imageMostRecentlyClicked = albumCurrentlyBeingViewed.getImages().get(position);
-//        Intent i = new Intent(this, SingleImageViewActivity.class);
         Intent i = new Intent(this, ImageTabActivity.class);
         startActivity(i);
     }
@@ -156,30 +136,6 @@ public class AlbumViewerActivity extends ActionBarActivity {
         }.execute();
     }
 
-    private void handleImagesRefresh() {
-        setRefreshingStateForSwipeView(true);
-        Toast.makeText(getApplicationContext(), "TODO Handle Refresh", Toast.LENGTH_SHORT).show();
-        // TODO handle refresh --> async task -> get album -> update global variable album --> update adapter
-
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                setRefreshingStateForSwipeView(false);
-            }
-        }, 5000);
-    }
-
-    private void setRefreshingStateForSwipeView(final boolean isRefreshing) {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-            if (mSwipeRefreshLayout != null) {
-                mSwipeRefreshLayout.setRefreshing(isRefreshing);
-            }
-            }
-        });
-    }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -212,11 +168,89 @@ public class AlbumViewerActivity extends ActionBarActivity {
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        try {
+            // When an Image is picked
+            if (requestCode == RESULT_LOAD_IMG) {
+                if (resultCode == RESULT_OK && null != data) {
+                    // Get the Image from data
+
+                    Uri selectedImage = data.getData();
+//                    String[] filePathColumn = {MediaStore.Images.Media.DATA};
+//
+//                    // Get the cursor
+//                    Cursor cursor = getContentResolver().query(selectedImage,
+//                            filePathColumn, null, null, null);
+//
+//                    int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+//                    // Move to first row
+//                    cursor.moveToFirst();
+//                    imagePath = cursor.getString(columnIndex);
+//                    cursor.close();
+//
+//                    String foo = "Path  ->" + BitmapFactory.decodeFile(imagePath).toString();
+
+                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), selectedImage);
+                    Album currentAlbum = PhotoAlbums.albumUserMostRecentlyClicked;
+                    Toast.makeText(this, "Uploading Image", Toast.LENGTH_SHORT).show();
+
+                    uploadImage(getApplication(), bitmap, currentAlbum);
+
+
+                } else {
+                    Toast.makeText(this, "You haven't picked Image", Toast.LENGTH_LONG).show();
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 
+    private void uploadImage(final Context context, final Bitmap bitmap, final Album album) {
+        new AsyncTask<Void, Void, Void>() {
+            protected Void doInBackground(Void... params) {
+                try {
 
-    public class ImageAdapter extends BaseAdapter {
+                    //create a file to write bitmap data
+                    File f = new File(context.getCacheDir(), "fileupload-" + System.currentTimeMillis());
+                    f.createNewFile();
+
+                    //Convert bitmap to byte array
+                    ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                    bitmap.compress(Bitmap.CompressFormat.PNG, 0, bos);
+                    byte[] bitmapdata = bos.toByteArray();
+
+                    //write the bytes in file
+                    FileOutputStream fos = new FileOutputStream(f);
+                    fos.write(bitmapdata);
+                    fos.flush();
+                    fos.close();
+
+                    apiBroker.uploadImage(album, f, "Image", "Photo at" + new Date(), 0.0, 0.0);
+                } catch (IOException |UnirestException e) {
+                    Log.d("main", "failed to load album list", e);
+                }
+                return null;
+            }
+
+            protected void onPostExecute() {
+                Toast.makeText(context, "Image Uploaded.", Toast.LENGTH_SHORT).show();
+
+//                viewableAlbums = albums;
+//                if (albums == null) {
+//                    Toast.makeText(PhotoAlbums.this, "Couldn't load album list. Sorry.", Toast.LENGTH_SHORT).show();
+//                } else {
+//                    //gridView.invalidateViews();
+//                    AlbumImageAdapter adapter = new AlbumImageAdapter(PhotoAlbums.this, albums);
+//                    gridView.setAdapter(adapter);
+//                    adapter.notifyDataSetChanged();
+//                }
+            }
+        }.execute();
+
+    }
+
+    class ImageAdapter extends BaseAdapter {
         private Context mContext;
         private LayoutInflater inflater;
 

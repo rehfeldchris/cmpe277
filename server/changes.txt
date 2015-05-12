@@ -8,4 +8,4 @@
 - make a dedicated image upload screen, allowing description input
 - use the first image inside an album as the cover photo for the album.
 - prevent new album creation if title or description is empty
-
+- add ability to take pic from camera, and then upload it.
