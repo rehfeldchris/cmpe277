@@ -201,6 +201,7 @@ public class ImageTabActivity extends ActionBarActivity {
                     addCommentsButton.setEnabled(s.length() > 0);
                 }
             });
+            addCommentsButton.setEnabled(false);
             addCommentsButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
