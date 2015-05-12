@@ -4,6 +4,8 @@ import android.app.Fragment;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -74,6 +76,8 @@ public class EditAlbumFragment extends Fragment {
         textView.setText("Pick friends who can view this album");
         friendListView.addHeaderView(textView);
 
+
+
         // Make it so you can click anywhere on the row to tick the checkbox.
         friendListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -99,10 +103,35 @@ public class EditAlbumFragment extends Fragment {
             }
         });
 
+        TextWatcher tw = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                enableDisableSubmitButton();
+            }
+        };
+
+        titleTextInput.addTextChangedListener(tw);
+        descriptionTextInput.addTextChangedListener(tw);
+        enableDisableSubmitButton();
+
         setProperFriendListVisibility();
         loadFriendList();
 
         return view;
+    }
+
+    private void enableDisableSubmitButton() {
+        submitButton.setEnabled(titleTextInput.getText().length() > 0 && descriptionTextInput.getText().length() > 0);
     }
 
     private void setProperFriendListVisibility() {
