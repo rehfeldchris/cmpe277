@@ -111,8 +111,8 @@ public class ImageUploadActivity extends Activity {
         Toast.makeText(this, "Uploading Image", Toast.LENGTH_SHORT).show();
         final Context context = getApplicationContext();
 
-        new AsyncTask<Void, Void, Void>() {
-            protected Void doInBackground(Void... params) {
+        new AsyncTask<Void, Void, Boolean>() {
+            protected Boolean doInBackground(Void... params) {
                 try {
 
                     String[] parts = selectedImage.getPath().split("\\.");
@@ -134,20 +134,21 @@ public class ImageUploadActivity extends Activity {
                     fos.close();
 
                     apiBroker.uploadImage(currentAlbum, f, "Image", imageDescription.getText().toString(), null, null);
+                    return true;
                 } catch (IOException |UnirestException e) {
                     Log.d("main", "failed to upload image", e);
+                    return false;
                 }
-                return null;
             }
 
-            protected void onPostExecute(Void v) {
-                informUserUploadCompleteAndInviteMoreUploads(context);
+            protected void onPostExecute(Boolean success) {
+                informUserUploadCompleteAndInviteMoreUploads(context, (success != null && success) ? "Image Uploaded. Upload another, or press the back button." : "Upload Failed!");
             }
         }.execute();
     }
 
-    private void informUserUploadCompleteAndInviteMoreUploads(Context context) {
-        Toast.makeText(context, "Image Uploaded. Upload another, or press the back button.", Toast.LENGTH_SHORT).show();
+    private void informUserUploadCompleteAndInviteMoreUploads(Context context, String msg) {
+        Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
         imageDescription.setText("");
         uploadButton.setEnabled(false);
         fileNameDisplay.setText("");
