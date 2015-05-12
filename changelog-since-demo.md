@@ -11,7 +11,7 @@
   - ~~Add icons to distinguish between public, self, and shared albums?~~
   - ~~prevent creating/editing albums with empty names~~
 - Image view
-  - pull to refresh
+  - pull to refresh (in progress)
   - ~~swipe left/right to go to another image~~
   - ~~fix add comments field and button being cut out~~
   - ~~change the way comments appear to be cleaner~~
@@ -27,7 +27,7 @@
 
 
 ### Planned features if we have time 
-- Take pictures using the camera
+- Take pictures using the camera (in progress)
 - Geolocation lookup for users and uploads
 - Publish the app to google play store to get the facebook app invite to work
 - Push notifications to Android using the Google APIS on album shared
