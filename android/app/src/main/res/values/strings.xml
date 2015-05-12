@@ -55,4 +55,6 @@
     <string name="album_action_bar_create_album">Create Album</string>
     <string name="album_action_bar_facebook_invite">Invite Friends</string>
     <string name="album_action_bar_login_screen">Logout</string>
+
+    <string name="album_view_action_bar_upload_photo">Upload Image</string>
 </resources>

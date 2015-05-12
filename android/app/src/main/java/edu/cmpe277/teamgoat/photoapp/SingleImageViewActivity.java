@@ -58,6 +58,7 @@ public class SingleImageViewActivity extends ActionBarActivity {
 
         // Set title/description
         if (imageBeingDisplayed != null) {
+            setTitle(PhotoAlbums.albumUserMostRecentlyClicked.getName());
             textView = (TextView) findViewById(R.id.single_image_title);
             textView.setText(imageBeingDisplayed.getDescription());
         }
@@ -172,9 +173,8 @@ public class SingleImageViewActivity extends ActionBarActivity {
         }
     }
 
-    private void initializeComponents()
-    {
-        imageBeingDisplayed = ImagesGridviewFragment.imageMostRecentlyClicked;
+    private void initializeComponents() {
+        imageBeingDisplayed = AlbumViewerActivity.imageMostRecentlyClicked;
 
         initComments();
 
