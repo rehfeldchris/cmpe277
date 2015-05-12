@@ -49,18 +49,6 @@ public class ApiBroker {
         apiHost = application.getServerUrl();
     }
 
-//    public static ApiBroker singleton() {
-//        if (instance == null) {
-//            instance = new ApiBroker();
-//        }
-//        return instance;
-//    }
-
-//    public static void setApplication(PhotoApp photoApp) {
-//        ApiBroker.application = photoApp;
-//        // ApiBroker.facebookAccessToken = photoApp.getFacebookAccessToken();
-//    }
-
     public List<User> getFriends() throws UnirestException, IOException {
         String url = apiHost + "/api/v1/friends";
         String json = Unirest
