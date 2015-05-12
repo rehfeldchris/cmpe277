@@ -44,7 +44,7 @@ public class AlbumViewerActivity extends ActionBarActivity {
     GridView mGridView;
     private Album albumCurrentlyBeingViewed;
     public static Image imageMostRecentlyClicked;
-    private ImageAdapter imageAdapter;
+    public static ImageAdapter imageAdapter;
 
 
     @Override

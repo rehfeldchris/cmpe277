@@ -7,7 +7,9 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
@@ -22,19 +24,27 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import edu.cmpe277.teamgoat.photoapp.model.Album;
 import edu.cmpe277.teamgoat.photoapp.model.ApiBroker;
+import edu.cmpe277.teamgoat.photoapp.model.Image;
 
 public class ImageUploadActivity extends Activity {
-    private static int RESULT_LOAD_IMG = 1;
+    private static final int RESULT_LOAD_IMG = 1;
+    private static final int REQUEST_TAKE_PHOTO = 2;
     private Button chooseFileButton;
+    private Button takePictureButton;
     private Button uploadButton;
     private TextView fileNameDisplay;
     private EditText imageDescription;
     private Uri selectedImage;
     private PhotoApp photoApp;
     private ApiBroker apiBroker;
+    private boolean imageIsFromCamera = false;
+    private String mCurrentPhotoPath;
+    private File imageFromCamera;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +56,7 @@ public class ImageUploadActivity extends Activity {
 
         imageDescription = (EditText) findViewById(R.id.image_upload_description);
         chooseFileButton = (Button) findViewById(R.id.choose_image_button);
+        takePictureButton = (Button) findViewById(R.id.take_picture_button);
         uploadButton = (Button) findViewById(R.id.upload_image);
         fileNameDisplay = (TextView) findViewById(R.id.image_filename);
         uploadButton.setEnabled(selectedImage != null);
@@ -53,6 +64,10 @@ public class ImageUploadActivity extends Activity {
         chooseFileButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                imageIsFromCamera = false;
+                uploadButton.setEnabled(false);
+                fileNameDisplay.setText("");
+
                 Intent galleryIntent = new Intent();
                 galleryIntent.setType("image/*");
                 galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
@@ -63,13 +78,12 @@ public class ImageUploadActivity extends Activity {
         uploadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (selectedImage == null) {
-                    Toast.makeText(ImageUploadActivity.this, "omfg you didn't pick an image", Toast.LENGTH_LONG).show();
-                    return;
-                }
-
                 try {
-                    uploadImage();
+                    if (imageIsFromCamera) {
+                        uploadImageTakenFromCamera();
+                    } else {
+                        uploadImageTakenFromDisk();
+                    }
                 } catch (IOException e) {
                     Toast.makeText(ImageUploadActivity.this, "Failed to upload image", Toast.LENGTH_LONG).show();
                     e.printStackTrace();
@@ -77,50 +91,92 @@ public class ImageUploadActivity extends Activity {
             }
         });
 
+        takePictureButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                imageIsFromCamera = true;
+                uploadButton.setEnabled(false);
+                fileNameDisplay.setText("");
+                dispatchTakePictureIntent();
+            }
+        });
+
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        try {
-            // When an Image is picked
-            if (requestCode == RESULT_LOAD_IMG) {
-                if (resultCode == RESULT_OK && null != data) {
-                    selectedImage = data.getData();
-                    if (selectedImage != null && selectedImage.getPath() != null) {
-                        // Show the base file name instead of the entire path
-                        String path = selectedImage.getPath();
-                        String[] parts = path.split("/");
-                        fileNameDisplay.setText(parts[parts.length - 1]);
-                    } else {
-                        fileNameDisplay.setText("");
-                    }
-                } else {
-                    Toast.makeText(this, "omfg you didn't pick an image", Toast.LENGTH_LONG).show();
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+
+        if (resultCode != RESULT_OK) {
+            Toast.makeText(this, "omfg you didn't pick an image", Toast.LENGTH_LONG).show();
+            uploadButton.setEnabled(false);
+            fileNameDisplay.setText("");
+            selectedImage = null;
+            return;
         }
 
-        uploadButton.setEnabled(selectedImage != null);
+        try {
+            if (requestCode == RESULT_LOAD_IMG) {
+                selectedImage = data.getData();
+                if (selectedImage != null && selectedImage.getPath() != null) {
+                    // Show the base file name instead of the entire path
+                    String path = selectedImage.getPath();
+                    String[] parts = path.split("/");
+                    fileNameDisplay.setText(parts[parts.length - 1]);
+                    uploadButton.setEnabled(true);
+                }
+            } else if (requestCode == REQUEST_TAKE_PHOTO) {
+                fileNameDisplay.setText("Picture from camera");
+                uploadButton.setEnabled(true);
+            }
+        } catch (Exception e) {
+            Toast.makeText(this, "error", Toast.LENGTH_LONG).show();
+            e.printStackTrace();
+        }
     }
 
-    private void uploadImage() throws IOException {
+
+
+    private File createImageFile() throws IOException {
+        // Create an image file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "JPEG_" + timeStamp + "_";
+        // We try different dirs because emulator environemnts seem to have differences.
+//        File storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+//        if (storageDir == null || !storageDir.exists() || !storageDir.canWrite()) {
+//            storageDir = getApplicationContext().getCacheDir();
+//        }
+//        if (storageDir == null || !storageDir.exists() || !storageDir.canWrite()) {
+//            storageDir = new File("/storage/sdcard/Android/data/files/");
+//        }
+        //File storageDir = getApplicationContext().getCacheDir();
+        File storageDir = Build.FINGERPRINT.startsWith("generic") ? new File("/storage/sdcard/Android/data/files/") : getApplicationContext().getCacheDir();
+        File image = File.createTempFile(
+                imageFileName,  /* prefix */
+                ".jpg",         /* suffix */
+                storageDir      /* directory */
+        );
+
+        // Save a file: path for use with ACTION_VIEW intents
+        mCurrentPhotoPath = image.getAbsolutePath();
+        return image;
+    }
+
+    private void uploadImageTakenFromDisk() throws IOException {
         final Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), selectedImage);
         final Album currentAlbum = PhotoAlbums.albumUserMostRecentlyClicked;
         Toast.makeText(this, "Uploading Image", Toast.LENGTH_SHORT).show();
         final Context context = getApplicationContext();
 
-        new AsyncTask<Void, Void, Void>() {
-            protected Void doInBackground(Void... params) {
+        new AsyncTask<Void, Void, Image>() {
+            protected Image doInBackground(Void... params) {
                 try {
 
                     String[] parts = selectedImage.getPath().split("\\.");
                     String fileExtension = parts[parts.length - 1];
 
                     //create a file to write bitmap data
-                    File f = new File(context.getCacheDir(), "fileupload-" + System.currentTimeMillis() + "." + fileExtension);
-                    f.createNewFile();
+                    File file = new File(context.getCacheDir(), "fileupload-" + System.currentTimeMillis() + "." + fileExtension);
+                    file.createNewFile();
 
                     //Convert bitmap to byte array
                     ByteArrayOutputStream bos = new ByteArrayOutputStream();
@@ -128,20 +184,45 @@ public class ImageUploadActivity extends Activity {
                     byte[] bitmapdata = bos.toByteArray();
 
                     //write the bytes in file
-                    FileOutputStream fos = new FileOutputStream(f);
+                    FileOutputStream fos = new FileOutputStream(file);
                     fos.write(bitmapdata);
                     fos.flush();
                     fos.close();
 
-                    apiBroker.uploadImage(currentAlbum, f, "Image", imageDescription.getText().toString(), null, null);
+                    apiBroker.uploadImage(currentAlbum, file, "Image", imageDescription.getText().toString(), null, null);
                 } catch (IOException |UnirestException e) {
                     Log.d("main", "failed to upload image", e);
                 }
                 return null;
             }
 
-            protected void onPostExecute(Void v) {
+            protected void onPostExecute(Image image) {
                 informUserUploadCompleteAndInviteMoreUploads(context);
+                currentAlbum.getImages().add(image);
+                AlbumViewerActivity.imageAdapter.notifyDataSetChanged();
+            }
+        }.execute();
+    }
+
+    private void uploadImageTakenFromCamera() throws IOException {
+        final Album currentAlbum = PhotoAlbums.albumUserMostRecentlyClicked;
+        Toast.makeText(this, "Uploading Image", Toast.LENGTH_SHORT).show();
+        final Context context = getApplicationContext();
+
+        new AsyncTask<Void, Void, Image>() {
+            protected Image doInBackground(Void... params) {
+                try {
+                    return apiBroker.uploadImage(currentAlbum, imageFromCamera, "Image", imageDescription.getText().toString(), null, null);
+                } catch (IOException |UnirestException e) {
+                    Log.d("main", "failed to upload image", e);
+                }
+                return null;
+            }
+
+            protected void onPostExecute(Image image) {
+                informUserUploadCompleteAndInviteMoreUploads(context);
+                currentAlbum.getImages().add(image);
+                AlbumViewerActivity.imageAdapter.notifyDataSetChanged();
             }
         }.execute();
     }
@@ -151,5 +232,24 @@ public class ImageUploadActivity extends Activity {
         imageDescription.setText("");
         uploadButton.setEnabled(false);
         fileNameDisplay.setText("");
+    }
+
+    private void dispatchTakePictureIntent() {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        // Ensure that there's a camera activity to handle the intent
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            // Create the File where the photo should go
+            imageFromCamera = null;
+            try {
+                imageFromCamera = createImageFile();
+            } catch (IOException ex) {
+                Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();
+            }
+            // Continue only if the File was successfully created
+            if (imageFromCamera != null) {
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(imageFromCamera));
+                startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
+            }
+        }
     }
 }
