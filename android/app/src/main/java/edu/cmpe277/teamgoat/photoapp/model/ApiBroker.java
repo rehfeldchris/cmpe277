@@ -9,6 +9,8 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
+import com.mashape.unirest.request.HttpRequestWithBody;
+import com.mashape.unirest.request.body.MultipartBody;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -133,18 +135,24 @@ public class ApiBroker {
     public Image uploadImage(Album album, File imageFile, String title, String description, Double lat, Double lon) throws IOException, UnirestException {
         String url = String.format("%s/api/v1/albums/%s/images", apiHost, URLEncoder.encode(album.get_ID()));
 
-        com.mashape.unirest.http.HttpResponse<String> response = Unirest
-                .post(url)
-                .header("X-Facebook-Token", facebookAccessToken)
-                .field("file", imageFile)
-                .field("title", title)
-                .field("description", description)
-                .field("fileMimeType", getMimeTypeFromContentsOrFilename(imageFile))
+        MultipartBody req =  Unirest
+            .post(url)
+            .header("X-Facebook-Token", facebookAccessToken)
+            .field("file", imageFile)
+            .field("title", title)
+            .field("description", description)
+            .field("fileMimeType", getMimeTypeFromContentsOrFilename(imageFile))
+        ;
+
+
+        if (lat != null && lon != null) {
+            req
                 .field("lat", lat.toString())
                 .field("lon", lon.toString())
-                .asString()
-                ;
+            ;
+        }
 
+        com.mashape.unirest.http.HttpResponse<String> response = req.asString();
         String jsonReply = response.getBody();
 
         Image image = mapper.readValue(jsonReply, new TypeReference<Image>(){});
@@ -193,14 +201,17 @@ public class ApiBroker {
     }
 
     private String getMimeTypeFromContentsOrFilename(File imageFile) {
-        String fileMimeType = application.getContentResolver().getType(Uri.fromFile(imageFile));
-        if (fileMimeType != null && !"application/octet-stream".equals(fileMimeType)) {
-            return fileMimeType;
-        }
-        String url = imageFile.getAbsolutePath();
-        String extension = url.substring(url.lastIndexOf("."));
-        String mimeTypeMap = MimeTypeMap.getFileExtensionFromUrl(extension);
-        String mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(mimeTypeMap);
-        return mimeType;
+        // Since we compress as png before writing to file, its always png.
+        return "image/png";
+
+//        String fileMimeType = application.getContentResolver().getType(Uri.fromFile(imageFile));
+//        if (fileMimeType != null && !"application/octet-stream".equals(fileMimeType)) {
+//            return fileMimeType;
+//        }
+//        String url = imageFile.getAbsolutePath();
+//        String extension = url.substring(url.lastIndexOf("."));
+//        String mimeTypeMap = MimeTypeMap.getFileExtensionFromUrl(extension);
+//        String mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(mimeTypeMap);
+//        return mimeType;
     }
 }

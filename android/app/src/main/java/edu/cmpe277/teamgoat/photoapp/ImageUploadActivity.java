@@ -133,14 +133,14 @@ public class ImageUploadActivity extends Activity {
                     fos.flush();
                     fos.close();
 
-                    apiBroker.uploadImage(currentAlbum, f, "Image", imageDescription.getText().toString(), 0.0, 0.0);
+                    apiBroker.uploadImage(currentAlbum, f, "Image", imageDescription.getText().toString(), null, null);
                 } catch (IOException |UnirestException e) {
                     Log.d("main", "failed to upload image", e);
                 }
                 return null;
             }
 
-            protected void onPostExecute() {
+            protected void onPostExecute(Void v) {
                 informUserUploadCompleteAndInviteMoreUploads(context);
             }
         }.execute();
