@@ -4,7 +4,7 @@
     android:id="@+id/album_swipe_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="edu.cmpe277.teamgoat.photoapp.AlbumActivity"
+    tools:context="edu.cmpe277.teamgoat.photoapp.PhotoAlbums"
     >
 
     <FrameLayout
