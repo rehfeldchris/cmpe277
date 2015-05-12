@@ -191,6 +191,7 @@ public class ApiRestController {
 			LOG.error(String.format("failed to delete album userid=%s album id = %s", userId, albumId), ex);
 			response.setStatus(400);
 			return new ApiErrorResponse(ex.getMessage(), "");
+			//
 		}
 	}
     
