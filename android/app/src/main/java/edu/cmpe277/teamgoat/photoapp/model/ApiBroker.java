@@ -1,6 +1,7 @@
 package edu.cmpe277.teamgoat.photoapp.model;
 
 import android.content.ContentResolver;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.webkit.MimeTypeMap;
 
@@ -141,7 +142,7 @@ public class ApiBroker {
             .field("file", imageFile)
             .field("title", title)
             .field("description", description)
-            .field("fileMimeType", getMimeTypeFromContentsOrFilename(imageFile))
+            .field("fileMimeType", getMimeTypeOfFile(imageFile.getAbsolutePath()))
         ;
 
 
@@ -157,6 +158,13 @@ public class ApiBroker {
 
         Image image = mapper.readValue(jsonReply, new TypeReference<Image>(){});
         return image;
+    }
+
+    public static String getMimeTypeOfFile(String pathName) {
+        BitmapFactory.Options opt = new BitmapFactory.Options();
+        opt.inJustDecodeBounds = true;
+        BitmapFactory.decodeFile(pathName, opt);
+        return opt.outMimeType;
     }
 
     public boolean deleteAlbum(Album album) throws IOException, UnirestException {
@@ -200,18 +208,4 @@ public class ApiBroker {
         });
     }
 
-    private String getMimeTypeFromContentsOrFilename(File imageFile) {
-        // Since we compress as png before writing to file, its always png.
-        return "image/png";
-
-//        String fileMimeType = application.getContentResolver().getType(Uri.fromFile(imageFile));
-//        if (fileMimeType != null && !"application/octet-stream".equals(fileMimeType)) {
-//            return fileMimeType;
-//        }
-//        String url = imageFile.getAbsolutePath();
-//        String extension = url.substring(url.lastIndexOf("."));
-//        String mimeTypeMap = MimeTypeMap.getFileExtensionFromUrl(extension);
-//        String mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(mimeTypeMap);
-//        return mimeType;
-    }
 }
