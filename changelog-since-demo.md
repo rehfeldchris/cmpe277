@@ -8,15 +8,15 @@
 - Album View
   - ~~Pull to refresh~~
   - ~~Make the standard image for albums consitent or use the first image in the album~~
-  - Add icons to distinguish between public, self, and shared albums?
+  - ~~Add icons to distinguish between public, self, and shared albums?~~
   - prevent creating/editing albums with empty names
 - Image view
   - pull to refresh
   - swipe left/right to go to another image
   - fix add comments field and button being cut out
   - ~~change the way comments appear to be cleaner~~
-  - make picture the width of the screen
-  - make the text look nicer
+  - ~~make picture the width of the screen~~
+  - ~~make the text look nicer~~
   - make everything a linear layout so they flow better
   - prevent empty comments
   - allow scrolling when keyboard is out
@@ -31,8 +31,8 @@
 - Geolocation lookup for users and uploads
 - Publish the app to google play store to get the facebook app invite to work
 - Push notifications to Android using the Google APIS on album shared
-- delete albums
-- delete photos (server side api done, maybe the client too)
+- ~~delete albums~~ (The code is there but there seems to be a bug on some phones not launching the alert box)
+- ~~delete photos (server side api done, maybe the client too)~~
 
 
 ### List of changes since the demo  
