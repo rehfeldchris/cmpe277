@@ -135,6 +135,7 @@ public class ApiBroker {
 
     public Image uploadImage(Album album, File imageFile, String title, String description, Double lat, Double lon) throws IOException, UnirestException {
         String url = String.format("%s/api/v1/albums/%s/images", apiHost, URLEncoder.encode(album.get_ID()));
+        String mime = getMimeTypeOfFile(imageFile.getAbsolutePath());
 
         MultipartBody req =  Unirest
             .post(url)
@@ -142,7 +143,7 @@ public class ApiBroker {
             .field("file", imageFile)
             .field("title", title)
             .field("description", description)
-            .field("fileMimeType", getMimeTypeOfFile(imageFile.getAbsolutePath()))
+            .field("fileMimeType", mime != null ? mime : "")
         ;
 
 
