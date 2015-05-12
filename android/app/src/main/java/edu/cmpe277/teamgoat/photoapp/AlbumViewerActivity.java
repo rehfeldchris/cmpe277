@@ -101,6 +101,7 @@ public class AlbumViewerActivity extends ActionBarActivity {
     }
 
     private void handleItemClick(int position) {
+        imageMostRecentlyClickedIndex = position;
         imageMostRecentlyClicked = albumCurrentlyBeingViewed.getImages().get(position);
         imageMostRecentlyClickedIndex = position;
         Intent i = new Intent(this, ImageTabActivity.class);
