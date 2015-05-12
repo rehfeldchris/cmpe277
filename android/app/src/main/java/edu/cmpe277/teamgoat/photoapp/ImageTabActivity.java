@@ -67,7 +67,7 @@ public class ImageTabActivity extends ActionBarActivity {
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.pager);
         mViewPager.setAdapter(mImagesPagerAdapter);
-        // mViewPager.setCurrentItem(0); // TODO set the default image view
+        mViewPager.setCurrentItem(AlbumViewerActivity.imageMostRecentlyClickedIndex);
 
     }
 

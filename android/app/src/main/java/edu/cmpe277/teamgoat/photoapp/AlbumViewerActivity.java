@@ -44,6 +44,7 @@ public class AlbumViewerActivity extends ActionBarActivity {
     GridView mGridView;
     private Album albumCurrentlyBeingViewed;
     public static Image imageMostRecentlyClicked;
+    public static int imageMostRecentlyClickedIndex;
     private ImageAdapter imageAdapter;
 
 
@@ -83,6 +84,7 @@ public class AlbumViewerActivity extends ActionBarActivity {
     }
 
     private void handleItemClick(int position) {
+        imageMostRecentlyClickedIndex = position;
         imageMostRecentlyClicked = albumCurrentlyBeingViewed.getImages().get(position);
 //        Intent i = new Intent(this, SingleImageViewActivity.class);
         Intent i = new Intent(this, ImageTabActivity.class);
