@@ -75,11 +75,11 @@
             android:label="ImageUploadActivity"
             android:windowSoftInputMode="adjustPan" >
         </activity>
-        <!--<activity-->
-            <!--android:name=".SingleImageViewActivity"-->
-            <!--android:label="@string/title_activity_single_image_view"-->
-            <!--android:windowSoftInputMode="adjustPan" >-->
-        <!--</activity>-->
+        <activity
+            android:name=".SingleImageViewActivity"
+            android:label="@string/title_activity_single_image_view"
+            android:windowSoftInputMode="adjustPan" >
+        </activity>
 
         <!-- <activity -->
         <!-- android:name=".TestFragmentActivity" -->

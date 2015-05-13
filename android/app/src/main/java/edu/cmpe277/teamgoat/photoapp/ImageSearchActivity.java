@@ -1,5 +1,6 @@
 package edu.cmpe277.teamgoat.photoapp;
 
+import android.content.Intent;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
@@ -31,10 +32,12 @@ import edu.cmpe277.teamgoat.photoapp.model.Image;
 import edu.cmpe277.teamgoat.photoapp.util.PaLog;
 
 
-public class ImageSearchActivity extends ActionBarActivity {
+public class ImageSearchActivity extends ActionBarActivity{
 
     private PhotoApp photoApp;
     private ApiBroker apiBroker;
+    private ListView mSearch_container;
+    public static Image found_image_clicked;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,20 +105,29 @@ public class ImageSearchActivity extends ActionBarActivity {
         });
 
         SearchResultAdapter adapter = new SearchResultAdapter(new ArrayList<Image>());
-        ListView search_container = (ListView)findViewById(R.id.list_search_item);
-        search_container.setAdapter(adapter);
-        search_container.setOnItemClickListener(
-                new AdapterView.OnItemClickListener()
-                {
+        mSearch_container = (ListView)findViewById(R.id.list_search_item);
+        mSearch_container.setAdapter(adapter);
+        mSearch_container.setOnItemClickListener(
+                new AdapterView.OnItemClickListener() {
                     @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id)
-                    {
-
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        Intent intent = new Intent(ImageSearchActivity.this, SingleImageViewActivity.class);
+                        found_image_clicked =
+                                (Image)mSearch_container.getAdapter().getItem(position);
+                        startActivity(intent);
                     }
                 }
         );
 
     }
+
+//    @Override
+//    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//        Intent intent = new Intent(this, ImageTabActivity.class);
+//        AlbumViewerActivity.imageMostRecentlyClicked =
+//                (Image)mSearch_container.getAdapter().getItem(position);
+//        startActivity(intent);
+//    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -162,6 +174,7 @@ public class ImageSearchActivity extends ActionBarActivity {
                 ListView search_container =
                         (ListView)ImageSearchActivity.this.findViewById(R.id.list_search_item);
                 SearchResultAdapter resultAdapter = (SearchResultAdapter)search_container.getAdapter();
+                resultAdapter.resetAdapter();
                 resultAdapter.updateData(images);
             }
         }.execute();
@@ -206,6 +219,11 @@ public class ImageSearchActivity extends ActionBarActivity {
             for (Image image : images)
                 this.images.add(image);
             notifyDataSetChanged();
+        }
+
+        void resetAdapter()
+        {
+            this.images.clear();
         }
     }
 }
