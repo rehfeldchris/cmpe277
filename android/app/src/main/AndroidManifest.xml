@@ -4,7 +4,10 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-feature android:name="android.hardware.camera" android:required="true" />
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
 
     <application
         android:name=".PhotoApp"
@@ -13,6 +16,12 @@
         android:label="@string/app_name"
         android:largeHeap="true"
         android:theme="@style/AppTheme" >
+
+        <!-- Put this here to activate the search on all activities -->
+        <meta-data
+            android:name="android.app.default_searchable"
+            android:value=".SearchActivity" />
+
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name" >
@@ -74,6 +83,7 @@
         <!-- android:name=".TestFragmentActivity" -->
         <!-- android:label="test album create" > -->
         <!-- </activity> -->
+
         <activity
             android:name=".ImageTabActivity"
             android:label="@string/image_tab_view_title"
@@ -81,6 +91,21 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="edu.cmpe277.teamgoat.photoapp.AlbumViewerActivity" />
+        </activity>
+        <activity
+            android:name=".SearchActivity"
+            android:label="@string/title_activity_search" >
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
+        </activity>
+        <activity
+            android:name=".ImageSearchActivity"
+            android:label="@string/title_activity_image_search" >
         </activity>
     </application>
 

@@ -2,6 +2,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="edu.cmpe277.teamgoat.photoapp.PhotoAlbums">
+
     <item
         android:id="@+id/album_action_create_album"
         android:orderInCategory="100"
@@ -14,10 +15,27 @@
         android:icon="@android:drawable/ic_menu_myplaces"
         android:title="@string/album_action_bar_facebook_invite"
         app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/toogle_search"
+        android:orderInCategory="300"
+        android:icon="@android:drawable/ic_menu_search"
+        android:title="Search Image"
+        app:showAsAction="ifRoom"
+        />
+
     <item
         android:id="@+id/album_action_login_screen"
         android:title="@string/album_action_bar_login_screen"
-        android:orderInCategory="300"
+        android:orderInCategory="400"
         app:showAsAction="never" />
+
+    <item
+        android:id="@+id/toogle_search_2"
+        android:orderInCategory="300"
+        android:icon="@android:drawable/ic_menu_search"
+        android:title="Search Image 2"
+        app:showAsAction="ifRoom"
+        />
 
 </menu>

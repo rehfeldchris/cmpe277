@@ -61,4 +61,10 @@
     <string name="image_tab_view_title">Uploaded Image</string>
     <string name="image_tab_view_image_description">Uploaded Image</string>
     <string name="image_tab_add_comment_btn_text">Comment</string>
+    <string name="search_hint">Enter image name/description</string>
+    <string name="title_activity_search">SearchActivity</string>
+    <string name="latitude_hint">latitude</string>
+    <string name="longtitude_hint">longtitude</string>
+    <string name="distance_from_location">distance</string>
+    <string name="title_activity_image_search">ImageSearchActivity</string>
 </resources>

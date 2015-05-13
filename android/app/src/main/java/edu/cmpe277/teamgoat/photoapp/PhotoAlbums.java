@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.media.Image;
 import android.os.AsyncTask;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarActivity;
@@ -125,6 +126,18 @@ public class PhotoAlbums extends ActionBarActivity implements AdapterView.OnItem
             intent.putExtras(b);
             startActivity(intent);
             finish();
+        }
+
+        // ID = search for image
+        if (id == R.id.toogle_search)
+        {
+            onSearchRequested();
+        }
+
+        if (id == R.id.toogle_search_2)
+        {
+            Intent intent = new Intent(this, ImageSearchActivity.class);
+            startActivity(intent);
         }
 
         return super.onOptionsItemSelected(item);
