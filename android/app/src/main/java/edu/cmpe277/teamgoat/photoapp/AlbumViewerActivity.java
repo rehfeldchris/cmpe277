@@ -36,6 +36,7 @@ import java.util.Date;
 import edu.cmpe277.teamgoat.photoapp.model.Album;
 import edu.cmpe277.teamgoat.photoapp.model.ApiBroker;
 import edu.cmpe277.teamgoat.photoapp.model.Image;
+import edu.cmpe277.teamgoat.photoapp.util.PaLog;
 
 public class AlbumViewerActivity extends ActionBarActivity {
     private static int RESULT_LOAD_IMG = 1;
@@ -123,8 +124,7 @@ public class AlbumViewerActivity extends ActionBarActivity {
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        deleteImage(imageToDelete, albumToModify);
-
+                    deleteImage(imageToDelete, albumToModify);
                     }
                 })
                 .setNegativeButton("No", null)
@@ -147,8 +147,9 @@ public class AlbumViewerActivity extends ActionBarActivity {
                 if (!success) {
                     Toast.makeText(getApplicationContext(), "Couldn't delete image. Maybe you aren't the owner?", Toast.LENGTH_SHORT).show();
                 } else {
-                    albumToModify.getImages().remove(imageToDelete);
-                    imageAdapter.notifyDataSetChanged();
+                    handleImagesRefresh();
+//                    albumToModify.getImages().remove(imageToDelete);
+//                    imageAdapter.notifyDataSetChanged();
                     Toast.makeText(getApplicationContext(), "Image deleted", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -158,15 +159,37 @@ public class AlbumViewerActivity extends ActionBarActivity {
 
     private void handleImagesRefresh() {
         setRefreshingStateForSwipeView(true);
-        Toast.makeText(getApplicationContext(), "TODO Handle Refresh", Toast.LENGTH_SHORT).show();
-        // TODO handle refresh --> async task -> get album -> update global variable album --> update adapter
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                setRefreshingStateForSwipeView(false);
+        new AsyncTask<Void, Void, Boolean>() {
+            protected Boolean doInBackground(Void... params) {
+                try {
+                    Album updatedAlbum = apiBroker.getAlbumById(albumCurrentlyBeingViewed.get_ID());
+                    albumCurrentlyBeingViewed = updatedAlbum;
+                    PhotoAlbums.albumUserMostRecentlyClicked = updatedAlbum;
+
+                    return true;
+                } catch (IOException | UnirestException e) {
+                    PaLog.error("Error fetching updates for album. Msg: " + e.getMessage(), e);
+                    return false;
+                }
             }
-        }, 5000);
+
+            @Override
+            protected void onPostExecute(final Boolean success) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (success) {
+                            imageAdapter.notifyDataSetChanged();
+                            //Toast.makeText(getApplicationContext(), "Refreshed.", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Failed to refresh albums.", Toast.LENGTH_SHORT).show();
+                        }
+                        setRefreshingStateForSwipeView(false);
+                    }
+                });
+            }
+        }.execute();
     }
 
     private void setRefreshingStateForSwipeView(final boolean isRefreshing) {

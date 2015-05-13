@@ -2,11 +2,13 @@ package edu.cmpe277.teamgoat.photoapp;
 
 import android.app.Application;
 import android.content.SharedPreferences;
+import android.location.LocationManager;
 
 import java.util.List;
 
 import edu.cmpe277.teamgoat.photoapp.model.Album;
 import edu.cmpe277.teamgoat.photoapp.model.ApiBroker;
+import edu.cmpe277.teamgoat.photoapp.util.AppLocationServices;
 import edu.cmpe277.teamgoat.photoapp.util.IDs;
 
 public class PhotoApp extends Application {
@@ -117,5 +119,19 @@ public class PhotoApp extends Application {
 
     public void setMostRecentSelectedAlbumIndex(int mostRecentSelectedAlbumIndex) {
         this.mostRecentSelectedAlbumIndex = mostRecentSelectedAlbumIndex;
+    }
+
+
+    ////////////////////////////////////////////
+    // Android Location Manager Service
+    ////////////////////////////////////////////
+    private AppLocationServices locationManager;
+
+    public AppLocationServices getLocationManager() {
+        return locationManager;
+    }
+
+    public void setLocationManager(AppLocationServices locationManager) {
+        this.locationManager = locationManager;
     }
 }

@@ -3,6 +3,7 @@
     package="edu.cmpe277.teamgoat.photoapp" >
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <uses-feature
@@ -73,11 +74,11 @@
             android:name=".ImageUploadActivity"
             android:label="ImageUploadActivity" >
         </activity>
-        <activity
-            android:name=".SingleImageViewActivity"
-            android:label="@string/title_activity_single_image_view"
-            android:windowSoftInputMode="adjustPan" >
-        </activity>
+        <!--<activity-->
+            <!--android:name=".SingleImageViewActivity"-->
+            <!--android:label="@string/title_activity_single_image_view"-->
+            <!--android:windowSoftInputMode="adjustPan" >-->
+        <!--</activity>-->
 
         <!-- <activity -->
         <!-- android:name=".TestFragmentActivity" -->

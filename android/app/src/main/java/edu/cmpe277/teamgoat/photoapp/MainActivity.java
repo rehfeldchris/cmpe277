@@ -179,8 +179,6 @@ public class MainActivity extends Activity {
         photoApp.setFacebookAccessToken(accessTokenString);
         photoApp.setFacebookUserId(accessToken.getUserId());
         photoApp.forceRecreateApiInstance();
-
-        initImageLoader(getApplicationContext(), accessTokenString);
     }
 
     private void launchMainPhotoAppActivity() {
@@ -221,36 +219,5 @@ public class MainActivity extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    public static void initImageLoader(Context context, String facebookAccessToken) {
-        Map<String, String> headers = new HashMap<>();
-        headers.put("X-Facebook-Token", facebookAccessToken);
-        DisplayImageOptions options = new DisplayImageOptions.Builder()
-                .showImageOnLoading(R.drawable.ic_contact_picture) // resource or drawable
-                .showImageForEmptyUri(R.drawable.ic_menu_help) // resource or drawable
-                .showImageOnFail(R.drawable.ic_delete) // resource or drawable
-                .resetViewBeforeLoading(true)  // default
-                .delayBeforeLoading(10)
-                .cacheInMemory(true) // default
-                .cacheOnDisk(true) // default
-                .imageScaleType(ImageScaleType.IN_SAMPLE_POWER_OF_2) // default
-                .bitmapConfig(Bitmap.Config.ARGB_8888) // default
-                .extraForDownloader(headers)
-
-                .build();
-
-        ImageLoaderConfiguration.Builder config = new ImageLoaderConfiguration.Builder(context);
-        config.imageDownloader(new CustomImageDownloader(context));
-        config.threadPriority(Thread.NORM_PRIORITY - 2);
-        config.denyCacheImageMultipleSizesInMemory();
-        config.diskCacheFileNameGenerator(new Md5FileNameGenerator());
-        config.diskCacheSize(50 * 1024 * 1024); // 50 MiB
-        config.tasksProcessingOrder(QueueProcessingType.LIFO);
-        config.defaultDisplayImageOptions(options);
-
-        //config.writeDebugLogs(); // Remove for release app
-
-        ImageLoader.getInstance().init(config.build());
     }
 }

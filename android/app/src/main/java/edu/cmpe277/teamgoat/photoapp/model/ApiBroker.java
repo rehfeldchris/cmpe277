@@ -1,14 +1,18 @@
 package edu.cmpe277.teamgoat.photoapp.model;
 
 import android.content.ContentResolver;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.webkit.MimeTypeMap;
 
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
+import com.mashape.unirest.request.GetRequest;
+import com.mashape.unirest.request.HttpRequest;
 import com.mashape.unirest.request.HttpRequestWithBody;
 import com.mashape.unirest.request.body.MultipartBody;
 
@@ -134,6 +138,7 @@ public class ApiBroker {
 
     public Image uploadImage(Album album, File imageFile, String title, String description, Double lat, Double lon) throws IOException, UnirestException {
         String url = String.format("%s/api/v1/albums/%s/images", apiHost, URLEncoder.encode(album.get_ID()));
+        String mime = getMimeTypeOfFile(imageFile.getAbsolutePath());
 
         MultipartBody req =  Unirest
             .post(url)
@@ -141,7 +146,7 @@ public class ApiBroker {
             .field("file", imageFile)
             .field("title", title)
             .field("description", description)
-            .field("fileMimeType", getMimeTypeFromContentsOrFilename(imageFile))
+            .field("fileMimeType", mime != null ? mime : "")
         ;
 
 
@@ -157,6 +162,13 @@ public class ApiBroker {
 
         Image image = mapper.readValue(jsonReply, new TypeReference<Image>(){});
         return image;
+    }
+
+    public static String getMimeTypeOfFile(String pathName) {
+        BitmapFactory.Options opt = new BitmapFactory.Options();
+        opt.inJustDecodeBounds = true;
+        BitmapFactory.decodeFile(pathName, opt);
+        return opt.outMimeType;
     }
 
     public boolean deleteAlbum(Album album) throws IOException, UnirestException {
@@ -196,22 +208,52 @@ public class ApiBroker {
                 ;
 
         String jsonReply = response.getBody();
-        return mapper.readValue(jsonReply, new TypeReference<Comment>() {
-        });
+        return mapper.readValue(jsonReply, new TypeReference<Comment>() {});
     }
 
-    private String getMimeTypeFromContentsOrFilename(File imageFile) {
-        // Since we compress as png before writing to file, its always png.
-        return "image/png";
+    /**
+     * Takes the list of images viewable by the current user, and filters them by your criteria.
+     *
+     * Pass null for any argument if you dont want to specify a certain criteria.
+     * The distance filter will only be performed if you pass all 3 lat, lon, and distance.
+     *
+     * @param lat
+     * @param lon
+     * @param maxDistanceMeters
+     * @param keyWords - a space separated list of keywords. eg, "goat tiger" will filter the images, only returning the image if it has the word goat OR tiger. The image description, the images comments, and the comments' author name are searched.
+     * @return the filtered list of viewable images
+     * @throws UnirestException
+     */
+    public List<Image> findViewableImagesWithCriteria(Double lat, Double lon, Double maxDistanceMeters, String keyWords) throws UnirestException, IOException {
+        String url = String.format("%s/api/v1/search-images", apiHost);
 
-//        String fileMimeType = application.getContentResolver().getType(Uri.fromFile(imageFile));
-//        if (fileMimeType != null && !"application/octet-stream".equals(fileMimeType)) {
-//            return fileMimeType;
-//        }
-//        String url = imageFile.getAbsolutePath();
-//        String extension = url.substring(url.lastIndexOf("."));
-//        String mimeTypeMap = MimeTypeMap.getFileExtensionFromUrl(extension);
-//        String mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(mimeTypeMap);
-//        return mimeType;
+        GetRequest gr = Unirest
+            .get(url)
+            ;
+
+        if (lat != null) {
+            gr.field("lat", lat);
+        }
+
+        if (lon != null) {
+            gr.field("lon", lon);
+        }
+
+        if (maxDistanceMeters != null) {
+            gr.field("maxDistanceMeters", maxDistanceMeters);
+        }
+
+        if (keyWords != null) {
+            gr.field("keyWords", keyWords);
+        }
+
+        String jsonReply = gr
+                .header("X-Facebook-Token", facebookAccessToken)
+                .asString()
+                .getBody()
+                ;
+
+        return mapper.readValue(jsonReply, new TypeReference<List<Image>>() {});
     }
+
 }
