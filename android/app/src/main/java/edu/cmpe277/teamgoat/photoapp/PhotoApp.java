@@ -2,6 +2,7 @@ package edu.cmpe277.teamgoat.photoapp;
 
 import android.app.Application;
 import android.content.SharedPreferences;
+import android.location.LocationManager;
 
 import java.util.List;
 
@@ -117,5 +118,19 @@ public class PhotoApp extends Application {
 
     public void setMostRecentSelectedAlbumIndex(int mostRecentSelectedAlbumIndex) {
         this.mostRecentSelectedAlbumIndex = mostRecentSelectedAlbumIndex;
+    }
+
+
+    ////////////////////////////////////////////
+    // Android Location Manager Service
+    ////////////////////////////////////////////
+    private LocationManager locationManager;
+
+    public LocationManager getLocationManager() {
+        return locationManager;
+    }
+
+    public void setLocationManager(LocationManager locationManager) {
+        this.locationManager = locationManager;
     }
 }
