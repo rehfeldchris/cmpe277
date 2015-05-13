@@ -72,7 +72,8 @@
         </activity>
         <activity
             android:name=".ImageUploadActivity"
-            android:label="ImageUploadActivity" >
+            android:label="ImageUploadActivity"
+            android:windowSoftInputMode="adjustPan" >
         </activity>
         <!--<activity-->
             <!--android:name=".SingleImageViewActivity"-->
@@ -88,7 +89,8 @@
         <activity
             android:name=".ImageTabActivity"
             android:label="@string/image_tab_view_title"
-            android:parentActivityName=".AlbumViewerActivity" >
+            android:parentActivityName=".AlbumViewerActivity"
+            android:windowSoftInputMode="adjustPan">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="edu.cmpe277.teamgoat.photoapp.AlbumViewerActivity" />
@@ -106,7 +108,8 @@
         </activity>
         <activity
             android:name=".ImageSearchActivity"
-            android:label="@string/title_activity_image_search" >
+            android:label="@string/title_activity_image_search"
+            android:windowSoftInputMode="adjustPan" >
         </activity>
     </application>
 
