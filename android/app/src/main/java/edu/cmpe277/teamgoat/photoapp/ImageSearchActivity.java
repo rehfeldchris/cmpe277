@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 
 public class ImageSearchActivity extends ActionBarActivity {
@@ -25,12 +26,16 @@ public class ImageSearchActivity extends ActionBarActivity {
         useCurrentLocationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Location location = photoApp.getLocationManager().getLastKnownLocationFromService();
-                EditText lat = (EditText) findViewById(R.id.edit_txt_lat);
-                lat.setText(String.format("%.3f", location.getLatitude()));
+                try {
+                    Location location = photoApp.getLocationManager().getLastKnownLocationFromService();
+                    EditText lat = (EditText) findViewById(R.id.edit_txt_lat);
+                    lat.setText(String.format("%.3f", location.getLatitude()));
 
-                EditText lon = (EditText) findViewById(R.id.edit_txt_lon);
-                lon.setText(String.format("%.3f", location.getLongitude()));
+                    EditText lon = (EditText) findViewById(R.id.edit_txt_lon);
+                    lon.setText(String.format("%.3f", location.getLongitude()));
+                } catch (Exception e) {
+                    Toast.makeText(getApplicationContext(), "Error getting your current location.", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 

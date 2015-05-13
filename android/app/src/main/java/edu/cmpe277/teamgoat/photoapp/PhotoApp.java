@@ -2,7 +2,6 @@ package edu.cmpe277.teamgoat.photoapp;
 
 import android.app.Application;
 import android.content.SharedPreferences;
-import android.location.LocationManager;
 
 import java.util.List;
 
@@ -36,10 +35,10 @@ public class PhotoApp extends Application {
     ////////////////////////////////////////////
     private String facebookAccessToken;
     private String debugFacebookAccessToken = "CAAWuZCfKYoIYBABNJ9aZC383P9XW6Ffl219kkfoU6lZBHx5AXz8ClLjVgPg2ZB0sAYEKOZB7GJk6qNLDiKqUzi5ZAkwfRlLmuI80BrbIWwDkbO07CZB5N1JbouWGOp1HDVRbmawVDwUoi9AugQIKOyOtyZBtdtVovpxH8ocuzDxqyHX9mVQasHxa4JL74O7AHZBrTw6fw5mLhsepEJwxA6jey"; // Chris
-    private boolean mockTheToken = true;
+    private boolean isProduction = true;
 
     public String getFacebookAccessToken() {
-        return getFacebookAccessToken(mockTheToken);  // TODO change for production
+        return getFacebookAccessToken(isProduction);  // TODO change for production
     }
 
     public String getFacebookAccessToken(boolean production) {
@@ -55,7 +54,7 @@ public class PhotoApp extends Application {
     private String debugFacebookUserId = "823579151066492"; // Chris
 
     public String getFacebookUserId() {
-        return getFacebookUserId(mockTheToken);  // TODO change for production
+        return getFacebookUserId(isProduction);  // TODO change for production
     }
 
     public String getFacebookUserId(boolean production) {
