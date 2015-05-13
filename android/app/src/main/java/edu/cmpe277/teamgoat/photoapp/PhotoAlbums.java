@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarActivity;
@@ -61,6 +62,7 @@ public class PhotoAlbums extends ActionBarActivity implements AdapterView.OnItem
 
         photoApp = (PhotoApp) getApplication();
         apiBroker = photoApp.getApiBroker();
+        photoApp.setLocationManager((LocationManager) getSystemService(Context.LOCATION_SERVICE));
 
         initImageLoader(getApplicationContext(), photoApp.getFacebookAccessToken());
 

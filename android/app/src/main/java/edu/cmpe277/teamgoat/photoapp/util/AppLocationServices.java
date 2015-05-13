@@ -19,8 +19,6 @@ public class AppLocationServices implements LocationListener {
         this.photoApp = photoApp;
     }
 
-    //(LocationManager) getSystemService(Context.LOCATION_SERVICE)
-
     /**
      * Starts Location Listener
      */
