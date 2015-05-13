@@ -36,7 +36,7 @@ public class AppLocationServices implements LocationListener {
     public Location getLastKnownLocationFromService() {
         try {
             Location lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-            Location lastKnownGPSLocation = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+            Location lastKnownGPSLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
             return (isBetterLocation(lastKnownGPSLocation)) ? lastKnownGPSLocation : lastKnownLocation;
         }
         catch (Exception e) {
