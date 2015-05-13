@@ -15,6 +15,7 @@ import javax.imageio.stream.ImageInputStream;
 import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 public class PhotoService {
@@ -65,6 +66,60 @@ public class PhotoService {
         }
 
         return null;
+    }
+
+    public List<Image> findViewableImagesWithCriteria(String userId, Double lat, Double lon, Double maxDistance, String keyWordString) {
+        Collection<Image> images;
+
+        // Use mongo to do an efficient query for images within distance, if the user specified enough criteria.
+        if (lat != null && lon != null && maxDistance != null && maxDistance > 0) {
+            images = findViewableImagesNearPoint(userId, lat, lon, maxDistance);
+        } else {
+            images = getViewableImages(userId);
+        }
+
+        if (keyWordString == null) {
+            // No keyword filtering needed.
+            return new ArrayList<>(images);
+        }
+
+        String[] keyWords = keyWordString.split("\\W+");
+        if (keyWords == null || keyWords.length == 0) {
+            // No keyword filtering needed.
+            return new ArrayList<>(images);
+        }
+
+        for (int i = 0; i < keyWords.length; i++) {
+            keyWords[i] = keyWords[i].toLowerCase();
+        }
+
+
+        // Now, we post filter the results, so we only return an image if it has a keyword.
+        List<Image> filteredImages = new ArrayList<>();
+        for (Image image : images) {
+            for (String keyWord : keyWords) {
+                String description = image.getDescription().toLowerCase();
+                Stream<String> comments = image.getComments().stream().map(Comment::getComment).map(String::toLowerCase);
+                Stream<String> commentAuthors = image.getComments().stream().map(Comment::getUserName).map(String::toLowerCase);
+                if (description.contains(keyWord)) {
+                    filteredImages.add(image);
+                    break;
+                }
+
+                if (comments.anyMatch(v -> v.contains(keyWord))) {
+                    filteredImages.add(image);
+                    break;
+                }
+
+                if (commentAuthors.anyMatch(v -> v.contains(keyWord))) {
+                    filteredImages.add(image);
+                    break;
+                }
+            }
+
+        }
+
+        return filteredImages;
     }
 
     public List<Image> findViewableImagesNearPoint(String userId, double lat, double lon, double maxDistance) {
