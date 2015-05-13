@@ -66,5 +66,5 @@
     <string name="latitude_hint">latitude</string>
     <string name="longtitude_hint">longtitude</string>
     <string name="distance_from_location">distance</string>
-    <string name="title_activity_image_search">ImageSearchActivity</string>
+    <string name="title_activity_image_search">Search Images</string>
 </resources>

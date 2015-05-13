@@ -17,12 +17,20 @@
         app:showAsAction="ifRoom" />
 
     <item
-        android:id="@+id/toogle_search"
+        android:id="@+id/toogle_search_2"
         android:orderInCategory="300"
         android:icon="@android:drawable/ic_menu_search"
-        android:title="Search Image"
+        android:title="Search"
         app:showAsAction="ifRoom"
         />
+    <!-- -->
+    <!--<item-->
+        <!--android:id="@+id/toogle_search"-->
+        <!--android:orderInCategory="300"-->
+        <!--android:icon="@android:drawable/ic_menu_search"-->
+        <!--android:title="Search Image"-->
+        <!--app:showAsAction="ifRoom"-->
+        <!--/>-->
 
     <item
         android:id="@+id/album_action_login_screen"
@@ -30,12 +38,6 @@
         android:orderInCategory="400"
         app:showAsAction="never" />
 
-    <item
-        android:id="@+id/toogle_search_2"
-        android:orderInCategory="300"
-        android:icon="@android:drawable/ic_menu_search"
-        android:title="Search Image 2"
-        app:showAsAction="ifRoom"
-        />
+
 
 </menu>

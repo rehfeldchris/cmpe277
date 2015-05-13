@@ -157,10 +157,10 @@ public class PhotoAlbums extends ActionBarActivity implements AdapterView.OnItem
         }
 
         // ID = search for image
-        if (id == R.id.toogle_search)
-        {
-            onSearchRequested();
-        }
+//        if (id == R.id.toogle_search)
+//        {
+//            onSearchRequested();
+//        }
 
         if (id == R.id.toogle_search_2)
         {
