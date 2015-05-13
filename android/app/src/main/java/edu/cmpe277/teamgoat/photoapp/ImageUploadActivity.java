@@ -57,6 +57,7 @@ public class ImageUploadActivity extends Activity {
 
         photoApp = (PhotoApp) getApplication();
         apiBroker = photoApp.getApiBroker();
+        photoApp.getLocationManager().startLocationListener();
 
         imageDescription = (EditText) findViewById(R.id.image_upload_description);
         chooseFileButton = (Button) findViewById(R.id.choose_image_button);
@@ -194,9 +195,13 @@ public class ImageUploadActivity extends Activity {
             }
 
             protected void onPostExecute(Image image) {
-                informUserUploadCompleteAndInviteMoreUploads(context);
-                currentAlbum.getImages().add(image);
-                AlbumViewerActivity.imageAdapter.notifyDataSetChanged();
+                if (image == null || image.get_ID() == null) {
+                    informUserUploadCompleteAndInviteMoreUploads(context);
+                    currentAlbum.getImages().add(image);
+                    AlbumViewerActivity.imageAdapter.notifyDataSetChanged();
+                } else {
+                    Toast.makeText(context, "Image Upload failed.", Toast.LENGTH_SHORT).show();
+                }
             }
         }.execute();
     }
@@ -218,9 +223,13 @@ public class ImageUploadActivity extends Activity {
             }
 
             protected void onPostExecute(Image image) {
-                informUserUploadCompleteAndInviteMoreUploads(context);
-                currentAlbum.getImages().add(image);
-                AlbumViewerActivity.imageAdapter.notifyDataSetChanged();
+                if (image == null || image.get_ID() == null) {
+                    informUserUploadCompleteAndInviteMoreUploads(context);
+                    currentAlbum.getImages().add(image);
+                    AlbumViewerActivity.imageAdapter.notifyDataSetChanged();
+                } else {
+                    Toast.makeText(context, "Image Upload failed.", Toast.LENGTH_SHORT).show();
+                }
             }
         }.execute();
     }
