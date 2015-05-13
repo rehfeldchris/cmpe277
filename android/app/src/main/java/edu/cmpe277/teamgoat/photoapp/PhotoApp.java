@@ -8,6 +8,7 @@ import java.util.List;
 
 import edu.cmpe277.teamgoat.photoapp.model.Album;
 import edu.cmpe277.teamgoat.photoapp.model.ApiBroker;
+import edu.cmpe277.teamgoat.photoapp.util.AppLocationServices;
 import edu.cmpe277.teamgoat.photoapp.util.IDs;
 
 public class PhotoApp extends Application {
@@ -124,13 +125,13 @@ public class PhotoApp extends Application {
     ////////////////////////////////////////////
     // Android Location Manager Service
     ////////////////////////////////////////////
-    private LocationManager locationManager;
+    private AppLocationServices locationManager;
 
-    public LocationManager getLocationManager() {
+    public AppLocationServices getLocationManager() {
         return locationManager;
     }
 
-    public void setLocationManager(LocationManager locationManager) {
+    public void setLocationManager(AppLocationServices locationManager) {
         this.locationManager = locationManager;
     }
 }

@@ -37,6 +37,7 @@ import java.util.Map;
 
 import edu.cmpe277.teamgoat.photoapp.model.Album;
 import edu.cmpe277.teamgoat.photoapp.model.ApiBroker;
+import edu.cmpe277.teamgoat.photoapp.util.AppLocationServices;
 import edu.cmpe277.teamgoat.photoapp.util.CustomImageDownloader;
 import edu.cmpe277.teamgoat.photoapp.util.IDs;
 
@@ -62,7 +63,7 @@ public class PhotoAlbums extends ActionBarActivity implements AdapterView.OnItem
 
         photoApp = (PhotoApp) getApplication();
         apiBroker = photoApp.getApiBroker();
-        photoApp.setLocationManager((LocationManager) getSystemService(Context.LOCATION_SERVICE));
+        photoApp.setLocationManager(new AppLocationServices((LocationManager) getSystemService(Context.LOCATION_SERVICE)));
 
         initImageLoader(getApplicationContext(), photoApp.getFacebookAccessToken());
 

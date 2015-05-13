@@ -12,18 +12,17 @@ import edu.cmpe277.teamgoat.photoapp.PhotoApp;
 public class AppLocationServices implements LocationListener {
 
 
-    private PhotoApp photoApp;
+    private LocationManager locationManager;
     private Location lastKnownLocation;
 
-    public AppLocationServices(PhotoApp photoApp) {
-        this.photoApp = photoApp;
+    public AppLocationServices(LocationManager locationManager) {
+        this.locationManager = locationManager;
     }
 
     /**
      * Starts Location Listener
      */
     public void startLocationListener() {
-        LocationManager locationManager = photoApp.getLocationManager();
         boolean locationEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
         boolean gpsLocationEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
         if(locationEnabled) {
@@ -35,7 +34,6 @@ public class AppLocationServices implements LocationListener {
     }
 
     public Location getLastKnownLocationFromService() {
-        LocationManager locationManager = photoApp.getLocationManager();
         try {
             Location lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
             Location lastKnownGPSLocation = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
@@ -52,8 +50,6 @@ public class AppLocationServices implements LocationListener {
      * Stops Location Listener
      */
     public void stopLocationListener() {
-        LocationManager locationManager = photoApp.getLocationManager();
-
         if (locationManager != null) {
             locationManager.removeUpdates(this);
         }
@@ -70,7 +66,6 @@ public class AppLocationServices implements LocationListener {
     public Double getLastKnownLocationLong() {
         return lastKnownLocation == null ? null : lastKnownLocation.getLongitude();
     }
-
 
 
     private boolean isBetterLocation(Location location) {
