@@ -17,7 +17,9 @@
         <EditText
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="0.85"/>
+            android:layout_weight="0.85"
+            android:hint="keywords"
+            />
 
         <Button
             android:layout_width="0dp"
@@ -54,10 +56,18 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.3"
-            android:hint="@string/distance_from_location"
+            android:hint="miles"
             android:id="@+id/edit_txt_dis"
             />
+
     </LinearLayout>
+    
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/button_use_current_location"
+        android:hint="Use Current Location"
+        />
 
     <ListView
         android:layout_width="match_parent"
