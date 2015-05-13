@@ -5,11 +5,14 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.webkit.MimeTypeMap;
 
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
+import com.mashape.unirest.request.GetRequest;
+import com.mashape.unirest.request.HttpRequest;
 import com.mashape.unirest.request.HttpRequestWithBody;
 import com.mashape.unirest.request.body.MultipartBody;
 
@@ -205,8 +208,52 @@ public class ApiBroker {
                 ;
 
         String jsonReply = response.getBody();
-        return mapper.readValue(jsonReply, new TypeReference<Comment>() {
-        });
+        return mapper.readValue(jsonReply, new TypeReference<Comment>() {});
+    }
+
+    /**
+     * Takes the list of images viewable by the current user, and filters them by your criteria.
+     *
+     * Pass null for any argument if you dont want to specify a certain criteria.
+     * The distance filter will only be performed if you pass all 3 lat, lon, and distance.
+     *
+     * @param lat
+     * @param lon
+     * @param maxDistanceMeters
+     * @param keyWords - a space separated list of keywords. eg, "goat tiger" will filter the images, only returning the image if it has the word goat OR tiger. The image description, the images comments, and the comments' author name are searched.
+     * @return the filtered list of viewable images
+     * @throws UnirestException
+     */
+    public List<Image> findViewableImagesWithCriteria(Double lat, Double lon, Double maxDistanceMeters, String keyWords) throws UnirestException, IOException {
+        String url = String.format("%s/api/v1/search-images", apiHost);
+
+        GetRequest gr = Unirest
+            .get(url)
+            ;
+
+        if (lat != null) {
+            gr.field("lat", lat);
+        }
+
+        if (lon != null) {
+            gr.field("lon", lon);
+        }
+
+        if (maxDistanceMeters != null) {
+            gr.field("maxDistanceMeters", maxDistanceMeters);
+        }
+
+        if (keyWords != null) {
+            gr.field("keyWords", keyWords);
+        }
+
+        String jsonReply = gr
+                .header("X-Facebook-Token", facebookAccessToken)
+                .asString()
+                .getBody()
+                ;
+
+        return mapper.readValue(jsonReply, new TypeReference<List<Image>>() {});
     }
 
 }
