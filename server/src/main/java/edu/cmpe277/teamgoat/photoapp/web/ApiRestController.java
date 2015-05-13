@@ -231,7 +231,7 @@ public class ApiRestController {
 			@RequestHeader ("X-Facebook-Token") String facebookToken,
 			HttpServletResponse response
 	) throws IOException {
-
+		String userId = userProfileService.getCurrentUser(facebookToken).getFacebookUserId();
 		ImageInfo imageInfo = photoService.getImageInfo(file);
 		String mimeType = imageInfo.getMimeType();
 		if ("application/octet-stream".equals(mimeType)) {
@@ -259,8 +259,15 @@ public class ApiRestController {
 			return new ApiErrorResponse("album not found", "");
 		}
 
+		// User can only upload into albums viewable by them.
+		List<Album> viewableAlbums = albumRepo.findViewable(userId);
+		if (!viewableAlbums.contains(album)) {
+			response.setStatus(403);
+			return new ApiErrorResponse("not allowed to upload to this album", "");
+		}
+
 		String savedFileName = saveImageToFileSystem(file);
-		Image image = photoService.createImage(file, lat, lon, title, description, userProfileService.getCurrentUser(facebookToken).getFacebookUserId(), savedFileName, album_id);
+		Image image = photoService.createImage(file, lat, lon, title, description, userId, savedFileName, album_id);
 		album.addImage(image);
 		imageRepo.save(image);
 		albumRepo.save(album);
