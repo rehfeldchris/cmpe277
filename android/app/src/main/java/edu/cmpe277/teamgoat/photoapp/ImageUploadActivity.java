@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.location.Location;
 import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -184,7 +185,7 @@ public class ImageUploadActivity extends Activity {
         new AsyncTask<Void, Void, Image>() {
             protected Image doInBackground(Void... params) {
                 try {
-                    Double[] latLon = getLatLon(imageFile);
+                    Double[] latLon = getLatLon(imageFile, false);
                     apiBroker.uploadImage(currentAlbum, imageFile, "Image", imageDescription.getText().toString(), latLon[0], latLon[1]);
                 } catch (IOException |UnirestException e) {
                     Log.d("main", "failed to upload image", e);
@@ -208,7 +209,7 @@ public class ImageUploadActivity extends Activity {
         new AsyncTask<Void, Void, Image>() {
             protected Image doInBackground(Void... params) {
                 try {
-                    Double[] latLon = getLatLon(imageFromCamera);
+                    Double[] latLon = getLatLon(imageFromCamera, true);
                     return apiBroker.uploadImage(currentAlbum, imageFromCamera, "Image", imageDescription.getText().toString(), latLon[0], latLon[1]);
                 } catch (IOException |UnirestException e) {
                     Log.d("main", "failed to upload image", e);
@@ -250,12 +251,17 @@ public class ImageUploadActivity extends Activity {
         }
     }
 
-    private Double[] getLatLon(File imageFile) {
+    private Double[] getLatLon(File imageFile, boolean addCoordsIfNeeded) {
         try {
             ExifInterface exif = new ExifInterface(imageFile.getAbsolutePath());
             float[] latLon = new float[2];
             if (exif.getLatLong(latLon)) {
                 return new Double[]{(double) latLon[0], (double) latLon[1]};
+            } else if (addCoordsIfNeeded) {
+                Location location = photoApp.getLocationManager().getLastKnownLocationFromService();
+                if (location != null) {
+                    return new Double[]{location.getLatitude(), location.getLongitude()};
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();
