@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
@@ -142,8 +143,13 @@ public class ImageUploadActivity extends Activity {
         // Create an image file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String imageFileName = "JPEG_" + timeStamp + "_";
-        File storageDir = Build.FINGERPRINT.startsWith("generic") ? new File("/storage/sdcard/Android/data/files/") : getApplicationContext().getCacheDir();
-        storageDir.mkdirs();
+        //File storageDir = Build.FINGERPRINT.startsWith("generic") ? new File("/storage/sdcard/Android/data/files/") : getApplicationContext().getCacheDir();
+        //File storageDir = getApplicationContext().getCacheDir();
+        File storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+
+        if (!storageDir.exists()) {
+            storageDir.mkdirs();
+        }
 
         File image = new File(storageDir + "/" + imageFileName);
         image.createNewFile();
