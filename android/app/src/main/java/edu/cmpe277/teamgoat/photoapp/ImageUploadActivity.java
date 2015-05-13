@@ -187,7 +187,7 @@ public class ImageUploadActivity extends Activity {
             protected Image doInBackground(Void... params) {
                 try {
                     Double[] latLon = getLatLon(imageFile, false);
-                    apiBroker.uploadImage(currentAlbum, imageFile, "Image", imageDescription.getText().toString(), latLon[0], latLon[1]);
+                    return apiBroker.uploadImage(currentAlbum, imageFile, "Image", imageDescription.getText().toString(), latLon[0], latLon[1]);
                 } catch (IOException |UnirestException e) {
                     Log.d("main", "failed to upload image", e);
                 }
