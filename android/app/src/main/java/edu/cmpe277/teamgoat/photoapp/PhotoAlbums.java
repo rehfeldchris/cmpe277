@@ -140,8 +140,8 @@ public class PhotoAlbums extends ActionBarActivity implements AdapterView.OnItem
         if (id == R.id.album_action_invite_friends) {
             if (AppInviteDialog.canShow()) {
                 AppInviteContent content = new AppInviteContent.Builder()
-                        .setApplinkUrl("@string/facebook_app_url")
-                        .setPreviewImageUrl("@string/facebook_app_image_preview_url")
+                        .setApplinkUrl("https://fb.me/1612122359033521")
+                        .setPreviewImageUrl("http://hd.wallpaperswide.com/thumbs/dried_flowers_3-t2.jpg")
                         .build();
                 AppInviteDialog.show(PhotoAlbums.this, content);
             }
