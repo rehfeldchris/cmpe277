@@ -219,6 +219,25 @@ public class ApiBroker {
      *
      * @param lat
      * @param lon
+     * @param maxDistanceMiles - miles
+     * @param keyWords - a space separated list of keywords. eg, "goat tiger" will filter the images, only returning the image if it has the word goat OR tiger. The image description, the images comments, and the comments' author name are searched.
+     * @return the filtered list of viewable images
+     * @throws UnirestException
+     */
+    public List<Image> findViewableImagesWithCriteriaInMiles(Double lat, Double lon, Double maxDistanceMiles, String keyWords) throws UnirestException, IOException {
+        maxDistanceMiles = maxDistanceMiles == null ? null : maxDistanceMiles * 1610; // Convert miles to meters; 1 mile = 1610 meters (close enough)
+        return findViewableImagesWithCriteria(lat, lon, maxDistanceMiles, keyWords);
+    }
+
+
+    /**
+     * Takes the list of images viewable by the current user, and filters them by your criteria.
+     *
+     * Pass null for any argument if you dont want to specify a certain criteria.
+     * The distance filter will only be performed if you pass all 3 lat, lon, and distance.
+     *
+     * @param lat
+     * @param lon
      * @param maxDistanceMeters
      * @param keyWords - a space separated list of keywords. eg, "goat tiger" will filter the images, only returning the image if it has the word goat OR tiger. The image description, the images comments, and the comments' author name are searched.
      * @return the filtered list of viewable images
