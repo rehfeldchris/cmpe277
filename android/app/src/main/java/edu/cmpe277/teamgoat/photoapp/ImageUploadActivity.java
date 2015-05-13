@@ -57,6 +57,7 @@ public class ImageUploadActivity extends Activity {
 
         photoApp = (PhotoApp) getApplication();
         apiBroker = photoApp.getApiBroker();
+        photoApp.getLocationManager().startLocationListener();
 
         imageDescription = (EditText) findViewById(R.id.image_upload_description);
         chooseFileButton = (Button) findViewById(R.id.choose_image_button);
@@ -186,7 +187,7 @@ public class ImageUploadActivity extends Activity {
             protected Image doInBackground(Void... params) {
                 try {
                     Double[] latLon = getLatLon(imageFile, false);
-                    apiBroker.uploadImage(currentAlbum, imageFile, "Image", imageDescription.getText().toString(), latLon[0], latLon[1]);
+                    return apiBroker.uploadImage(currentAlbum, imageFile, "Image", imageDescription.getText().toString(), latLon[0], latLon[1]);
                 } catch (IOException |UnirestException e) {
                     Log.d("main", "failed to upload image", e);
                 }
@@ -194,9 +195,13 @@ public class ImageUploadActivity extends Activity {
             }
 
             protected void onPostExecute(Image image) {
-                informUserUploadCompleteAndInviteMoreUploads(context);
-                currentAlbum.getImages().add(image);
-                AlbumViewerActivity.imageAdapter.notifyDataSetChanged();
+                if (image == null || image.get_ID() == null) {
+                    Toast.makeText(context, "Image Upload failed.", Toast.LENGTH_SHORT).show();
+                } else {
+                    informUserUploadCompleteAndInviteMoreUploads(context);
+                    currentAlbum.getImages().add(image);
+                    AlbumViewerActivity.imageAdapter.notifyDataSetChanged();
+                }
             }
         }.execute();
     }
@@ -218,9 +223,13 @@ public class ImageUploadActivity extends Activity {
             }
 
             protected void onPostExecute(Image image) {
-                informUserUploadCompleteAndInviteMoreUploads(context);
-                currentAlbum.getImages().add(image);
-                AlbumViewerActivity.imageAdapter.notifyDataSetChanged();
+                if (image == null || image.get_ID() == null) {
+                    Toast.makeText(context, "Image Upload failed.", Toast.LENGTH_SHORT).show();
+                } else {
+                    informUserUploadCompleteAndInviteMoreUploads(context);
+                    currentAlbum.getImages().add(image);
+                    AlbumViewerActivity.imageAdapter.notifyDataSetChanged();
+                }
             }
         }.execute();
     }
