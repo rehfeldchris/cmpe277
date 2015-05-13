@@ -38,7 +38,7 @@ public class PhotoApp extends Application {
     private boolean isProduction = true;
 
     public String getFacebookAccessToken() {
-        return getFacebookAccessToken(isProduction);  // TODO change for production
+        return getFacebookAccessToken(isProduction);
     }
 
     public String getFacebookAccessToken(boolean production) {
@@ -50,11 +50,9 @@ public class PhotoApp extends Application {
     }
 
     private String facebookUserId;
-
     private String debugFacebookUserId = "823579151066492"; // Chris
-
     public String getFacebookUserId() {
-        return getFacebookUserId(isProduction);  // TODO change for production
+        return getFacebookUserId(isProduction);
     }
 
     public String getFacebookUserId(boolean production) {
