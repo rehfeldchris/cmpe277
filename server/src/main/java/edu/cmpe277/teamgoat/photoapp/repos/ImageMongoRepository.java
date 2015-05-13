@@ -11,6 +11,6 @@ public interface ImageMongoRepository extends MongoRepository<Image, String> {
 
 	Image findBy_ID(String imageId);
 
-	@Query("{location: {$near: {$geometry: {type: \"Point\", coordinates: [?0, ?1]}, $maxDistance: ?2, $minDistance: 0}}}")
+	@Query("{location: {$near: {$geometry: {type: \"Point\", coordinates: [?1, ?0]}, $maxDistance: ?2, $minDistance: 0}}}")
 	List<Image> findImagesNearLocation(double lat, double lon, double maxDistance);
 }
