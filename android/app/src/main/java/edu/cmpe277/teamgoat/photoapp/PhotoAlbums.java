@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.location.Location;
 import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -34,13 +35,14 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
 import edu.cmpe277.teamgoat.photoapp.model.Album;
 import edu.cmpe277.teamgoat.photoapp.model.ApiBroker;
 import edu.cmpe277.teamgoat.photoapp.util.AppLocationServices;
 import edu.cmpe277.teamgoat.photoapp.util.CustomImageDownloader;
 import edu.cmpe277.teamgoat.photoapp.util.IDs;
-
+import edu.cmpe277.teamgoat.photoapp.util.PaLog;
 
 public class PhotoAlbums extends ActionBarActivity implements AdapterView.OnItemLongClickListener {
 
@@ -64,6 +66,17 @@ public class PhotoAlbums extends ActionBarActivity implements AdapterView.OnItem
         photoApp = (PhotoApp) getApplication();
         apiBroker = photoApp.getApiBroker();
         photoApp.setLocationManager(new AppLocationServices((LocationManager) getSystemService(Context.LOCATION_SERVICE)));
+
+        try {
+            Location lastKnownLocation = photoApp.getLocationManager().getLastKnownLocationFromService();
+            PaLog.info(String.format("Do we have a location: '%s'", lastKnownLocation != null));
+            if (lastKnownLocation != null) {
+                PaLog.info(String.format("Lat: '%s', Long: '%s'.", lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude()));
+            }
+
+        } catch (Exception e) {
+            PaLog.error(String.format("Failed to get user location: Msg: '%s'.", e.getMessage()), e);
+        }
 
         initImageLoader(getApplicationContext(), photoApp.getFacebookAccessToken());
 
