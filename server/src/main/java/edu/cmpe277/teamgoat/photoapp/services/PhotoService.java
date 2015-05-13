@@ -31,7 +31,7 @@ public class PhotoService {
 
     public Image createImage(MultipartFile file, Double lat, Double lon, String title, String description, String ownerUserId, String fileNameToSaveAs, String albumId) throws IOException {
         ImageInfo imageInfo = getImageInfo(file);
-        double[] coords = lat != null && lon != null ? (new double[]{lat, lon}) : null;
+        double[] coords = lat != null && lon != null ? (new double[]{lon, lat}) : null;
         return new Image(
             ownerUserId,
             fileNameToSaveAs,

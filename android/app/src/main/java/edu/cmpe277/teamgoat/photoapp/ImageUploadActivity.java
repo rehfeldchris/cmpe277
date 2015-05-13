@@ -143,16 +143,18 @@ public class ImageUploadActivity extends Activity {
         // Create an image file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String imageFileName = "JPEG_" + timeStamp + "_";
-        //File storageDir = Build.FINGERPRINT.startsWith("generic") ? new File("/storage/sdcard/Android/data/files/") : getApplicationContext().getCacheDir();
-        //File storageDir = getApplicationContext().getCacheDir();
         File storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
 
         if (!storageDir.exists()) {
             storageDir.mkdirs();
         }
 
-        File image = new File(storageDir + "/" + imageFileName);
-        image.createNewFile();
+        File image = File.createTempFile(
+                imageFileName,  /* prefix */
+                ".jpg",         /* suffix */
+                storageDir      /* directory */
+        );
+
         return image;
     }
 
