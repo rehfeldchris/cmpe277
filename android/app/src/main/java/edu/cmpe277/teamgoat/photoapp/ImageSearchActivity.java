@@ -77,6 +77,8 @@ public class ImageSearchActivity extends ActionBarActivity {
                 Double meters = null;
                 try {
                     meters = Double.parseDouble(distance.getText().toString());
+                    // Multiply to convert miles to meters.
+                    meters *= 1609;
                 } catch (NumberFormatException e) {
                     meters = null;
                 }
