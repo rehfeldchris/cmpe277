@@ -196,11 +196,11 @@ public class ImageUploadActivity extends Activity {
 
             protected void onPostExecute(Image image) {
                 if (image == null || image.get_ID() == null) {
+                    Toast.makeText(context, "Image Upload failed.", Toast.LENGTH_SHORT).show();
+                } else {
                     informUserUploadCompleteAndInviteMoreUploads(context);
                     currentAlbum.getImages().add(image);
                     AlbumViewerActivity.imageAdapter.notifyDataSetChanged();
-                } else {
-                    Toast.makeText(context, "Image Upload failed.", Toast.LENGTH_SHORT).show();
                 }
             }
         }.execute();
@@ -224,11 +224,11 @@ public class ImageUploadActivity extends Activity {
 
             protected void onPostExecute(Image image) {
                 if (image == null || image.get_ID() == null) {
+                    Toast.makeText(context, "Image Upload failed.", Toast.LENGTH_SHORT).show();
+                } else {
                     informUserUploadCompleteAndInviteMoreUploads(context);
                     currentAlbum.getImages().add(image);
                     AlbumViewerActivity.imageAdapter.notifyDataSetChanged();
-                } else {
-                    Toast.makeText(context, "Image Upload failed.", Toast.LENGTH_SHORT).show();
                 }
             }
         }.execute();
