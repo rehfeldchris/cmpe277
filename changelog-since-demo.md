@@ -11,7 +11,7 @@
   - ~~Add icons to distinguish between public, self, and shared albums?~~
   - ~~prevent creating/editing albums with empty names~~
 - Image view
-  - pull to refresh (in progress)
+  - ~~pull to refresh~~
   - ~~swipe left/right to go to another image~~
   - ~~fix add comments field and button being cut out~~
   - ~~change the way comments appear to be cleaner~~
@@ -31,8 +31,9 @@
 - Geolocation lookup for users and uploads
 - Publish the app to google play store to get the facebook app invite to work
 - Push notifications to Android using the Google APIS on album shared
-- ~~delete albums~~ (The code is there but there seems to be a bug on some phones not launching the alert box)
+- ~~delete albums (The code is there but there seems to be a bug on some phones not launching the alert box)~~
 - ~~delete photos (server side api done, maybe the client too)~~
+- in the creating an album view, hitting the back button closes the app.
 
 
 ### List of changes since the demo  
