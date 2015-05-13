@@ -19,6 +19,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.mashape.unirest.http.exceptions.UnirestException;
 
 import org.apache.http.HttpEntity;
@@ -35,6 +36,7 @@ import org.apache.http.util.EntityUtils;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import edu.cmpe277.teamgoat.photoapp.model.Album;
 import edu.cmpe277.teamgoat.photoapp.model.ApiBroker;
@@ -53,6 +55,11 @@ public class EditAlbumFragment extends Fragment {
 
     private PhotoApp photoApp;
     private ApiBroker apiBroker;
+
+
+    GoogleCloudMessaging gcm;
+
+    AtomicInteger msgId = new AtomicInteger();
 
     public EditAlbumFragment() {
 
@@ -200,6 +207,17 @@ public class EditAlbumFragment extends Fragment {
                             startActivity(activity);
                         }
                     });
+
+                    try {
+                        Bundle data = new Bundle();
+                        data.putString("my_message", "Hello World");
+                        data.putString("my_action",
+                                "com.google.android.gcm.demo.app.ECHO_NOW");
+                        String id = Integer.toString(msgId.incrementAndGet());
+                        gcm.send("@string/gcm_sender_id" + "@gcm.googleapis.com", id, data);
+                    } catch (IOException ex) {
+                        Log.d("main", "GCM: Failed to send message", ex);
+                    }
                 }
             }
         }.execute();

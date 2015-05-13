@@ -52,4 +52,5 @@ dependencies {
     compile group: 'com.google.guava', name: 'guava', version: '18.0'
     compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.3'
     compile 'com.ocpsoft:ocpsoft-pretty-time:1.0.6'
+    compile "com.google.android.gms:play-services:3.1.+"
 }
