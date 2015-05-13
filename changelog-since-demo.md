@@ -1,5 +1,5 @@
 ### Planned required features  
-- new Upload Image Screen (use name of photo and location of photo if available)
+- ~~new Upload Image Screen (use name of photo and location of photo if available)
 - ~~Fix names on activity and fragments in the Action Bar~~
 - ~~Welcome Screen~~
   - ~~There was a force close on logout (need to investigate)~~
@@ -27,7 +27,7 @@
 
 
 ### Planned features if we have time 
-- Take pictures using the camera (in progress)
+- ~~Take pictures using the camera (in progress)
 - Geolocation lookup for users and uploads
 - Publish the app to google play store to get the facebook app invite to work
 - Push notifications to Android using the Google APIS on album shared

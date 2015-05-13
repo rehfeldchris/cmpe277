@@ -113,11 +113,11 @@ public class ApiRestController {
 		return albums;
 	}
 
-	@RequestMapping(value = "/images-near-point", method = RequestMethod.GET)
+	@RequestMapping(value = "/search-images", method = RequestMethod.GET)
 	public List<Image> findViewableImagesNearPoint(
 			@RequestHeader("X-Facebook-Token") String facebookToken,
-			@RequestParam("lat") double lat,
-			@RequestParam("lon") double lon,
+			@RequestParam(value="lat", required=false) double lat,
+			@RequestParam(value="lon", required=false) double lon,
 			@RequestParam("maxDistanceMeters") double maxDistanceMeters
 	) {
 		String userId = userProfileService.getCurrentUser(facebookToken).getFacebookUserId();
