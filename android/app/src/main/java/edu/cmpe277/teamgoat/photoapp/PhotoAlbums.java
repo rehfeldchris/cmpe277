@@ -184,8 +184,9 @@ public class PhotoAlbums extends ActionBarActivity implements AdapterView.OnItem
                 if (!success) {
                     Toast.makeText(PhotoAlbums.this, "Couldn't delete album. Maybe you aren't the owner?", Toast.LENGTH_SHORT).show();
                 } else {
-                    viewableAlbums.remove(albumToDelete);
-                    albumImageAdapter.notifyDataSetChanged();
+                    loadAlbumsThenSetAdapter();
+//                    viewableAlbums.remove(albumToDelete);
+//                    albumImageAdapter.notifyDataSetChanged();
                     Toast.makeText(PhotoAlbums.this, "Album deleted", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -193,9 +194,9 @@ public class PhotoAlbums extends ActionBarActivity implements AdapterView.OnItem
     }
 
     private void loadAlbumsThenSetAdapter() {
-        setRefreshingStateForSwipeView(true);
         new AsyncTask<Void, Void, List<Album>>() {
             protected List<Album> doInBackground(Void... params) {
+                setRefreshingStateForSwipeView(true);
                 try {
                     return apiBroker.getViewableAlbums();
                 } catch (IOException|UnirestException  e) {
@@ -206,6 +207,7 @@ public class PhotoAlbums extends ActionBarActivity implements AdapterView.OnItem
 
             protected void onPostExecute(List<Album> albums) {
                 viewableAlbums = albums;
+                photoApp.setUserViewableAlbums(albums);
                 if (albums == null) {
                     Toast.makeText(PhotoAlbums.this, "Couldn't load album list. Sorry.", Toast.LENGTH_SHORT).show();
                 } else {
@@ -213,7 +215,6 @@ public class PhotoAlbums extends ActionBarActivity implements AdapterView.OnItem
                     albumImageAdapter = new AlbumImageAdapter(PhotoAlbums.this, albums, apiBroker);
                     gridView.setAdapter(albumImageAdapter);
                     albumImageAdapter.notifyDataSetChanged();
-
                 }
                 setRefreshingStateForSwipeView(false);
             }
@@ -237,7 +238,7 @@ public class PhotoAlbums extends ActionBarActivity implements AdapterView.OnItem
         Map<String, String> headers = new HashMap<>();
         headers.put("X-Facebook-Token", facebookAccessToken);
         DisplayImageOptions options = new DisplayImageOptions.Builder()
-                .showImageOnLoading(R.drawable.ic_contact_picture) // resource or drawable
+                .showImageOnLoading(R.drawable.ic_image_placeholder) // resource or drawable
                 .showImageForEmptyUri(R.drawable.ic_menu_help) // resource or drawable
                 .showImageOnFail(R.drawable.ic_delete) // resource or drawable
                 .resetViewBeforeLoading(true)  // default

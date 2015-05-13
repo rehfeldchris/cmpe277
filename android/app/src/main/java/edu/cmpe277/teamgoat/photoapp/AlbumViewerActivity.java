@@ -124,8 +124,7 @@ public class AlbumViewerActivity extends ActionBarActivity {
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        deleteImage(imageToDelete, albumToModify);
-
+                    deleteImage(imageToDelete, albumToModify);
                     }
                 })
                 .setNegativeButton("No", null)
@@ -148,8 +147,9 @@ public class AlbumViewerActivity extends ActionBarActivity {
                 if (!success) {
                     Toast.makeText(getApplicationContext(), "Couldn't delete image. Maybe you aren't the owner?", Toast.LENGTH_SHORT).show();
                 } else {
-                    albumToModify.getImages().remove(imageToDelete);
-                    imageAdapter.notifyDataSetChanged();
+                    handleImagesRefresh();
+//                    albumToModify.getImages().remove(imageToDelete);
+//                    imageAdapter.notifyDataSetChanged();
                     Toast.makeText(getApplicationContext(), "Image deleted", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -159,8 +159,6 @@ public class AlbumViewerActivity extends ActionBarActivity {
 
     private void handleImagesRefresh() {
         setRefreshingStateForSwipeView(true);
-        //Toast.makeText(getApplicationContext(), "TODO Handle Refresh", Toast.LENGTH_SHORT).show();
-        // TODO handle refresh --> async task -> get album -> update global variable album --> update adapter
 
         new AsyncTask<Void, Void, Boolean>() {
             protected Boolean doInBackground(Void... params) {
@@ -183,7 +181,7 @@ public class AlbumViewerActivity extends ActionBarActivity {
                     public void run() {
                         if (success) {
                             imageAdapter.notifyDataSetChanged();
-                            Toast.makeText(getApplicationContext(), "Refreshed.", Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(getApplicationContext(), "Refreshed.", Toast.LENGTH_SHORT).show();
                         } else {
                             Toast.makeText(getApplicationContext(), "Failed to refresh albums.", Toast.LENGTH_SHORT).show();
                         }
