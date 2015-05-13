@@ -51,9 +51,15 @@ public class ImageSearchActivity extends ActionBarActivity {
         useCurrentLocationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Location location = photoApp.getLocationManager().getLastKnownLocationFromService();
-                lat.setText(String.format("%.3f", location.getLatitude()));
-                lon.setText(String.format("%.3f", location.getLongitude()));
+                try {
+                    Location location = photoApp.getLocationManager().getLastKnownLocationFromService();
+                    lat.setText(String.format("%.3f", location.getLatitude()));
+                    lon.setText(String.format("%.3f", location.getLongitude()));
+                } catch (Exception e) {
+                    Toast.makeText(getApplicationContext(), "Error getting your location", Toast.LENGTH_SHORT).show();
+                    e.printStackTrace();
+                }
+
             }
         });
 
@@ -83,15 +89,15 @@ public class ImageSearchActivity extends ActionBarActivity {
                 }
 
                 // Meters
-                Double meters = null;
+                Double miles = null;
                 try {
-                    meters = Double.parseDouble(distance.getText().toString());
+                    miles = Double.parseDouble(distance.getText().toString());
                 } catch (NumberFormatException e) {
-                    meters = null;
+                    miles = null;
                 }
 
                 // Now call api
-                handleSearch(keywordSearch, locationLat, locationLon, meters);
+                handleSearch(keywordSearch, locationLat, locationLon, miles);
             }
         });
 
