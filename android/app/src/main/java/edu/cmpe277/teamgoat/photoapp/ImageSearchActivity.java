@@ -8,13 +8,22 @@ import android.text.Editable;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Adapter;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mashape.unirest.http.exceptions.UnirestException;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import edu.cmpe277.teamgoat.photoapp.model.ApiBroker;
@@ -85,6 +94,21 @@ public class ImageSearchActivity extends ActionBarActivity {
                 handleSearch(keywordSearch, locationLat, locationLon, meters);
             }
         });
+
+        SearchResultAdapter adapter = new SearchResultAdapter(new ArrayList<Image>());
+        ListView search_container = (ListView)findViewById(R.id.list_search_item);
+        search_container.setAdapter(adapter);
+        search_container.setOnItemClickListener(
+                new AdapterView.OnItemClickListener()
+                {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+                    {
+
+                    }
+                }
+        );
+
     }
 
     @Override
@@ -129,7 +153,53 @@ public class ImageSearchActivity extends ActionBarActivity {
             protected void onPostExecute(List<Image> images) {
                 super.onPostExecute(images);
                 PaLog.info(String.format("Finished Searching Images. Size of images: '%s'.", (images == null) ? null : images.size()));
+                ListView search_container =
+                        (ListView)ImageSearchActivity.this.findViewById(R.id.list_search_item);
+                SearchResultAdapter resultAdapter = (SearchResultAdapter)search_container.getAdapter();
+                resultAdapter.updateData(images);
             }
         }.execute();
+    }
+
+    private class SearchResultAdapter extends ArrayAdapter
+    {
+        List<Image> images;
+        SearchResultAdapter(List<Image> images)
+        {
+            super(ImageSearchActivity.this, 0, images);
+            this.images = images;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent)
+        {
+            if (convertView == null)
+                convertView = getLayoutInflater().inflate(R.layout.search_result_item, parent, false);
+
+            ImageView img = (ImageView) convertView.findViewById(R.id.image_found);
+            TextView txt_title = (TextView)convertView.findViewById(R.id.single_image_title);
+
+            try {
+                Image image = (Image) getItem(position);
+                txt_title.setText(image.getDescription());
+                String imgUrl = apiBroker.getUrlForImage(image);
+                ImageLoader.getInstance().displayImage(imgUrl, img);
+            }
+            catch (ArrayIndexOutOfBoundsException e)
+            {
+                img.setImageResource(R.drawable.ic_delete);
+                e.printStackTrace();
+                Toast.makeText(getApplicationContext(), "No result found.", Toast.LENGTH_SHORT).show();
+            }
+
+            return convertView;
+        }
+
+        void updateData(List<Image> images)
+        {
+            for (Image image : images)
+                this.images.add(image);
+            notifyDataSetChanged();
+        }
     }
 }
