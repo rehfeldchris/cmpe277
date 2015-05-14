@@ -214,10 +214,8 @@ public class ImageSearchActivity extends ActionBarActivity{
             return convertView;
         }
 
-        void updateData(List<Image> images)
-        {
-            for (Image image : images)
-                this.images.add(image);
+        void updateData(List<Image> images) {
+            this.images = images == null ? new ArrayList<Image>() : images;
             notifyDataSetChanged();
         }
 
