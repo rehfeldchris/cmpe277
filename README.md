@@ -8,7 +8,7 @@ Sai Karra	006671782	saikarra@gmail.com
 
 
 Usage and Features
-
+---------------------------------------
 - Authentication
   - Login with Facebook
   - You will reach a screen titled "PhotoAlbums". You may or may not see some photoalbums at this point, depending on whether or not there's any publicly viewable albums in the database at the moment. Create an album by clicking the icon in the actionbar. 
@@ -33,23 +33,24 @@ Usage and Features
 
 
 Build Instructions:  
+---------------------------------------
 Note that there's 2 sub-projects in our git repo:  
 1. android - our android app project/client  
 2. server - our api server that the app interacts with  
 
 
-Building the android app (require Android Studio)
-1. Open Android Studio --> Import Project --> Locate to the "android" folder in cmpe277 --> OK
-2. Options:
-   a. Build & deploy app using Gradle:
-   	- From Android Studio Menu bar: Build --> Make Project
-	- To run app, select Run --> Run "app" from Android Studio Menu bar.
-   b. To build app (generate singed apk package), from Menu bar: Build --> Make Project
-   	- Generate your own release keystore or use your existing one.
-	- Follow the instructions to generate signed apk
-   	- Check folder "<path to android>/app/build" for generated signed apk
+#### Building the android app (require Android Studio)
+1. Open Android Studio --> Import Project --> Locate to the "android" folder in cmpe277 --> OK  
+2. Options:  
+   a. Build & deploy app using Gradle:  
+   	- From Android Studio Menu bar: Build --> Make Project  
+	- To run app, select Run --> Run "app" from Android Studio Menu bar.  
+   b. To build app (generate singed apk package), from Menu bar: Build --> Make Project  
+   	- Generate your own release keystore or use your existing one.  
+	- Follow the instructions to generate signed apk  
+   	- Check folder "<path to android>/app/build" for generated signed apk  
 
-Building the server (requires maven):  
+#### Building the server (requires maven):  
 NOTE - You don't need to build/run the server! We're already hosting one for you, and the app is configured to use it.
 1. Create the packaged war file: `mvn package`  
 2. Create a config file with the identified properties below  
