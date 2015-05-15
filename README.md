@@ -43,35 +43,10 @@ Usage and Features
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Building the server (requires maven):
-1. Create the packaged war file
-2. Create a config file with the identified properties below
-3. Run the war file in the same directory as the properties file
-```
-mvn package
-```
-
+Building the server (requires maven):  
+1. Create the packaged war file: `mvn package`  
+2. Create a config file with the identified properties below  
+3. Run the war file in the same directory as the properties file: `java -jar photoapp.1.0.0.war`  
 ```properties
 server.port=444
 server.ssl.key-store=
@@ -92,7 +67,4 @@ tempDir=~/photoapp/tempdir
 server.tomcat.accessLogEnabled=true
 server.tomcat.accessLogPattern=%h %l %u %t "%r" %s %b %D "%{User-Agent}i"
 server.tomcat.basedir=~/photoapp/tomcat/
-```
-```
-java -jar photoapp.1.0.0.war
 ```
