@@ -17,6 +17,7 @@
         android:layout_height="wrap_content"
         android:id="@id/single_image_title"
         android:text="@string/txt_lastname"
+        android:layout_marginLeft="12sp"
         />
 
 </LinearLayout>
