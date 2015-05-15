@@ -12,10 +12,8 @@ Sai Karra		006671782	saikarra@gmail.com
 Build Instructions:
 
 Note that there's 2 sub-projects in our git repo:
-1) android - our android app project/client
-2) server - our api server that the app interacts with
-
-
+1. android - our android app project/client
+2. server - our api server that the app interacts with (Prodution url: https://srkarra.com:444/
 
 
 
@@ -35,3 +33,38 @@ Log in with facebook. You will reach a screen titled "PhotoAlbums". You may or m
 Use the menu in the actionbar to go to the search screen. The search works like a filter, so if you enter keywords, it will return a list of images
 which have at least one of the keywords somewhere in its data, or one of its comments. Additionally, you can filter for images in proximity to
 a location. You can click images in the search result.
+
+
+
+Building the server (requires maven):
+1. Create the packaged war file
+2. Create a config file with the identified properties below
+3. Run the war file in the same directory as the properties file
+```
+mvn package
+```
+
+```properties
+server.port=444
+server.ssl.key-store=
+server.ssl.key-store-password=
+server.ssl.key-password=
+
+spring.data.mongodb.host=
+spring.data.mongodb.port=
+spring.data.mongodb.database=
+spring.data.mongodb.username=
+spring.data.mongodb.password=
+spring.data.mongodb.repositories.enabled=true
+
+multipart.maxFileSize=100Mb
+imageFileSaveDir=~/photoapp/uploaded-images
+tempDir=~/photoapp/tempdir
+
+server.tomcat.accessLogEnabled=true
+server.tomcat.accessLogPattern=%h %l %u %t "%r" %s %b %D "%{User-Agent}i"
+server.tomcat.basedir=~/photoapp/tomcat/
+```
+```
+java -jar photoapp.1.0.0.war
+```
