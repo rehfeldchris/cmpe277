@@ -1,19 +1,10 @@
-CMPE 277 Project
+Photo App
 ---------------------------------------
 
-Photo Sharing App
-
-Chris Rehfeld	008520603	rehfeldchris@gmail.com
-Carita Ou	006004479	carita.ou@gmail.com
-Thong Nguyen	008122270	nhthong2007@gmail.com 
-Sai Karra	006671782	saikarra@gmail.com
-
-
-Build Instructions:
-
-Note that there's 2 sub-projects in our git repo:
-1. android - our android app project/client
-2. server - our api server that the app interacts with
+Chris Rehfeld	008520603	rehfeldchris@gmail.com  
+Carita Ou	006004479	carita.ou@gmail.com  
+Thong Nguyen	008122270	nhthong2007@gmail.com   
+Sai Karra	006671782	saikarra@gmail.com  
 
 
 Usage and Features
@@ -39,6 +30,12 @@ Usage and Features
 - Search Photos
   - Use the menu in the actionbar to go to the search screen. The search works like a filter, so if you enter keywords, it will return a list of images which have at least one of the keywords somewhere in its data, or one of its comments. 
   - Additionally, you can filter for images in proximity to a location. You can click images in the search result.
+
+
+Build Instructions:  
+Note that there's 2 sub-projects in our git repo:  
+1. android - our android app project/client  
+2. server - our api server that the app interacts with  
 
 
 Building the android app (require Android Studio)
