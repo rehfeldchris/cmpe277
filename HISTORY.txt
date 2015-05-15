@@ -1,0 +1,2079 @@
+commit dc57d6dcd398c233bb2a732a27fb2c962781ac2b
+Author: Thong Nguyen <nhthong2007@gmail.com>
+Date:   Thu May 14 19:47:45 2015 -0700
+
+    Add "Thong" student id to readme.
+
+commit 9baa64d32433cf44bf8c7ce1e7400fac0bf8f535
+Merge: 73e8e62 6631269
+Author: Thong Nguyen <nhthong2007@gmail.com>
+Date:   Thu May 14 19:45:15 2015 -0700
+
+    Merge branch 'master' of https://github.com/srkarra/cmpe277
+    
+    # By chris rehfeld
+    # Via chris rehfeld
+    * 'master' of https://github.com/srkarra/cmpe277:
+      dont stop gradle build due to lint error
+
+commit 73e8e62f0d7c4610a2cd8d59b9fb43bfd06ca15c
+Author: Thong Nguyen <nhthong2007@gmail.com>
+Date:   Thu May 14 19:45:02 2015 -0700
+
+    Fix: Create Album Back button issue.
+
+commit 66312697c93a172fb4f711c5b5024c4f2f8b13a9
+Author: chris rehfeld <rehfeldchris@gmail.com>
+Date:   Thu May 14 19:30:16 2015 -0700
+
+    dont stop gradle build due to lint error
+
+commit 566bb7f4f61f6e97bc6dead71696811640632728
+Author: Chris Rehfeld <rehfeldchris@gmail.com>
+Date:   Wed May 13 18:13:45 2015 -0700
+
+    add some margin to album access list
+
+commit f30753d8d319841cee106b8cadd94f306391a0e4
+Author: Thong Nguyen <nhthong2007@gmail.com>
+Date:   Wed May 13 17:27:59 2015 -0700
+
+    Fix image loading
+
+commit 80a30214bffe3571c8327f656f95c88d99ad40b2
+Author: Sai Karra <srkarra@us.ibm.com>
+Date:   Wed May 13 17:02:55 2015 -0700
+
+    Search result overwrite previous search instead of append
+
+commit cfe6925287ab0555d26d8097e1f7a6a457c48a17
+Merge: 476bdce 606c1ed
+Author: Sai Karra <srkarra@us.ibm.com>
+Date:   Wed May 13 16:59:25 2015 -0700
+
+    Merge branch 'master' of github.com:srkarra/cmpe277
+
+commit 476bdce93bc727c59c1c5d73a3c74f8cdc2f3bf1
+Author: Sai Karra <srkarra@us.ibm.com>
+Date:   Wed May 13 16:56:56 2015 -0700
+
+    Removed at strings to hardcode urls for invite
+
+commit 606c1ede8841dd6a99e5cd27c8cf0274a856772b
+Author: Thong Nguyen <nhthong2007@gmail.com>
+Date:   Wed May 13 16:51:32 2015 -0700
+
+    Add: event listener on image item.
+    Fix search result image size.
+
+commit 1f9cfc3b36a951db355149c14beb4edd8e956d69
+Author: Chris Rehfeld <rehfeldchris@gmail.com>
+Date:   Wed May 13 16:33:25 2015 -0700
+
+    fix  bug
+
+commit e896a14803fa3e6ab9c8e144b4c9bfd57ea0db06
+Author: Chris Rehfeld <rehfeldchris@gmail.com>
+Date:   Wed May 13 16:18:33 2015 -0700
+
+    fix image upload error logic
+
+commit 62ec5cef9f7946a730c7507ba539b4bc782463a7
+Merge: cc89c24 b2be500
+Author: Chris Rehfeld <rehfeldchris@gmail.com>
+Date:   Wed May 13 15:57:13 2015 -0700
+
+    Merge remote-tracking branch 'origin/master'
+
+commit cc89c24aa30aa20c0d1abc70659570b9cf057db6
+Author: Chris Rehfeld <rehfeldchris@gmail.com>
+Date:   Wed May 13 15:57:05 2015 -0700
+
+    enalble location listener and do more error checking of image upload
+
+commit b2be500a72fad1cc35eab24d9c55c4dd4dcdc972
+Merge: 6007af8 253cf93
+Author: Thong Nguyen <nhthong2007@gmail.com>
+Date:   Wed May 13 15:50:05 2015 -0700
+
+    Merge branch 'master' of https://github.com/srkarra/cmpe277
+    
+    # By Chris Rehfeld (4) and others
+    # Via Chris Rehfeld (2) and others
+    * 'master' of https://github.com/srkarra/cmpe277:
+      add exception handler for getting location button
+      Fix Permission Issue
+      only allow uploads into albums viewable by user
+      refresh facebook app_url for app invite
+      convert miles to meters
+      Bug fix, use gps not network twice
+      add coords to image taken from camera, if needed
+      removed todo markers
+
+commit 6007af86ccfe16ade015729285d1a961c8369a8a
+Author: Thong Nguyen <nhthong2007@gmail.com>
+Date:   Wed May 13 15:49:58 2015 -0700
+
+    Render Search Result
+
+commit 253cf93c792d335287e6b2df96c46d26a7badeec
+Author: Chris Rehfeld <rehfeldchris@gmail.com>
+Date:   Wed May 13 15:44:22 2015 -0700
+
+    add exception handler for getting location button
+
+commit ccad1bec84dc55bda9d601a75b26b978124bf0c7
+Author: Sai Karra <srkarra@us.ibm.com>
+Date:   Wed May 13 15:30:58 2015 -0700
+
+    Fix Permission Issue
+
+commit 2d9dbc7894a7d8414d524b224b2c53b765455261
+Merge: 9fa0c98 6ffaa03
+Author: caritaou <carita.ou@gmail.com>
+Date:   Wed May 13 15:14:54 2015 -0700
+
+    Merge branch 'master' of github.com:srkarra/cmpe277 into photoapp-master
+
+commit 6ffaa035d5e14c0c64dfe29759f41ab2a424e8cc
+Author: Chris Rehfeld <rehfeldchris@gmail.com>
+Date:   Wed May 13 15:14:40 2015 -0700
+
+    only allow uploads into albums viewable by user
+
+commit 9fa0c98e80ba19ee9c627310c58c309e378eb0c8
+Author: caritaou <carita.ou@gmail.com>
+Date:   Wed May 13 15:14:06 2015 -0700
+
+    refresh facebook app_url for app invite
+
+commit 3ab272c392586f6fe94e804cecafbb73779705e8
+Merge: 62ccb30 19676f9
+Author: Chris Rehfeld <rehfeldchris@gmail.com>
+Date:   Wed May 13 14:45:05 2015 -0700
+
+    Merge remote-tracking branch 'origin/master'
+
+commit 62ccb3073a88706bc10b599b01c285fc5a9ff394
+Author: Chris Rehfeld <rehfeldchris@gmail.com>
+Date:   Wed May 13 14:44:54 2015 -0700
+
+    convert miles to meters
+
+commit 19676f9bb9df25cca8c980e6ada11f8eac3558c2
+Merge: e619adc 87ea292
+Author: Sai Karra <srkarra@us.ibm.com>
+Date:   Wed May 13 14:27:12 2015 -0700
+
+    Merge branch 'master' of github.com:srkarra/cmpe277
+
+commit e619adcc6c7a2edacade5db08c506e4cd1ba78ac
+Author: Sai Karra <srkarra@us.ibm.com>
+Date:   Wed May 13 14:27:05 2015 -0700
+
+    Bug fix, use gps not network twice
+
+commit 87ea29244c3d3ada7cf7443e0a5ef97ffe7b3972
+Author: Chris Rehfeld <rehfeldchris@gmail.com>
+Date:   Wed May 13 14:19:41 2015 -0700
+
+    add coords to image taken from camera, if needed
+
+commit db9a2241f129b3ac8c69f3432c68de2f807fd078
+Author: Sai Karra <srkarra@us.ibm.com>
+Date:   Wed May 13 14:18:27 2015 -0700
+
+    removed todo markers
+
+commit f1138831d501b5aa9976c3cb7d15c3a36d34ba07
+Merge: be4bf36 09d49d3
+Author: Sai Karra <srkarra@us.ibm.com>
+Date:   Wed May 13 14:12:25 2015 -0700
+
+    Merged Code
+
+commit be4bf3602c735bf724fe6bb0b3ea962ddce8360b
+Author: Sai Karra <srkarra@us.ibm.com>
+Date:   Wed May 13 14:10:33 2015 -0700
+
+    Functioning Search
+
+commit 09d49d33600d19fa6eba81538008910c84a1ca72
+Author: Chris Rehfeld <rehfeldchris@gmail.com>
+Date:   Wed May 13 14:05:14 2015 -0700
+
+    swap lat/lon position in query
+
+commit 13deb2af67e91cde975626c082973135978be243
+Author: Chris Rehfeld <rehfeldchris@gmail.com>
+Date:   Wed May 13 13:48:21 2015 -0700
+
+    rename variable, and catch exception when getting location
+
+commit ee213d1e2b85b2ca4fabdba197e75d12bff2d4e4
+Author: Sai Karra <srkarra@us.ibm.com>
+Date:   Wed May 13 12:11:21 2015 -0700
+
+    Added function to convert miles to meters in api broker to bridge ui and web services
+
+commit bc19852626c00ee7a9192a7ca3ca182e61036769
+Author: Sai Karra <srkarra@us.ibm.com>
+Date:   Wed May 13 12:09:43 2015 -0700
+
+    Pan activities so that when keyboard comes out the ui isn't squeezed
+
+commit 97ad1aeddae86d9eefcd829f72c50635a88728f4
+Author: Sai Karra <srkarra@us.ibm.com>
+Date:   Wed May 13 11:58:24 2015 -0700
+
+    Added location logging on startup for testing
+
+commit b0c055e255a077768fb869f50bf97ecc88c7f2de
+Author: Chris Rehfeld <rehfeldchris@gmail.com>
+Date:   Wed May 13 11:55:56 2015 -0700
+
+    add button to set current location in search page
+
+commit d6b87c101ad8b3cd499ff576dba4f12887041543
+Merge: 539c09d cf4999e
+Author: Thong Nguyen <nhthong2007@gmail.com>
+Date:   Tue May 12 23:44:56 2015 -0700
+
+    Merge branch 'master' of https://github.com/srkarra/cmpe277
+    
+    # By Sai Karra (8) and others
+    # Via Sai Karra (3) and Carita Ou (2)
+    * 'master' of https://github.com/srkarra/cmpe277:
+      Initiate Location Manager:
+      Save Location services on start
+      Added base location services code
+      add client side api for image search
+      add server side api call to search images, filtering by keyword or location
+      images and albums are refreshed after being deleted
+      fix lat lon issue on file uploads
+      Base file for location services
+      Update changelog-since-demo.md
+      try alternate strategy for temp dir
+      fix bug where mime is null for uploads
+      Moved image loader library from login view to main activity
+      Album - Image pull to refresh
+      fix image upload code to use correct mime type and reliably save to filesystem
+    
+    Conflicts:
+    	android/app/src/main/java/edu/cmpe277/teamgoat/photoapp/PhotoAlbums.java
+
+commit 539c09de3b7fed6d8a37af880c4f390fdd7bb0f5
+Author: Thong Nguyen <nhthong2007@gmail.com>
+Date:   Tue May 12 23:42:06 2015 -0700
+
+    Add Search Layout: 2 options
+
+commit cf4999e6f64c2558e53096628d871fb98f6196e6
+Author: Sai Karra <srkarra@us.ibm.com>
+Date:   Tue May 12 22:15:17 2015 -0700
+
+    Initiate Location Manager:
+
+commit 44935d470a94dbdd1a38b37b4dfb7effa1b7753e
+Author: Sai Karra <srkarra@us.ibm.com>
+Date:   Tue May 12 22:11:57 2015 -0700
+
+    Save Location services on start
+
+commit 335486856c89a71a6e48cfd491701b15eb6a3ea4
+Author: Sai Karra <srkarra@us.ibm.com>
+Date:   Tue May 12 22:09:26 2015 -0700
+
+    Added base location services code
+
+commit 82e2373113d704e92809616db3a5a92aa9f9f3a3
+Author: chris rehfeld <rehfeldchris@gmail.com>
+Date:   Tue May 12 21:19:47 2015 -0700
+
+    add client side api for image search
+
+commit 0ac4704a1a5444ab734161d8eb21ff5b3adfe789
+Author: chris rehfeld <rehfeldchris@gmail.com>
+Date:   Tue May 12 21:03:39 2015 -0700
+
+    add server side api call to search images, filtering by keyword or location
+
+commit 1ca0af6ed5387b18eedb660bbe486084ac1b0b8a
+Author: Sai Karra <srkarra@us.ibm.com>
+Date:   Tue May 12 19:57:49 2015 -0700
+
+    images and albums are refreshed after being deleted
+
+commit c90197dbb92f17da0f06cc0b968b120866efbf91
+Merge: b514f74 12e4627
+Author: Sai Karra <srkarra@us.ibm.com>
+Date:   Tue May 12 19:46:01 2015 -0700
+
+    Merge branch 'master' of github.com:srkarra/cmpe277
+
+commit 12e46274b79deffc0cb386fc8f70979724dc67e7
+Merge: 374dd0e 55c8e8b
+Author: Carita Ou <caritaou@yahoo.com>
+Date:   Tue May 12 17:55:52 2015 -0700
+
+    Merge branch 'master' of https://github.com/srkarra/cmpe277
+
+commit 374dd0e9bc1a7a5509f4c255a474ba7a64f3c543
+Author: Carita Ou <caritaou@yahoo.com>
+Date:   Tue May 12 17:55:06 2015 -0700
+
+    fix lat lon issue on file uploads
+
+commit b514f749d03f8c6493a15a86c9968252869c0247
+Author: Sai Karra <srkarra@us.ibm.com>
+Date:   Tue May 12 17:40:49 2015 -0700
+
+    Base file for location services
+
+commit 55c8e8b1646ff62f064e467b1ab003356c4dc287
+Author: Sai Karra <srkarra@users.noreply.github.com>
+Date:   Tue May 12 17:33:00 2015 -0700
+
+    Update changelog-since-demo.md
+
+commit 0bc3a12f1035df95823e9cc857aacc312e062f6a
+Author: Carita Ou <caritaou@yahoo.com>
+Date:   Tue May 12 17:27:58 2015 -0700
+
+    try alternate strategy for temp dir
+
+commit 2515ff919a09c6bfdc5d54d40fb627ddcbeebd9c
+Merge: bd168c1 119059e
+Author: Carita Ou <caritaou@yahoo.com>
+Date:   Tue May 12 16:52:07 2015 -0700
+
+    Merge branch 'master' of https://github.com/srkarra/cmpe277
+
+commit bd168c185393d7fa21f2ba8fc15ec52affc680f4
+Author: Carita Ou <caritaou@yahoo.com>
+Date:   Tue May 12 16:51:32 2015 -0700
+
+    fix bug where mime is null for uploads
+
+commit 119059ef9ed4575e14e6a81de1835f44764e4abd
+Author: Sai Karra <srkarra@us.ibm.com>
+Date:   Tue May 12 16:29:54 2015 -0700
+
+    Moved image loader library from login view to main activity
+
+commit ffdd5f89bbf53b3b9655288f232b0fb445033150
+Merge: 789e052 582ca68
+Author: Sai Karra <srkarra@us.ibm.com>
+Date:   Tue May 12 16:19:49 2015 -0700
+
+    Merge branch 'master' of github.com:srkarra/cmpe277
+
+commit 789e052859a3b5acacf834bf10608b549999e7e4
+Author: Sai Karra <srkarra@us.ibm.com>
+Date:   Tue May 12 16:19:44 2015 -0700
+
+    Album - Image pull to refresh
+
+commit 582ca684f3aa534f5bf1b7ad499dfeac9cd29614
+Author: Carita Ou <caritaou@yahoo.com>
+Date:   Tue May 12 16:19:07 2015 -0700
+
+    fix image upload code to use correct mime type and reliably save to filesystem
+
+commit dfe1450a18aa07f0e816ddc34c5e4c5a484f26f1
+Author: Carita Ou <caritaou@yahoo.com>
+Date:   Tue May 12 00:52:24 2015 -0700
+
+    support auto parsing lat/lon from uploaded images
+
+commit ec6da8e149de9dfc841974b6411dfbad5715d4e2
+Author: Sai Karra <srkarra@us.ibm.com>
+Date:   Mon May 11 23:37:24 2015 -0700
+
+    Removed duplicate command
+
+commit e55a1942e811a0c12bcd5396f72eb9e4ea569a70
+Merge: 5659d0a 141557d
+Author: Sai Karra <srkarra@us.ibm.com>
+Date:   Mon May 11 23:35:01 2015 -0700
+
+    Merge branch 'master' of github.com:srkarra/cmpe277
+
+commit 5659d0a88a61cc20e92d793052e50f2faf91854a
+Author: Sai Karra <srkarra@us.ibm.com>
+Date:   Mon May 11 23:34:51 2015 -0700
+
+    Redo merge because someone doesn't know how :P
+
+commit 141557ddf1e2c9a068e35fa04692169c89727d6f
+Author: Carita Ou <caritaou@yahoo.com>
+Date:   Mon May 11 23:34:05 2015 -0700
+
+    redo changes for image clicked index
+
+commit fea2a6ae433872ae5148a667c032a69da88a0170
+Merge: 9d718f8 019da70
+Author: Sai Karra <srkarra@us.ibm.com>
+Date:   Mon May 11 23:26:23 2015 -0700
+
+    Merge branch 'master' of github.com:srkarra/cmpe277
+
+commit 9d718f839988e7c972a5c3dfd6a416bb461065ac
+Author: Sai Karra <srkarra@us.ibm.com>
+Date:   Mon May 11 23:26:17 2015 -0700
+
+    Disable comment button until text is entered
+
+commit 019da70ac4d9a7369e61f6e972e696f67c0c1feb
+Merge: d7154e3 46c08c4
+Author: Carita Ou <caritaou@yahoo.com>
+Date:   Mon May 11 23:23:43 2015 -0700
+
+    Merge branch 'master' of https://github.com/srkarra/cmpe277
+
+commit d7154e323711880be62bded77217995d9501e6ec
+Merge: aee0a08 a208463
+Author: Carita Ou <caritaou@yahoo.com>
+Date:   Mon May 11 23:23:07 2015 -0700
+
+    merge/blow stuff away
+
+commit 46c08c467032baa7e6340d6ed448a6e2aa8d4c10
+Author: Sai Karra <srkarra@users.noreply.github.com>
+Date:   Mon May 11 23:17:36 2015 -0700
+
+    Update changelog-since-demo.md
+
+commit aee0a082744a1b6943096cb1a7ecfc4b9d05e7f0
+Author: Carita Ou <caritaou@yahoo.com>
+Date:   Mon May 11 23:16:46 2015 -0700
+
+    allow image uploads from camera. also, auto update images in album after uploading image
+
+commit a2084638b818059fa8e566c8ad5182cfdeee32a5
+Author: Sai Karra <srkarra@us.ibm.com>
+Date:   Mon May 11 23:15:57 2015 -0700
+
+    Code cleanup and added swipe to refresh handler for images view
+
+commit 5e027284519ba79e9620d360621433a63441acf3
+Author: Carita Ou <caritaou@yahoo.com>
+Date:   Mon May 11 23:14:27 2015 -0700
+
+    allow image uploads from camera. also, auto update images in album after uploading image
+
+commit 7480f2081185f7e45b32cd7638f21c3b89273f8e
+Author: Sai Karra <srkarra@us.ibm.com>
+Date:   Mon May 11 23:07:26 2015 -0700
+
+    code cleanup
+
+commit c7fe5ce726608da37e2a9cea3c08982e7160cef7
+Merge: ac77017 768980e
+Author: Sai Karra <srkarra@us.ibm.com>
+Date:   Mon May 11 23:05:28 2015 -0700
+
+    Merge branch 'master' of github.com:srkarra/cmpe277
+
+commit ac770176828a4060adcf12c9032556382c96b71f
+Author: Sai Karra <srkarra@us.ibm.com>
+Date:   Mon May 11 23:05:18 2015 -0700
+
+    Show the correct image in Image View drill down instead of first in the album
+
+commit 768980ec75aba4ae6bf2ca1ded4ec57ac05a5294
+Author: Sai Karra <srkarra@users.noreply.github.com>
+Date:   Mon May 11 22:52:05 2015 -0700
+
+    Update changelog-since-demo.md
+
+commit e7bd7154770c0fd59eac2857699200b5615ea5c8
+Author: Sai Karra <srkarra@us.ibm.com>
+Date:   Mon May 11 22:45:16 2015 -0700
+
+    Show upload failed message on toast
+
+commit f8e0374bee0e247931e53eb724452d5c6502f29d
+Merge: 5d8e610 210c8e4
+Author: Sai Karra <srkarra@us.ibm.com>
+Date:   Mon May 11 22:37:27 2015 -0700
+
+    Merge branch 'master' of github.com:srkarra/cmpe277
+
+commit 5d8e6106e0e099e8e8d9469c2b3a66548f856136
+Author: Sai Karra <srkarra@us.ibm.com>
+Date:   Mon May 11 22:37:23 2015 -0700
+
+    Added swipe to change image
+
+commit 210c8e46f905a0cd975d31b88390a95b7850511f
+Author: Carita Ou <caritaou@yahoo.com>
+Date:   Mon May 11 21:25:12 2015 -0700
+
+    prevent new album creation unless title and description fields non empty
+
+commit 6b5289e156fd619c473b6c1c21ded06b98910aea
+Merge: 3e9a375 3149bcc
+Author: Carita Ou <caritaou@yahoo.com>
+Date:   Mon May 11 21:13:24 2015 -0700
+
+    Merge branch 'master' of https://github.com/srkarra/cmpe277
+
+commit 3e9a375f68d4bfb381b81934f4b243bdc55d9008
+Author: Carita Ou <caritaou@yahoo.com>
+Date:   Mon May 11 21:12:45 2015 -0700
+
+    fix image upload success message
+
+commit 3149bcc1dadccd665a26dcae2f1ffe41094bfa97
+Author: Sai Karra <srkarra@users.noreply.github.com>
+Date:   Mon May 11 19:25:11 2015 -0700
+
+    Update changelog-since-demo.md
+
+commit abaf5bed5f0a24f365f914ac1bad544ce3aadc78
+Author: Carita Ou <caritaou@yahoo.com>
+Date:   Mon May 11 17:43:57 2015 -0700
+
+    remove dead code
+
+commit 812d6d7c36582eadfcff95141e9017fb21c6a29b
+Author: caritaou <carita.ou@gmail.com>
+Date:   Mon May 11 17:41:43 2015 -0700
+
+    remove dead code
+
+commit 5e377e9e4b9733519d314c65dd119a63eff48c7b
+Merge: f76dd2a 8d2e64f
+Author: Carita Ou <caritaou@yahoo.com>
+Date:   Mon May 11 17:35:22 2015 -0700
+
+    Merge branch 'master' of https://github.com/srkarra/cmpe277
+
+commit f76dd2a50815cd0a16f5467a5675318f5dce59d9
+Author: Carita Ou <caritaou@yahoo.com>
+Date:   Mon May 11 17:34:44 2015 -0700
+
+    add new client side api call for getting fresh album info
+
+commit 8d2e64f23b33bcc4b46589ca36dbc6b0267fd429
+Author: Sai Karra <srkarra@us.ibm.com>
+Date:   Sun May 10 22:33:50 2015 -0700
+
+    Action Bar cleanup
+
+commit 4fb13a81b2dc3d025e88156ad3341107e7d91e5b
+Author: Sai Karra <srkarra@us.ibm.com>
+Date:   Sun May 10 22:19:50 2015 -0700
+
+    Moved album view back to main activity instead of sub fragment
+
+commit 4a75fbabaa714c27980b52e5489ddfae5750fedd
+Merge: 4e3fde5 2db7a3f
+Author: Sai Karra <srkarra@us.ibm.com>
+Date:   Sun May 10 21:10:07 2015 -0700
+
+    Merge branch 'master' of github.com:srkarra/cmpe277
+
+commit 4e3fde54ad281674722afd707af0707726f35f40
+Author: Sai Karra <srkarra@us.ibm.com>
+Date:   Sun May 10 20:59:41 2015 -0700
+
+    comment out unused code
+
+commit 2db7a3fec99f4489599bd69024fa09950a1c549f
+Merge: 1de3745 a2d353e
+Author: chris rehfeld <rehfeldchris@gmail.com>
+Date:   Sun May 10 20:49:51 2015 -0700
+
+    Merge remote-tracking branch 'origin/master'
+
+commit 1de374590a61ff4b76f384f6516671bae4f2e08e
+Author: chris rehfeld <rehfeldchris@gmail.com>
+Date:   Sun May 10 20:49:40 2015 -0700
+
+    some progress on image upload
+
+commit a2d353eaadb5675d4cca6473d1d3ff6f0ae973b1
+Merge: 3afe428 ed32a82
+Author: Sai Karra <srkarra@us.ibm.com>
+Date:   Sun May 10 18:52:00 2015 -0700
+
+    Merge branch 'master' of github.com:srkarra/cmpe277
+
+commit 3afe428061a585eb59b2ae177a235344790deb6c
+Author: Sai Karra <srkarra@us.ibm.com>
+Date:   Sun May 10 18:50:52 2015 -0700
+
+    Show lock on albums that are not public
+
+commit ed32a821ef623016e3dd4772a566d50c38f25a79
+Merge: 773c97f 911d403
+Author: chris rehfeld <rehfeldchris@gmail.com>
+Date:   Sun May 10 18:29:38 2015 -0700
+
+    Merge remote-tracking branch 'origin/master'
+
+commit 773c97fcf9283b64ed9e865c213e1b041a85bdec
+Author: chris rehfeld <rehfeldchris@gmail.com>
+Date:   Sun May 10 18:29:25 2015 -0700
+
+    fix album delete success bug
+
+commit 911d4034dd1e558255d7196c64b48b21b29504a3
+Author: Sai Karra <srkarra@users.noreply.github.com>
+Date:   Sun May 10 18:04:42 2015 -0700
+
+    Update changelog-since-demo.md
+
+commit 91d6df124610756ab59a4d2413c86c67ab51c499
+Author: Sai Karra <srkarra@us.ibm.com>
+Date:   Sun May 10 17:33:18 2015 -0700
+
+    Hide go to albums button on login view (finally)
+
+commit 9a444661894760f037831da612cac709205ea959
+Merge: 633d3b8 c09edc6
+Author: chris rehfeld <rehfeldchris@gmail.com>
+Date:   Sun May 10 16:20:25 2015 -0700
+
+    Merge remote-tracking branch 'origin/master'
+    
+    Conflicts:
+    	android/app/src/main/java/edu/cmpe277/teamgoat/photoapp/PhotoAlbums.java
+
+commit 633d3b853111d1e7396162e8ca74f3632ed1fe7e
+Author: chris rehfeld <rehfeldchris@gmail.com>
+Date:   Sun May 10 16:17:34 2015 -0700
+
+    use first image from album as cover photo. also, allow albums to be deleted by long press.
+
+commit c484b4a6aec458b464c2e8a299d2f30f859fca8a
+Author: chris rehfeld <rehfeldchris@gmail.com>
+Date:   Sun May 10 16:15:23 2015 -0700
+
+    fix image acl logic
+
+commit c09edc6f6fe3a4b97f4255ad7cf5d07d6a5169f4
+Author: Sai Karra <srkarra@users.noreply.github.com>
+Date:   Sun May 10 16:00:43 2015 -0700
+
+    Update changelog-since-demo.md
+
+commit 27d46e18dcc765a6ff6146227d2c83f0e54c347f
+Author: Sai Karra <srkarra@us.ibm.com>
+Date:   Sun May 10 15:40:04 2015 -0700
+
+    Added pull to refresh for albums
+
+commit 59e8f85e90ab048ee6d22294597c6988348bc906
+Author: Sai Karra <srkarra@us.ibm.com>
+Date:   Sun May 10 15:39:41 2015 -0700
+
+    fixed assets
+
+commit 44234cd6a88138ff73bba317d284ce85c6aed984
+Author: Sai Karra <srkarra@us.ibm.com>
+Date:   Sun May 10 15:35:12 2015 -0700
+
+    Resize placeholder images
+
+commit 8b1b76d21c22238e9aa05a915493e3f9c42a68b0
+Author: Sai Karra <srkarra@us.ibm.com>
+Date:   Sun May 10 15:16:55 2015 -0700
+
+    Removed bad drawables, updated cover art
+
+commit 3b6e8cd3f6e4236e3a43c1f89cfff358967b0812
+Author: Sai Karra <srkarra@us.ibm.com>
+Date:   Sun May 10 15:11:00 2015 -0700
+
+    refactor utility code
+
+commit 85a1580aa88bcd554948a39dd3fc561ba1f0a1d9
+Author: Sai Karra <srkarra@us.ibm.com>
+Date:   Sun May 10 15:10:43 2015 -0700
+
+    Comment out unused class
+
+commit b5adfdac088b2fbf39abbdc57b5b9d3d1159c67c
+Author: Sai Karra <srkarra@us.ibm.com>
+Date:   Sun May 10 15:09:31 2015 -0700
+
+    Removed lol global variables
+
+commit fe8be0aa342ec64b7935fd74511f3a572b61e2fd
+Author: Sai Karra <srkarra@us.ibm.com>
+Date:   Sun May 10 15:07:19 2015 -0700
+
+    Checkpoint
+
+commit a58404895a9a666a0fbd217058ab26200fee99f4
+Author: Sai Karra <srkarra@us.ibm.com>
+Date:   Sun May 10 13:08:28 2015 -0700
+
+    Updated core application apis
+
+commit 425a84eeec2da86a0460400720a83e9007ce965a
+Author: chris rehfeld <rehfeldchris@gmail.com>
+Date:   Sat May 9 17:44:07 2015 -0700
+
+    undo personal config
+
+commit da9212450c49ecba79fd7edcc79064e31993dc27
+Merge: df7c919 8c08aa6
+Author: chris rehfeld <rehfeldchris@gmail.com>
+Date:   Sat May 9 17:42:57 2015 -0700
+
+    Merge remote-tracking branch 'origin/master'
+    
+    Conflicts:
+    	android/app/src/main/java/edu/cmpe277/teamgoat/photoapp/LolGlobalVariables.java
+    	android/app/src/main/java/edu/cmpe277/teamgoat/photoapp/MainActivity.java
+
+commit df7c919058f19ad917d457e275194748ef2081ba
+Author: chris rehfeld <rehfeldchris@gmail.com>
+Date:   Sat May 9 17:40:35 2015 -0700
+
+    allow images to be deleted by the owner by long pressing on the image in the grid view
+
+commit 8c08aa680cf8da5f603a9b28e12b1e3780642ee5
+Merge: 2c715cc c0a7253
+Author: Sai Karra <srkarra@us.ibm.com>
+Date:   Sat May 9 16:10:41 2015 -0700
+
+    Merge branch 'master' of github.com:srkarra/cmpe277
+
+commit 2c715cc0d37a42219b352b090b4e652be78c22d0
+Author: Sai Karra <srkarra@us.ibm.com>
+Date:   Sat May 9 16:10:12 2015 -0700
+
+    New ICONS!
+
+commit 89eff6c5e79c65e47d4b3cf2926beac5502d45f4
+Author: Sai Karra <srkarra@us.ibm.com>
+Date:   Sat May 9 16:10:03 2015 -0700
+
+    Cleaned up login screen, todo: test application facebook access token
+
+commit c0a725313c1d5d3da7ea31f2d3c0f6caf82f805e
+Author: chris rehfeld <rehfeldchris@gmail.com>
+Date:   Sat May 9 16:03:36 2015 -0700
+
+    add client and server code to allow an image owner to delete an image
+
+commit a9659d7b6b7b4ea7510600b41a3a7f5410cd02cc
+Author: Sai Karra <srkarra@us.ibm.com>
+Date:   Sat May 9 15:58:51 2015 -0700
+
+    Removed global class
+
+commit 74ca60b4344bc2d83f54b07c1e3386965595db62
+Author: chris rehfeld <rehfeldchris@gmail.com>
+Date:   Sat May 9 15:40:52 2015 -0700
+
+    show image description
+
+commit 2af0a516919e95e5851280bfc5f56d174b652025
+Merge: ed273c5 3bdbb16
+Author: chris rehfeld <rehfeldchris@gmail.com>
+Date:   Sat May 9 14:50:05 2015 -0700
+
+    Merge remote-tracking branch 'origin/master'
+
+commit ed273c55f9cc44f4837790ba6a58ad606865d18c
+Author: chris rehfeld <rehfeldchris@gmail.com>
+Date:   Sat May 9 14:49:56 2015 -0700
+
+    make button bigger to go to albums from login screen
+
+commit 3bdbb168ec1b44cd61ab314e498a9e4657a90e03
+Author: Sai Karra <srkarra@users.noreply.github.com>
+Date:   Sat May 9 14:37:14 2015 -0700
+
+    Update changelog-since-demo.md
+
+commit 18e7ec335e983081ffa3059129d9cc9416513249
+Author: chris rehfeld <rehfeldchris@gmail.com>
+Date:   Sat May 9 14:25:06 2015 -0700
+
+    go back to hi res images on gridview
+
+commit 28f1f9edaad0d5c45a96bce3df83ad5d50931d63
+Author: chris rehfeld <rehfeldchris@gmail.com>
+Date:   Sat May 9 13:58:27 2015 -0700
+
+    improve the format of comments
+
+commit 9a670b43adc17f1e23c908c849c983c33c8eaf53
+Author: chris rehfeld <rehfeldchris@gmail.com>
+Date:   Sat May 9 13:58:06 2015 -0700
+
+    improve the format of comments
+
+commit a9986b272d7b0041064d7868f1ac3f15f7aa7802
+Merge: 3bc61d5 1e6d64f
+Author: chris rehfeld <rehfeldchris@gmail.com>
+Date:   Sat May 9 13:13:03 2015 -0700
+
+    Merge remote-tracking branch 'origin/master'
+
+commit 3bc61d5715328aed582094a5fed2f3811882c338
+Author: chris rehfeld <rehfeldchris@gmail.com>
+Date:   Sat May 9 13:12:49 2015 -0700
+
+    do server side validation for if user able to view image url
+
+commit 1e6d64f4cf2ce292cd3d271a69548e6439032344
+Author: Thong Nguyen <nhthong2007@gmail.com>
+Date:   Sat May 9 12:53:27 2015 -0700
+
+    Set "Free Memory task" to be done by onDestroy().
+
+commit 6a4f7bb4f78cf7af1459c407a66ea01ad3161a88
+Author: Sai Karra <srkarra@users.noreply.github.com>
+Date:   Fri May 8 17:14:19 2015 -0700
+
+    Update changelog-since-demo.md
+
+commit d08dab8c11dbf4d83aedfd8de4c767778ef54fe0
+Author: Sai Karra <srkarra@users.noreply.github.com>
+Date:   Fri May 8 17:14:06 2015 -0700
+
+    Update changelog-since-demo.md
+
+commit 734a2d3a5fa0bbc427c122afc70b4117f1546d01
+Author: Sai Karra <srkarra@users.noreply.github.com>
+Date:   Fri May 8 17:08:41 2015 -0700
+
+    added list of possible changes
+
+commit fcc4bfd748f8a93f416cf3729bda1910c8b6befa
+Author: Sai Karra <srkarra@users.noreply.github.com>
+Date:   Fri May 8 16:38:12 2015 -0700
+
+    Update changelog-since-demo.md
+
+commit e438fdde5ba756f22d10efcce7c4d9919d564db4
+Author: Sai Karra <srkarra@users.noreply.github.com>
+Date:   Fri May 8 16:08:39 2015 -0700
+
+    Create changelog-since-demo.md
+
+commit 9f2cd50f9d78abfc08520bf9a163e4732dc03c58
+Author: Thong Nguyen <nhthong2007@gmail.com>
+Date:   Fri May 8 15:42:58 2015 -0700
+
+    Fix OutOfMemory problem.
+
+commit 8690308c918e7fe8403fbdf3fe23943cd76e25da
+Author: Thong Nguyen <nhthong2007@gmail.com>
+Date:   Fri May 8 11:14:12 2015 -0700
+
+    Temporary fix oom problem (Level - Acceptable)
+
+commit 8e5610deaf821041c509c8903cd0b0e864197409
+Author: Thong Nguyen <nhthong2007@gmail.com>
+Date:   Fri May 8 09:41:20 2015 -0700
+
+    Fix SingleImageView image auto-shrinked problem.
+
+commit 3dc3558af846695af02782e0d802bf5609f03a65
+Merge: 2b80730 1d718ae
+Author: chris rehfeld <rehfeldchris@gmail.com>
+Date:   Thu May 7 20:17:47 2015 -0700
+
+    Merge remote-tracking branch 'origin/master'
+
+commit 2b807308c43f0d501f68122b31f253d8ec710b63
+Author: chris rehfeld <rehfeldchris@gmail.com>
+Date:   Thu May 7 20:17:34 2015 -0700
+
+    show profile photo in friends list
+
+commit 1d718aec5f6f5edfa382ab06d92e60b45de20674
+Author: Sai Karra <srkarra@us.ibm.com>
+Date:   Thu May 7 19:38:59 2015 -0700
+
+    Added logging for file uploads
+
+commit 3dd9af4d3d516bfd8057d5159d14097e664e1da6
+Author: chris rehfeld <rehfeldchris@gmail.com>
+Date:   Thu May 7 19:25:39 2015 -0700
+
+    update postman dump
+
+commit 8957ade9507263b5502dfb2742ce2d6c0a87c790
+Merge: 772d96f f3e3e6c
+Author: chris rehfeld <rehfeldchris@gmail.com>
+Date:   Thu May 7 19:22:07 2015 -0700
+
+    Merge remote-tracking branch 'origin/master'
+
+commit 772d96f80f0bffb56652347ad08ea93773d47138
+Author: chris rehfeld <rehfeldchris@gmail.com>
+Date:   Thu May 7 19:21:54 2015 -0700
+
+    add change log
+
+commit f3e3e6c9ef7b3c5b3cafc7ef6b8cadb4f80a58aa
+Author: Sai Karra <srkarra@users.noreply.github.com>
+Date:   Thu May 7 19:02:38 2015 -0700
+
+    Update TASKS.md
+
+commit e20cd8803c80020a6ff777383136a57a896d0657
+Author: Sai Karra <srkarra@users.noreply.github.com>
+Date:   Thu May 7 19:02:20 2015 -0700
+
+    Update Tasks
+
+commit 497a6efd0d5f60c4d9d1ddd7309355a3a0b71068
+Author: chris rehfeld <rehfeldchris@gmail.com>
+Date:   Thu May 7 18:18:59 2015 -0700
+
+    fix null comment name
+
+commit 341af33090d9d3b8541cc7bcd0f2c56b11b2c7b1
+Author: Sai Karra <srkarra@us.ibm.com>
+Date:   Thu May 7 18:14:43 2015 -0700
+
+    checkpoint
+
+commit 30dc966ded840f5dd6cd9b03f53db8ad10319ff6
+Author: Thong Nguyen <nhthong2007@gmail.com>
+Date:   Thu May 7 17:16:03 2015 -0700
+
+    Add open button to login screen
+
+commit 8649ad24b28d47e871e5e4059b070b5abfdce8b5
+Author: Sai Karra <srkarra@us.ibm.com>
+Date:   Thu May 7 17:06:10 2015 -0700
+
+    Fix columns
+
+commit 7c0c8db3ef46a94bc83c06697daa23403df3fe99
+Merge: acf313f 5193a4b
+Author: Sai Karra <srkarra@us.ibm.com>
+Date:   Thu May 7 17:05:38 2015 -0700
+
+    Merge branch 'master' of github.com:srkarra/cmpe277
+
+commit acf313fb7460688536bde0a68cfef000072125d0
+Author: Sai Karra <srkarra@us.ibm.com>
+Date:   Thu May 7 17:05:30 2015 -0700
+
+    Refresh view
+
+commit 5193a4bbfd24087dccc00f8cc4e1822a1d3133b9
+Merge: 5dff463 842f53f
+Author: chris rehfeld <rehfeldchris@gmail.com>
+Date:   Thu May 7 17:05:23 2015 -0700
+
+    Merge remote-tracking branch 'origin/master'
+
+commit 5dff463abaeff38d01745f62dd52b7affb450a88
+Author: chris rehfeld <rehfeldchris@gmail.com>
+Date:   Thu May 7 17:05:12 2015 -0700
+
+    use real data from api for comments
+
+commit 9819ad00ac06ab97e33070c2aa15e254ecdcbf47
+Author: Sai Karra <srkarra@us.ibm.com>
+Date:   Thu May 7 17:04:53 2015 -0700
+
+    Cartia fixes
+
+commit 842f53f56e3267130c3a095314cf866f7529fce0
+Merge: 5d9436d e6662ed
+Author: caritaou <carita.ou@gmail.com>
+Date:   Thu May 7 16:32:47 2015 -0700
+
+    Merge branch 'master' of github.com:srkarra/cmpe277
+
+commit 5d9436df395b6482dced0556616059cd3239e327
+Author: caritaou <carita.ou@gmail.com>
+Date:   Thu May 7 16:30:53 2015 -0700
+
+    add upload button
+
+commit e6662ed5eb46eaf340a2a461453d3a4cd446886a
+Author: Sai Karra <srkarra@us.ibm.com>
+Date:   Thu May 7 16:07:31 2015 -0700
+
+    Fixed Android Force Close isse
+
+commit ee6b4d69efb4096aac23459b38950f66aafe9dc4
+Author: chris rehfeld <rehfeldchris@gmail.com>
+Date:   Thu May 7 15:55:59 2015 -0700
+
+    fix bug with grantedUserIds for createAlbum
+
+commit 22051c9da9d50ec6466ca6c77b34c135138ca759
+Author: Thong Nguyen <nhthong2007@gmail.com>
+Date:   Thu May 7 14:29:12 2015 -0700
+
+    Fix view problem with SingleImageView
+
+commit bee3b6bda38a76a682e7aec93b592c1179f6c203
+Merge: 89ee64a 37cfe40
+Author: Thong Nguyen <nhthong2007@gmail.com>
+Date:   Thu May 7 13:51:25 2015 -0700
+
+    Merge branch 'master' of https://github.com/srkarra/cmpe277
+    
+    # By Sai Karra
+    # Via Sai Karra
+    * 'master' of https://github.com/srkarra/cmpe277:
+      Update TASKS.md
+
+commit 89ee64af5e4cf9e975047d0e92ed62c359267bcf
+Author: Thong Nguyen <nhthong2007@gmail.com>
+Date:   Thu May 7 13:51:03 2015 -0700
+
+    Fix: ImageGridviewFragment
+    Update: SingleViewImage
+    Remove: auto-destroy main activity in MainActivity
+    Add: complete User class
+
+commit 37cfe4092323504aa42ae2f2dbb13ae92a4a415f
+Author: Sai Karra <srkarra@users.noreply.github.com>
+Date:   Thu May 7 10:15:53 2015 -0700
+
+    Update TASKS.md
+
+commit 76b9d2f6dc2ba02321152a1c43c1d7b404277d95
+Merge: e2a96fa b5f3b9a
+Author: Thong Nguyen <nhthong2007@gmail.com>
+Date:   Thu May 7 02:47:09 2015 -0700
+
+    Merge branch 'master' of https://github.com/srkarra/cmpe277
+    
+    # By caritaou
+    # Via caritaou
+    * 'master' of https://github.com/srkarra/cmpe277:
+      update album photos to show bigger icons
+      fix create album screen
+
+commit e2a96fa92880d53f093141daf3fd0f31fced9579
+Author: Thong Nguyen <nhthong2007@gmail.com>
+Date:   Thu May 7 02:46:37 2015 -0700
+
+    Merge
+
+commit b5f3b9a4a912fdb30dfb3d0a9e209caede0ef125
+Author: caritaou <carita.ou@gmail.com>
+Date:   Thu May 7 02:44:15 2015 -0700
+
+    update album photos to show bigger icons
+
+commit 865845f2b2a1e9a88325f8d88c23b9310a207f87
+Merge: 92f7833 eb91b20
+Author: caritaou <carita.ou@gmail.com>
+Date:   Thu May 7 02:20:23 2015 -0700
+
+    Merge branch 'master' of github.com:srkarra/cmpe277
+
+commit 92f7833e6c7eb1dd4767a030014ba875f3485ade
+Author: caritaou <carita.ou@gmail.com>
+Date:   Thu May 7 02:20:03 2015 -0700
+
+    fix create album screen
+
+commit eb91b20b8612cccfbebe6a75a297c9937e92f033
+Merge: 5aeab17 ebff794
+Author: Thong Nguyen <nhthong2007@gmail.com>
+Date:   Thu May 7 02:05:31 2015 -0700
+
+    Merge branch 'master' of https://github.com/srkarra/cmpe277
+    
+    # By chris rehfeld
+    # Via chris rehfeld
+    * 'master' of https://github.com/srkarra/cmpe277:
+      send friend list when creating album
+      changes to support showing/creating comments in the gui
+      add missing file
+      remove old style create album cover
+      fix image loading
+      fix image loading
+
+commit ebff794af8d72987d94fad3926e13e6bd707f2dc
+Author: chris rehfeld <rehfeldchris@gmail.com>
+Date:   Thu May 7 01:51:01 2015 -0700
+
+    send friend list when creating album
+
+commit 5aeab17f774ea27b3b8228d4749249d88c9c0874
+Author: Thong Nguyen <nhthong2007@gmail.com>
+Date:   Thu May 7 01:19:00 2015 -0700
+
+    Update: Set the login page to auto-terminate after the Main app start launching.
+    Delete: DataCenter.java
+
+commit 2cbaaeb05469ae44993fae96476b37aaf640314f
+Author: chris rehfeld <rehfeldchris@gmail.com>
+Date:   Thu May 7 01:11:21 2015 -0700
+
+    changes to support showing/creating comments in the gui
+
+commit 89cf48de0dcdea5c23c2f53cb0e9fb9ac38f41a2
+Author: chris rehfeld <rehfeldchris@gmail.com>
+Date:   Thu May 7 00:38:54 2015 -0700
+
+    add missing file
+
+commit 83f3a056213d695b3af029eee94b4242b567a2ed
+Author: chris rehfeld <rehfeldchris@gmail.com>
+Date:   Thu May 7 00:38:29 2015 -0700
+
+    remove old style create album cover
+
+commit 6214d0a6d12516feba070a76702694b991366de7
+Author: chris rehfeld <rehfeldchris@gmail.com>
+Date:   Thu May 7 00:19:32 2015 -0700
+
+    fix image loading
+
+commit c25ed9c86ba7c7f54d4b1998548cee71193e23ac
+Author: chris rehfeld <rehfeldchris@gmail.com>
+Date:   Thu May 7 00:19:08 2015 -0700
+
+    fix image loading
+
+commit c2409aa71e10bc6bcc4d30e77f861ee64de409d7
+Author: chris rehfeld <rehfeldchris@gmail.com>
+Date:   Wed May 6 23:18:29 2015 -0700
+
+    more progress on showing real images in album
+
+commit f8f4b516a1216cdf30adf9aa599027d0726c1562
+Merge: 5c1a5c5 75caf77
+Author: chris rehfeld <rehfeldchris@gmail.com>
+Date:   Wed May 6 23:17:42 2015 -0700
+
+    Merge remote-tracking branch 'origin/master'
+
+commit 5c1a5c57daa63c7d4f5e562a388287c45a671d40
+Author: chris rehfeld <rehfeldchris@gmail.com>
+Date:   Wed May 6 23:17:33 2015 -0700
+
+    more progress on showing real images in album
+
+commit 75caf773d6e8dac1e4c88120478ab45200b7a2d2
+Merge: 09e1358 f3132c8
+Author: caritaou <carita.ou@gmail.com>
+Date:   Wed May 6 22:08:21 2015 -0700
+
+    merge
+
+commit 09e135800081339ef73a86d2fac15c5e884ac89f
+Author: caritaou <carita.ou@gmail.com>
+Date:   Wed May 6 22:05:42 2015 -0700
+
+    move create album button to activity bar
+
+commit f3132c8f0ef51912755132474c4c1adead6977af
+Author: chris rehfeld <rehfeldchris@gmail.com>
+Date:   Wed May 6 21:56:36 2015 -0700
+
+    fix compile issue
+
+commit 13d75f34fee5f28cb3dd6f889f2260284a011ed3
+Author: chris rehfeld <rehfeldchris@gmail.com>
+Date:   Wed May 6 19:26:28 2015 -0700
+
+    progress towards showing real images in albums
+
+commit 3897df87f69a7b7e376b1cafb799e27952e05a60
+Author: chris rehfeld <rehfeldchris@gmail.com>
+Date:   Wed May 6 16:36:49 2015 -0700
+
+    show album list using real data from api
+
+commit 4f5aed400c251c19f46d70c3c50b50b38ce105ad
+Author: chris rehfeld <rehfeldchris@gmail.com>
+Date:   Wed May 6 15:35:11 2015 -0700
+
+    add image loader to prepare for showing real images via url
+
+commit ef1da0181dc7f8816edd7008bb82fe9128c4cc1e
+Merge: d9fd53c be94bc4
+Author: chris rehfeld <rehfeldchris@gmail.com>
+Date:   Wed May 6 00:16:39 2015 -0700
+
+    Merge branch 'master' of https://github.com/srkarra/cmpe277
+
+commit d9fd53c6b2ab9b149756913dfc2bdd9133b75e56
+Author: chris rehfeld <rehfeldchris@gmail.com>
+Date:   Wed May 6 00:16:08 2015 -0700
+
+    more work on apis
+
+commit be94bc492f813b66591a1b0391662fdba69c6003
+Author: Thong Nguyen <nhthong2007@gmail.com>
+Date:   Tue May 5 23:18:11 2015 -0700
+
+    Restore the app flow.
+
+commit 14929bb469d9fbacf5961b2e4293b789833f782a
+Merge: 94557e1 b82cc97
+Author: Thong Nguyen <nhthong2007@gmail.com>
+Date:   Tue May 5 23:14:17 2015 -0700
+
+    Merge branch 'master' of https://github.com/srkarra/cmpe277
+    
+    # By caritaou (2) and chris rehfeld (2)
+    # Via caritaou
+    * 'master' of https://github.com/srkarra/cmpe277:
+      add newAlbum button
+      add missing files
+      progress on create album view
+      facebook friend invite and fix photo albums UI
+    
+    Conflicts:
+    	android/app/src/main/AndroidManifest.xml
+    	android/app/src/main/java/edu/cmpe277/teamgoat/photoapp/AlbumImageAdapter.java
+
+commit 94557e1efac4de076b666ffc6a0a23b4dc9b2102
+Author: Thong Nguyen <nhthong2007@gmail.com>
+Date:   Tue May 5 23:13:26 2015 -0700
+
+    Merging
+
+commit b82cc9747914109eed5d8ca2bc6c08af7cc4309a
+Author: caritaou <carita.ou@gmail.com>
+Date:   Mon May 4 17:51:04 2015 -0700
+
+    add newAlbum button
+
+commit 11e8051565ca33a9fc9a1e4c0486189ea77187a2
+Author: chris rehfeld <rehfeldchris@gmail.com>
+Date:   Sun May 3 15:21:28 2015 -0700
+
+    add missing files
+
+commit 7e5b9258f90ac027d3d3c4abb863dc0eae7d5900
+Author: chris rehfeld <rehfeldchris@gmail.com>
+Date:   Sat May 2 21:58:29 2015 -0700
+
+    progress on create album view
+
+commit b28c6f3c1dbda84cdd3d930cfdf0cd96ee997267
+Author: caritaou <carita.ou@gmail.com>
+Date:   Fri May 1 02:16:54 2015 -0700
+
+    facebook friend invite and fix photo albums UI
+
+commit b9fa15ff5007de70c7502c09b504794250055973
+Author: Thong Nguyen <nhthong2007@gmail.com>
+Date:   Thu Apr 30 06:38:21 2015 -0700
+
+    Restore the app flow.
+
+commit 053d29b1a542568dd51e0469be2c2888d019f9a2
+Author: Thong Nguyen <nhthong2007@gmail.com>
+Date:   Thu Apr 30 06:37:22 2015 -0700
+
+    Fixed naming convention
+    Link panel to replace panel. The content will change when a menu option is chosen.
+
+commit 33d50792576f171f2b9f54269a1d06ac16cd9d48
+Author: Thong Nguyen <nhthong2007@gmail.com>
+Date:   Thu Apr 30 04:30:13 2015 -0700
+
+    Move Test Launching Intent to launchMainPhotoAppActivity()
+
+commit 5b91e82d4bfe7abf349ee0e0a159d500f964782e
+Merge: 4414d44 abd3a39
+Author: Thong Nguyen <nhthong2007@gmail.com>
+Date:   Thu Apr 30 03:59:27 2015 -0700
+
+    Merge branch 'master' of https://github.com/srkarra/cmpe277
+    
+    # By caritaou
+    # Via caritaou
+    * 'master' of https://github.com/srkarra/cmpe277:
+      add photo albums activity
+    
+    Conflicts:
+    	android/app/src/main/res/values/strings.xml
+
+commit 4414d44319a18d1fa3a10d738a6dff8537cee355
+Author: Thong Nguyen <nhthong2007@gmail.com>
+Date:   Thu Apr 30 03:55:05 2015 -0700
+
+    - Remove <activity>.EditFragment</activity> from AndroidManifest.xml due to its not an Activity being.
+    - Add Album + Images contents view
+    - Fixing: Naming convention.
+
+commit abd3a39c0ff897d51a826ded25ff945ee783ded8
+Author: caritaou <carita.ou@gmail.com>
+Date:   Thu Apr 30 01:30:56 2015 -0700
+
+    add photo albums activity
+
+commit 32694889b7defd3b05cc1bce0858737cccd7d9ef
+Merge: 7f84b6f 6c3c6c4
+Author: chris rehfeld <rehfeldchris@gmail.com>
+Date:   Wed Apr 29 17:41:27 2015 -0700
+
+    Merge remote-tracking branch 'origin/master'
+
+commit 7f84b6fbe11561707c2c92362769a9d75103d69b
+Author: chris rehfeld <rehfeldchris@gmail.com>
+Date:   Wed Apr 29 17:41:14 2015 -0700
+
+    add test activity to test create album fragment
+
+commit 6c3c6c4cd499c6fb3721bfb4ac4e0cb661ff5a2b
+Merge: 5dc0374 9eded36
+Author: Thong Nguyen <nhthong2007@gmail.com>
+Date:   Wed Apr 29 17:10:28 2015 -0700
+
+    Merge branch 'master' of https://github.com/srkarra/cmpe277
+    
+    # By chris rehfeld
+    # Via chris rehfeld
+    * 'master' of https://github.com/srkarra/cmpe277:
+      fix compile error
+      start the album creation fragment
+    
+    Conflicts:
+    	android/app/src/main/AndroidManifest.xml
+
+commit 5dc0374da4b3f4b8d9bcce3349cdacb34df0c0b1
+Author: Thong Nguyen <nhthong2007@gmail.com>
+Date:   Wed Apr 29 17:08:31 2015 -0700
+
+    Minor commit.
+    Add album, user, data, friend models
+    ViewAlbum activity
+
+commit 9eded368470240257077addcf773a270514107a5
+Author: chris rehfeld <rehfeldchris@gmail.com>
+Date:   Wed Apr 29 16:35:25 2015 -0700
+
+    fix compile error
+
+commit 7731366d229c74c0b15ff32b6391d8bed549fc36
+Author: chris rehfeld <rehfeldchris@gmail.com>
+Date:   Wed Apr 29 16:34:34 2015 -0700
+
+    start the album creation fragment
+
+commit f2f0ba7859897e537f7129c45c2c35f6c0c76694
+Merge: 4f27c7f e17fec4
+Author: chris rehfeld <rehfeldchris@gmail.com>
+Date:   Wed Apr 29 15:53:06 2015 -0700
+
+    Merge remote-tracking branch 'origin/master'
+
+commit 4f27c7f0ff07c84e8f46a837154fe379e9100cdc
+Author: chris rehfeld <rehfeldchris@gmail.com>
+Date:   Wed Apr 29 15:52:50 2015 -0700
+
+    add postman dump
+
+commit e17fec4ffbf46180eb13fd00489e3c5e843cec30
+Author: Thong Nguyen <nhthong2007@gmail.com>
+Date:   Wed Apr 29 14:46:33 2015 -0700
+
+    Update: layout,
+    Add: Fragment controller.
+
+commit f78581b3ad4f6d5bc937da99937957eed3d65596
+Author: chris rehfeld <rehfeldchris@gmail.com>
+Date:   Tue Apr 28 22:32:18 2015 -0700
+
+    fix bug, swapped token with userid
+
+commit 90f978556b5212d26e54a52d205a84907e810ff5
+Author: chris rehfeld <rehfeldchris@gmail.com>
+Date:   Tue Apr 28 22:26:25 2015 -0700
+
+    add caching of facebook token user info, and save user info to db.
+
+commit e39f59ef78e9d85292af5c01e3cc77b1997a9ee5
+Author: chris rehfeld <rehfeldchris@gmail.com>
+Date:   Tue Apr 28 11:51:50 2015 -0700
+
+    add missing @Service annotation
+
+commit 4336fb30431bafa9420fbc29f456f9abeb945f44
+Author: Sai Karra <srkarra@us.ibm.com>
+Date:   Tue Apr 28 10:14:56 2015 -0700
+
+    Refactored launching success activity to another resuable function
+
+commit c6f7bc1f57440c6a24649be076dc92698b9fe284
+Author: caritaou <carita.ou@gmail.com>
+Date:   Mon Apr 27 16:24:32 2015 -0700
+
+    replace UserIdentityDiscoveryService with UserProfileService
+
+commit 2ba3a5b0a00ca14d5858d47e4ad8bcb0b8713968
+Merge: 621abfe 4759f13
+Author: caritaou <carita.ou@gmail.com>
+Date:   Mon Apr 27 13:38:21 2015 -0700
+
+    Merge branch 'master' of github.com:srkarra/cmpe277
+
+commit 4759f1336b395684e732577f4230480df326a7a4
+Merge: 1ea91b3 e69b19a
+Author: Thong Nguyen <nhthong2007@gmail.com>
+Date:   Mon Apr 27 00:28:41 2015 -0700
+
+    Merge branch 'master' of https://github.com/srkarra/cmpe277
+    
+    # By Sai Karra (9) and chris rehfeld (4)
+    # Via chris rehfeld (2) and Sai Karra (1)
+    * 'master' of https://github.com/srkarra/cmpe277:
+      remove userid from rest api urls
+      add api call to comment on images
+      finish search viewable images near point
+      add updated postman export
+      Bug fix, commented out launch intent wiht missing layout files
+      Finished login (I think)
+      Changed debug log level
+      Cleaned up Facebook Permission
+      Added additional Facebook permission
+      Added App Name to Login
+      Added Facebook Strings
+      Added Application
+      Added logger and IDs
+
+commit 1ea91b3a5c81a361d5140de6492fe69f9fd2f28b
+Author: Thong Nguyen <nhthong2007@gmail.com>
+Date:   Mon Apr 27 00:28:19 2015 -0700
+
+    Add:
+    	- Working sample of drawerlayout.
+
+commit e69b19ad8da5df301564bd8a1ab855584d1cbc56
+Author: chris rehfeld <rehfeldchris@gmail.com>
+Date:   Sun Apr 26 22:33:37 2015 -0700
+
+    remove userid from rest api urls
+
+commit b7c4651fcd27b72130661fc06a0ec23850b32f3a
+Author: chris rehfeld <rehfeldchris@gmail.com>
+Date:   Sun Apr 26 22:29:47 2015 -0700
+
+    add api call to comment on images
+
+commit a52fcee5175b16a9450e619f4dcaead35be3dc52
+Author: chris rehfeld <rehfeldchris@gmail.com>
+Date:   Sun Apr 26 21:03:42 2015 -0700
+
+    finish search viewable images near point
+
+commit 04dbda11b4d642c9b7a84dedac03bd1cdd58511e
+Merge: 55b825a faa729e
+Author: chris rehfeld <rehfeldchris@gmail.com>
+Date:   Sun Apr 26 20:06:25 2015 -0700
+
+    Merge remote-tracking branch 'origin/master'
+
+commit 55b825a7be0b6852bd9b70b8b5eebe7af7f52dc3
+Author: chris rehfeld <rehfeldchris@gmail.com>
+Date:   Sun Apr 26 20:06:15 2015 -0700
+
+    add updated postman export
+
+commit faa729e9c2d176c907644cf4a0ae753ed500aaf5
+Author: Sai Karra <srkarra@us.ibm.com>
+Date:   Sat Apr 25 22:17:14 2015 -0700
+
+    Bug fix, commented out launch intent wiht missing layout files
+
+commit d5923bceef67d7b253c09549e3fd153d09651975
+Author: Sai Karra <srkarra@us.ibm.com>
+Date:   Sat Apr 25 22:13:32 2015 -0700
+
+    Finished login (I think)
+
+commit 041cf05552c1ee7a88d3228a14a105e26751152e
+Author: Sai Karra <srkarra@us.ibm.com>
+Date:   Sat Apr 25 22:12:06 2015 -0700
+
+    Changed debug log level
+
+commit d478e705b5bedd83193d34bb4132e698fd658af4
+Author: Sai Karra <srkarra@us.ibm.com>
+Date:   Sat Apr 25 21:11:25 2015 -0700
+
+    Cleaned up Facebook Permission
+
+commit 970f0c6cf924475c639824fd60a46572a7d1e3f1
+Merge: d21e966 7d174df
+Author: Sai Karra <srkarra@us.ibm.com>
+Date:   Sat Apr 25 20:31:43 2015 -0700
+
+    Merge branch 'master' of github.com:srkarra/cmpe277
+
+commit d21e966f53d7d942d17f5f889d6c696a805776a1
+Author: Sai Karra <srkarra@us.ibm.com>
+Date:   Sat Apr 25 20:30:16 2015 -0700
+
+    Added additional Facebook permission
+
+commit 277e5a589952855d7e070b02eaf466f1833fe304
+Author: Sai Karra <srkarra@us.ibm.com>
+Date:   Sat Apr 25 19:07:16 2015 -0700
+
+    Added App Name to Login
+
+commit 1fc90f8a03546f11a1979b9694abb5fc6c5498e3
+Author: Sai Karra <srkarra@us.ibm.com>
+Date:   Sat Apr 25 19:06:35 2015 -0700
+
+    Added Facebook Strings
+
+commit b9585da2a113036e6086637fd78cf4a035e30b75
+Author: Sai Karra <srkarra@us.ibm.com>
+Date:   Sat Apr 25 19:06:05 2015 -0700
+
+    Added Application
+
+commit d5f1f9af4d08c3f7ecc016ad713ec98e27052e8f
+Author: Sai Karra <srkarra@us.ibm.com>
+Date:   Sat Apr 25 19:03:23 2015 -0700
+
+    Added logger and IDs
+
+commit 7d174df413f4744b51cd9e8035de80468be96d6a
+Author: Thong Nguyen <nhthong2007@gmail.com>
+Date:   Sat Apr 25 18:57:01 2015 -0700
+
+    Add DrawerLayout
+
+commit 99ba8f1a10142ffa013c888a8b0502aeaea8bb5e
+Merge: 122ce11 6445ea0
+Author: Thong Nguyen <nhthong2007@gmail.com>
+Date:   Sat Apr 25 15:43:39 2015 -0700
+
+    Merge branch 'master' of https://github.com/srkarra/cmpe277
+    
+    # By chris rehfeld (4) and others
+    # Via chris rehfeld (3) and Sai Karra (1)
+    * 'master' of https://github.com/srkarra/cmpe277:
+      add changes to support finding images near point
+      Removed android config
+      spring config
+      add accessors to user entity
+      remove dead code
+      add new api calls for searching by lat/lon + add User class
+      get accessToken string
+
+commit 122ce1144e5c863e31303622338ce54de5bbcd8f
+Author: Thong Nguyen <nhthong2007@gmail.com>
+Date:   Sat Apr 25 15:42:42 2015 -0700
+
+    Add:
+    	- layout_drawerlayout_sidemenu.xml: DrawerLayout for sidebar menu
+    	- Album Item changes
+    	- layout_fragment_friendlist_item.xml: Layout for Friend list item
+    	- layout_gridlayout_view_picture.xml: Layout for display picture
+
+commit 6445ea003faf2cade0a254a413eacf90cd1f711f
+Merge: 2d11edb 192f2af
+Author: chris rehfeld <rehfeldchris@gmail.com>
+Date:   Sat Apr 25 15:34:31 2015 -0700
+
+    Merge remote-tracking branch 'origin/master'
+
+commit 2d11edbd36c9f69b7869fe620c5af9d2be76ed76
+Author: chris rehfeld <rehfeldchris@gmail.com>
+Date:   Sat Apr 25 15:34:18 2015 -0700
+
+    add changes to support finding images near point
+
+commit 192f2af6221ff7e3ed03fab6b66396624a3fc251
+Author: Sai Karra <srkarra@us.ibm.com>
+Date:   Sat Apr 25 15:33:19 2015 -0700
+
+    Removed android config
+
+commit 621abfee37163a63ae4a195c24ba7d01ba955c60
+Merge: 1f51d7e ecba783
+Author: caritaou <carita.ou@gmail.com>
+Date:   Sat Apr 25 14:59:51 2015 -0700
+
+    Merge branch 'master' of github.com:srkarra/cmpe277
+
+commit 1f51d7e2ab060cb679e492d3314cd6d3debaea7d
+Author: caritaou <carita.ou@gmail.com>
+Date:   Sat Apr 25 14:59:44 2015 -0700
+
+    add get user info in UserIdentityDiscoveryService
+
+commit ecba7830d61da42009f7f119d4335a38c17d3b81
+Merge: 8364e39 c64818f
+Author: Sai Karra <srkarra@us.ibm.com>
+Date:   Sat Apr 25 14:56:25 2015 -0700
+
+    Merge branch 'master' of github.com:srkarra/cmpe277
+
+commit 8364e39a108405e0443e841191b64e36fc465071
+Author: Sai Karra <srkarra@us.ibm.com>
+Date:   Sat Apr 25 14:56:18 2015 -0700
+
+    spring config
+
+commit c64818f2cfd698155ad677f9bfec95ea1d90fe2b
+Author: chris rehfeld <rehfeldchris@gmail.com>
+Date:   Sat Apr 25 14:55:39 2015 -0700
+
+    add accessors to user entity
+
+commit cfe75d0dcc8be2483caa45dac348ffcc1a813b95
+Merge: beb7d9d 6dce978
+Author: chris rehfeld <rehfeldchris@gmail.com>
+Date:   Sat Apr 25 14:51:21 2015 -0700
+
+    Merge remote-tracking branch 'origin/master'
+
+commit beb7d9d874fbba62b01676de2a7705b05e136c8f
+Author: chris rehfeld <rehfeldchris@gmail.com>
+Date:   Sat Apr 25 14:51:11 2015 -0700
+
+    remove dead code
+
+commit d603f552a2dd7c515949256c7db32529172a00ac
+Author: chris rehfeld <rehfeldchris@gmail.com>
+Date:   Sat Apr 25 14:48:39 2015 -0700
+
+    add new api calls for searching by lat/lon + add User class
+
+commit 6dce978d87386d6801c73bc4b6b8ae72ee5cc1ed
+Author: caritaou <carita.ou@gmail.com>
+Date:   Sat Apr 25 11:26:45 2015 -0700
+
+    get accessToken string
+
+commit 3b05ef271dd12d04b3f4cfb1045da51351dd1f26
+Author: chris rehfeld <rehfeldchris@gmail.com>
+Date:   Wed Apr 22 19:32:33 2015 -0700
+
+    add ability to mark an album public, viewable by all
+
+commit 7fba478ac90ab4c6cc480a7c457d2894a89be478
+Author: chris rehfeld <rehfeldchris@gmail.com>
+Date:   Wed Apr 22 16:19:18 2015 -0700
+
+    ensure user is granted access to own album + other minor mods
+
+commit 1141b89a95b7ba6307f35b9ec8aaf8d1f79cd865
+Author: caritaou <carita.ou@gmail.com>
+Date:   Wed Apr 22 00:51:30 2015 -0700
+
+    add facebook login button
+
+commit 238a07f0f2d70d16b81d6c24569e07e94a1bf52d
+Author: caritaou <carita.ou@gmail.com>
+Date:   Tue Apr 21 21:02:05 2015 -0700
+
+    fix compile errors
+
+commit 139ae176c1e89096d1708c5fe748a4768be2c126
+Author: chris rehfeld <rehfeldchris@gmail.com>
+Date:   Sun Apr 19 23:08:38 2015 -0700
+
+    let album be updated , and let users be granted access
+
+commit d5d98b28809d62ab5d89d1c90b11e452123efb67
+Author: chris rehfeld <rehfeldchris@gmail.com>
+Date:   Sun Apr 19 22:56:40 2015 -0700
+
+    add some access control and error handling to some api calls
+
+commit 2921012b30b8a3eec1277e4db6a1bc8d866e0b3b
+Author: chris rehfeld <rehfeldchris@gmail.com>
+Date:   Sun Apr 19 15:56:29 2015 -0700
+
+    add postman export, for api testing
+
+commit 1bf4b7805f14bd222c87688e1950d400c07c56ce
+Author: chris rehfeld <rehfeldchris@gmail.com>
+Date:   Sun Apr 19 15:56:11 2015 -0700
+
+    more progress on file uploads
+
+commit 34d807cb38c5ecf7e00f9885b0cec7eb5cab2cfc
+Author: chris rehfeld <rehfeldchris@gmail.com>
+Date:   Sat Apr 18 22:53:31 2015 -0700
+
+    start implementing a file upload, not finished
+
+commit 25cddeed2c7a89491c277162608175b85afdfd31
+Author: chris rehfeld <rehfeldchris@gmail.com>
+Date:   Sat Apr 18 20:32:42 2015 -0700
+
+    fix find by id naming convention
+
+commit 82cb5f3de565afa941d7aca327e6b5834b889a0f
+Author: chris rehfeld <rehfeldchris@gmail.com>
+Date:   Sat Apr 18 20:32:10 2015 -0700
+
+    disable auto cascade entitiy saves until we figure out how to use it right
+
+commit 8da0eb549c904c9d8bafcd5484c6641b547c7f42
+Author: chris rehfeld <rehfeldchris@gmail.com>
+Date:   Sat Apr 18 19:31:01 2015 -0700
+
+    add some defensive copying to entities objects + add more album operations
+
+commit 8e1d03c70ca1347484d53c53ec0ff245104b0adf
+Author: chris rehfeld <rehfeldchris@gmail.com>
+Date:   Sat Apr 18 19:29:31 2015 -0700
+
+    fix broken characters
+
+commit 706a8ca62e26d1a1d4271d6edf2afaf4d22fe197
+Author: Sai Karra <srkarra@users.noreply.github.com>
+Date:   Sat Apr 18 16:58:35 2015 -0700
+
+    Update TASKS.md
+
+commit f838bb521448da9ac8b26277c41f3d06f1558a6e
+Author: Sai Karra <srkarra@users.noreply.github.com>
+Date:   Sat Apr 18 16:47:14 2015 -0700
+
+    Finished Project Plan
+
+commit f09dc880bcb3de72da73b672b5237b3c0ba71ef1
+Author: Thong Nguyen <nhthong2007@gmail.com>
+Date:   Fri Apr 17 01:49:24 2015 -0700
+
+    Add:
+    	- Profile layout, Album list item layout.
+    	- Border style.
+    Update:
+    	- Activity Login.
+    	- strings.xml values
+
+commit c5cb56d8803000797ea86af1dda498523ed527bc
+Merge: a17e29d 0929e4b
+Author: Thong Nguyen <nhthong2007@gmail.com>
+Date:   Wed Apr 15 20:26:26 2015 -0700
+
+    Merge branch 'master' of https://github.com/srkarra/cmpe277
+    
+    # By Sai Karra (3) and Thong Nguyen (1)
+    # Via Sai Karra (1) and Thong Nguyen (1)
+    * 'master' of https://github.com/srkarra/cmpe277:
+      Fix: 	- a mini bug with build (compiler version) 	- update activity_login. Facebook event handler and button does not work. Will come back to this later.
+      Added architecture diagram
+      Added high-level architecture diagram
+      Added more tasks
+
+commit a17e29db417f614fed36844bb5a0607b9298d171
+Author: Thong Nguyen <nhthong2007@gmail.com>
+Date:   Wed Apr 15 20:26:18 2015 -0700
+
+    Minor configure
+
+commit 0929e4b186dd04d8ab074ee7cbd1d1eab8a16848
+Author: Thong Nguyen <nhthong2007@gmail.com>
+Date:   Wed Apr 15 18:49:39 2015 -0700
+
+    Fix:
+    	- a mini bug with build (compiler version)
+    	- update activity_login. Facebook event handler and button does not work. Will come back to this later.
+
+commit 4fbd00a39003e76a46527e8e7b1d2cc4eb7cdcef
+Author: Sai Karra <srkarra@users.noreply.github.com>
+Date:   Sun Apr 12 16:29:00 2015 -0700
+
+    Added architecture diagram
+
+commit 40e96818fc6c5c147345dae44986cc67ced80577
+Merge: e91106d fbee2fc
+Author: Sai Karra <srkarra@us.ibm.com>
+Date:   Sun Apr 12 16:27:46 2015 -0700
+
+    Merge branch 'master' of github.com:srkarra/cmpe277
+
+commit e91106d2731777dc45fd83eef1789d12c1545915
+Author: Sai Karra <srkarra@us.ibm.com>
+Date:   Sun Apr 12 16:27:39 2015 -0700
+
+    Added high-level architecture diagram
+
+commit fbee2fc49e2194b438de426d05d381aa3aff1346
+Author: Sai Karra <srkarra@users.noreply.github.com>
+Date:   Sun Apr 12 14:39:51 2015 -0700
+
+    Added more tasks
+
+commit 4d2d67095418137bc40e83cc35a5398b47c5c2f3
+Author: Sai Karra <srkarra@users.noreply.github.com>
+Date:   Thu Apr 9 18:36:01 2015 -0700
+
+    cleanup
+
+commit 1367adf4c2b556b49a21d58513149a7644e3a379
+Author: Sai Karra <srkarra@users.noreply.github.com>
+Date:   Thu Apr 9 18:34:56 2015 -0700
+
+    Added more tasks
+
+commit e91f61f1ce6e0769151855f0fc36b43cdac3ffd4
+Merge: e51a86c a8a1199
+Author: Sai Karra <srkarra@us.ibm.com>
+Date:   Thu Apr 9 18:19:06 2015 -0700
+
+    Merge branch 'master' of github.com:srkarra/cmpe277
+
+commit e51a86c05d777722120b8683d545365dafbb93f4
+Author: Sai Karra <srkarra@us.ibm.com>
+Date:   Thu Apr 9 18:18:50 2015 -0700
+
+    Added Task list
+
+commit a8a1199a0799a814c0b17d53c0e29c9c927e7b3a
+Merge: e60754d f5d035a
+Author: chris rehfeld <rehfeldchris@gmail.com>
+Date:   Thu Apr 9 17:18:15 2015 -0700
+
+    Merge remote-tracking branch 'origin/master'
+    
+    Conflicts:
+    	server/src/main/java/edu/cmpe277/teamgoat/photoapp/repos/AlbumMongoRepository.java
+
+commit e60754d250ea088f0be7d5ee4d50bf4a4bbd0656
+Author: chris rehfeld <rehfeldchris@gmail.com>
+Date:   Thu Apr 9 17:17:38 2015 -0700
+
+    progress on create album code
+
+commit f5d035aa3c8f1c9709b41265f3cc941e84aafe34
+Merge: 1e7f481 bd910fa
+Author: caritaou <carita.ou@gmail.com>
+Date:   Thu Apr 9 17:06:18 2015 -0700
+
+    Merge branch 'master' of github.com:srkarra/cmpe277
+    
+    Conflicts:
+    	server/src/main/java/edu/cmpe277/teamgoat/photoapp/dto/Album.java
+    	server/src/main/java/edu/cmpe277/teamgoat/photoapp/dto/Image.java
+
+commit 1e7f481190e14e090986cf441e5cf7b4cba57a89
+Author: caritaou <carita.ou@gmail.com>
+Date:   Thu Apr 9 17:03:06 2015 -0700
+
+    update rest api
+
+commit bd910fae946dca158ac9a583e5889fa37c53ac53
+Author: Sai Karra <srkarra@us.ibm.com>
+Date:   Thu Apr 9 17:00:03 2015 -0700
+
+    Update android resources
+
+commit f57c19bfb6f96ebbd70619b6bc933f9ec1eab23f
+Merge: 94148fd 8cb7973
+Author: Sai Karra <srkarra@us.ibm.com>
+Date:   Thu Apr 9 16:41:23 2015 -0700
+
+    Merge branch 'master' of github.com:srkarra/cmpe277
+
+commit 94148fd1c479d93a8cc5f59c1825d4067288a264
+Author: Sai Karra <srkarra@us.ibm.com>
+Date:   Thu Apr 9 16:41:09 2015 -0700
+
+    Added indexes
+
+commit 8cb79732ff606ef3f7507969b9b5235c9d7866eb
+Author: chris rehfeld <rehfeldchris@gmail.com>
+Date:   Thu Apr 9 15:51:18 2015 -0700
+
+    add test controller
+
+commit c54444459e7fb2bd5590fbe386f48239f9e0f6f2
+Merge: 79bf67f 54839b8
+Author: chris rehfeld <rehfeldchris@gmail.com>
+Date:   Thu Apr 9 15:50:58 2015 -0700
+
+    Merge remote-tracking branch 'origin/master'
+
+commit 79bf67f6383995d451794374140d1ae4bddf0ab8
+Author: chris rehfeld <rehfeldchris@gmail.com>
+Date:   Thu Apr 9 15:50:46 2015 -0700
+
+    disable spring security
+
+commit 54839b8c87e4797db5548580787dea48307dbc7f
+Author: Sai Karra <srkarra@us.ibm.com>
+Date:   Thu Apr 9 15:27:45 2015 -0700
+
+    Removed Android studio config
+
+commit 707651197c977b7f9fbc3d7bb4ed12dfa491e350
+Author: Sai Karra <srkarra@us.ibm.com>
+Date:   Thu Apr 9 15:22:47 2015 -0700
+
+    Removed intellij config file
+
+commit ee7c116b9bd09db225e330c911833be8a03f4901
+Author: Sai Karra <srkarra@us.ibm.com>
+Date:   Thu Apr 9 15:21:38 2015 -0700
+
+    Bug Fix: converted granted userids to String array
+
+commit a9ee51f44254926dd770a122efb57789d88c4750
+Author: Sai Karra <srkarra@us.ibm.com>
+Date:   Thu Apr 9 15:19:54 2015 -0700
+
+    Removed unneeded android config
+
+commit 10463088317b4149529a64ea972216ecbe8babcc
+Merge: f46b832 51ae532
+Author: Sai Karra <srkarra@us.ibm.com>
+Date:   Thu Apr 9 14:34:35 2015 -0700
+
+    Merge branch 'master' of github.com:srkarra/cmpe277
+
+commit f46b8328fe5a9caad98a013aca9e093bd46427e1
+Author: Sai Karra <srkarra@us.ibm.com>
+Date:   Thu Apr 9 14:34:25 2015 -0700
+
+    Added Initial Error Handler
+
+commit 51ae532c8894e6038fee0cb94670c607359bc404
+Merge: 3d5a0b6 8d8418b
+Author: caritaou <carita.ou@gmail.com>
+Date:   Thu Apr 9 14:17:09 2015 -0700
+
+    Merge branch 'master' of github.com:srkarra/cmpe277
+
+commit 3d5a0b6695ff00115811635a68d36de6d27080c1
+Author: Sai Karra <srkarra@us.ibm.com>
+Date:   Thu Apr 9 14:10:14 2015 -0700
+
+    Commentout Jackson Serialization settings
+
+commit 4376dd8d3a851ba2cbda20987410bb3868b1ca01
+Author: caritaou <carita.ou@gmail.com>
+Date:   Thu Apr 9 14:15:09 2015 -0700
+
+    setup facebook app tracker
+
+commit 8d8418bc54ab0f8319196ecb225acc120096e07d
+Author: Sai Karra <srkarra@us.ibm.com>
+Date:   Thu Apr 9 14:10:14 2015 -0700
+
+    Commentout Jackson Serialization settings
+
+commit 08aa50c7c028d9d1eb0e60664fbc6c8d70088aeb
+Author: Sai Karra <srkarra@us.ibm.com>
+Date:   Thu Apr 9 14:08:03 2015 -0700
+
+    removed carita's botched git merge
+
+commit 6172d8a0d4cd312009e23d53992a26a51d5b855b
+Author: Sai Karra <srkarra@us.ibm.com>
+Date:   Thu Apr 9 14:06:12 2015 -0700
+
+    Ignore idea iml files
+
+commit bac767544094b0e6fb1378c01c8dc0545b6e94c3
+Author: Sai Karra <srkarra@us.ibm.com>
+Date:   Thu Apr 9 14:00:58 2015 -0700
+
+    Sample spring data mongo repo
+
+commit 010358d9d99b4ab7b28eb3c05c15c32be25e9696
+Author: caritaou <carita.ou@gmail.com>
+Date:   Thu Apr 9 13:55:14 2015 -0700
+
+    setup android project
+
+commit 74717f88ec1853ab3ec2cc076c209818d4258091
+Author: Sai Karra <srkarra@us.ibm.com>
+Date:   Thu Apr 9 13:46:23 2015 -0700
+
+    Android src directory
+
+commit ae60273857c0c773dffa2087d63511d76fb5b17c
+Merge: beca9b3 9347087
+Author: Sai Karra <srkarra@us.ibm.com>
+Date:   Thu Apr 9 13:45:30 2015 -0700
+
+    Merge branch 'master' of github.com:srkarra/cmpe277
+
+commit beca9b35e3163e6506e579eee5afa43eb03d3c64
+Author: Sai Karra <srkarra@us.ibm.com>
+Date:   Thu Apr 9 13:45:14 2015 -0700
+
+    Added Facebook Android SDK as a git submodule
+
+commit 93470870f8aab2e91f44fb89d06755af76d37613
+Author: chris rehfeld <rehfeldchris@gmail.com>
+Date:   Thu Apr 9 13:28:37 2015 -0700
+
+    remove uppercase field description
+
+commit 6ca083c23867e028440616b68226132b37325b5b
+Merge: 4f08457 6d632e8
+Author: chris rehfeld <rehfeldchris@gmail.com>
+Date:   Thu Apr 9 13:18:16 2015 -0700
+
+    Merge remote-tracking branch 'origin/master'
+    
+    Conflicts:
+    	server/src/main/java/edu/cmpe277/teamgoat/photoapp/dto/Image.java
+
+commit 4f08457e1fa9459c57379fe1aff758c05b2c79a8
+Author: chris rehfeld <rehfeldchris@gmail.com>
+Date:   Thu Apr 9 13:17:09 2015 -0700
+
+    change location to lat/lon
+
+commit 6d632e8eca098934df99a656a4727deac043b98b
+Author: Sai Karra <srkarra@us.ibm.com>
+Date:   Thu Apr 9 13:10:25 2015 -0700
+
+    Renamed Field name mapping
+
+commit c1c56acc1bf66557d37f7a84042d29f080892a2a
+Merge: 3ca1e51 405f69a
+Author: Sai Karra <srkarra@us.ibm.com>
+Date:   Thu Apr 9 13:09:10 2015 -0700
+
+    Merge branch 'master' of github.com:srkarra/cmpe277
+
+commit 3ca1e5108f2035fd23b740582806c1a975dd48d1
+Author: Sai Karra <srkarra@us.ibm.com>
+Date:   Thu Apr 9 13:08:20 2015 -0700
+
+    Initial Service package
+
+commit 405f69ac82a93ea2376d68e742e133b776f7f5a8
+Author: chris rehfeld <rehfeldchris@gmail.com>
+Date:   Thu Apr 9 13:07:59 2015 -0700
+
+    move gitignore to root
+
+commit 44d207319c89b190aa76cceec437ccd7a4defc52
+Author: Sai Karra <srkarra@us.ibm.com>
+Date:   Thu Apr 9 13:06:05 2015 -0700
+
+    Added Mongo Repo interfaces
+
+commit 0ff90b5c3ea69e75cf8ccb92dabc39a6a4d1bc29
+Author: Sai Karra <srkarra@us.ibm.com>
+Date:   Thu Apr 9 13:01:33 2015 -0700
+
+    Initial Data Model
+
+commit 44549d7eadafe65a8e67dd15f60b164c939297f1
+Author: Sai Karra <srkarra@us.ibm.com>
+Date:   Thu Apr 9 13:01:23 2015 -0700
+
+    mongo as service credentials
+
+commit c43a64976f0e6afdefe6e5ed92913d34b7cd4e00
+Author: Sai Karra <srkarra@us.ibm.com>
+Date:   Thu Apr 9 12:33:59 2015 -0700
+
+    Initial Commit
