@@ -4,7 +4,7 @@ CMPE 277 Project
 Photo Sharing App
 
 Chris Rehfeld	008520603	rehfeldchris@gmail.com
-Carita Ou					caritaou@yahoo.com
+Carita Ou	006004479	carita.ou@gmail.com
 Thong Nguyen	008122270	nhthong2007@gmail.com 
 Sai Karra		006671782	saikarra@gmail.com
 
