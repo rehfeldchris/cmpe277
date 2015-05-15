@@ -67,4 +67,5 @@
     <string name="longtitude_hint">longtitude</string>
     <string name="distance_from_location">distance</string>
     <string name="title_activity_image_search">Search Images</string>
+    <string name="title_activity_create_album">CreateAlbumActivity</string>
 </resources>

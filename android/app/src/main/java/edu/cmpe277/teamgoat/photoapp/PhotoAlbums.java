@@ -124,16 +124,18 @@ public class PhotoAlbums extends ActionBarActivity implements AdapterView.OnItem
 
         //Create new album
         if (id == R.id.album_action_create_album) {
-            FrameLayout frame = new FrameLayout(this);
-            frame.setId(R.id.fragment_create_album);
-            setContentView(frame, new FrameLayout.LayoutParams(
-                    FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));
-            Fragment frag = getFragmentManager().findFragmentById(R.id.fragment_create_album);
-            if (frag == null) {
-                getFragmentManager().beginTransaction()
-                        .add(R.id.fragment_create_album, new EditAlbumFragment())
-                        .commit();
-            }
+//            FrameLayout frame = new FrameLayout(this);
+//            frame.setId(R.id.fragment_create_album);
+//            setContentView(frame, new FrameLayout.LayoutParams(
+//                    FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));
+//            Fragment frag = getFragmentManager().findFragmentById(R.id.fragment_create_album);
+//            if (frag == null) {
+//                getFragmentManager().beginTransaction()
+//                        .add(R.id.fragment_create_album, new EditAlbumFragment())
+//                        .commit();
+//            }
+            Intent intent = new Intent(this, CreateAlbumActivity.class);
+            startActivity(intent);
         }
 
         //Invite Friends
