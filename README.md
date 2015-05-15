@@ -41,7 +41,16 @@ Usage and Features
   - Additionally, you can filter for images in proximity to a location. You can click images in the search result.
 
 
-
+Building the android app (require Android Studio)
+1. Open Android Studio --> Import Project --> Locate to the "android" folder in cmpe277 --> OK
+2. Options:
+   a. Build & deploy app using Gradle:
+   	- From Android Studio Menu bar: Build --> Make Project
+	- To run app, select Run --> Run "app" from Android Studio Menu bar.
+   b. To build app (generate singed apk package), from Menu bar: Build --> Make Project
+   	- Generate your own release keystore or use your existing one.
+	- Follow the instructions to generate signed apk
+   	- Check folder "<path to android>/app/build" for generated signed apk
 
 Building the server (requires maven):  
 1. Create the packaged war file: `mvn package`  
