@@ -51,7 +51,7 @@ Note that there's 2 sub-projects in our git repo:
    	- Check folder "<path to android>/app/build" for generated signed apk  
 
 #### Building the server (requires maven):  
-NOTE - You don't need to build/run the server! We're already hosting one for you, and the app is configured to use it.
+NOTE - You don't need to build/run the server! We're already hosting one for you, and the app is configured to use it.  
 1. Create the packaged war file: `mvn package`  
 2. Create a config file with the identified properties below  
 3. Run the war file in the same directory as the properties file: `java -jar photoapp.1.0.0.war`  
